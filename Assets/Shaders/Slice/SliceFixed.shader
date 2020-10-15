@@ -1,4 +1,4 @@
-﻿Shader "Custom/Slice"
+﻿Shader "Custom/SliceFixed"
 {
     Properties
     {
@@ -30,8 +30,7 @@
             {
                 //こいつ(pos)には3D→2D(スクリーン)座標変換された後の頂点座標をいれるぜ！ってGPUに教える
                 float4 pos : SV_POSITION;
-                //こいつ(worldPos)にはワールド座標をいれるぜ！ってGPUに教える
-                float3 worldPos : WORLD_POS;
+                float3 localPos : A;
             };
 
             v2f vert(appdata_base v)
@@ -39,7 +38,7 @@
                 v2f o;
                 //unity_ObjectToWorld × 頂点座標(v.vertex) = 描画しようとしてるピクセルのワールド座標　らしい
                 //mulは行列の掛け算をやってくれる関数
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.localPos = v.vertex.xyz;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
             }
@@ -48,7 +47,7 @@
             {
                 //各ピクセルのワールド座標(Y軸)それぞれに15をかけてfrac関数で少数だけ取り出す
                 //そこから-0.5してclip関数で0を下回ったら描画しない
-                clip(frac(i.worldPos.y * _SliceSpace) - 0.5);
+                clip(frac(i.localPos.y * _SliceSpace) - 0.5);
                 //RGBAにそれぞれのプロパティを当てはめてみる
                 return half4(_Color);
             }
