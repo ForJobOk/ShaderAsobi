@@ -1,4 +1,4 @@
-﻿Shader "Custom/SliceFixed"
+﻿Shader "Custom/SliceLocalPos"
 {
     Properties
     {
@@ -30,14 +30,13 @@
             {
                 //こいつ(pos)には3D→2D(スクリーン)座標変換された後の頂点座標をいれるぜ！ってGPUに教える
                 float4 pos : SV_POSITION;
-                float3 localPos : A;
+                float3 localPos : TEXCOORD0;
             };
 
-            v2f vert(appdata_base v)
+            v2f vert(appdata_base v) //appdata_baseはUnityCG.cgincで定義されている構造体
             {
                 v2f o;
-                //unity_ObjectToWorld × 頂点座標(v.vertex) = 描画しようとしてるピクセルのワールド座標　らしい
-                //mulは行列の掛け算をやってくれる関数
+                //描画しようとしているピクセル(ローカル座標？)
                 o.localPos = v.vertex.xyz;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
@@ -45,7 +44,7 @@
 
             half4 frag(v2f i) : SV_Target
             {
-                //各ピクセルのワールド座標(Y軸)それぞれに15をかけてfrac関数で少数だけ取り出す
+                //各ピクセルのローカル座標(Y軸)それぞれに15をかけてfrac関数で少数だけ取り出す
                 //そこから-0.5してclip関数で0を下回ったら描画しない
                 clip(frac(i.localPos.y * _SliceSpace) - 0.5);
                 //RGBAにそれぞれのプロパティを当てはめてみる
