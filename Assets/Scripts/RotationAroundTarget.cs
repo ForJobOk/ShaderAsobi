@@ -8,7 +8,7 @@ public class RotationAroundTarget : MonoBehaviour
 {
     [SerializeField] private Transform _targetTransfrom;
     [SerializeField] private float _speed = 0.5f;
-    [SerializeField] private float _radius = 5.0f;
+    [SerializeField] private float _radius = 10.0f;
     [SerializeField] private float _upper = 1.0f;
 
     void Update()
