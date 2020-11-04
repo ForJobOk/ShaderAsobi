@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GeometryColorful
-  m_Shader: {fileID: 4800000, guid: 388bc6f30c9ac4c48a9b8b8f899f37b4, type: 3}
+  m_Shader: {fileID: 4800000, guid: e0ef16b8c5a251b419c502da15c2aa04, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -75,5 +75,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.89492524, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
