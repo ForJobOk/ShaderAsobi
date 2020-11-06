@@ -2,8 +2,9 @@
 {
     Properties
     {
-        _ScaleFactor ("Scale Factor", float) = 0.5
-        _RotationFactor ("Rotation Factor", float) = 0.5
+        _ScaleFactor ("Scale Factor", Range(0,1.0)) = 0.5
+        _PositionFactor("Position Factor", Range(0,1.0)) = 0.5
+        _RotationFactor ("Rotation Factor", Range(0,1.0)) = 0.5
     }
     SubShader
     {
@@ -24,8 +25,9 @@
 
             #include "UnityCG.cginc"
 
-            float _ScaleFactor;
+            float _PositionFactor;
             float _RotationFactor;
+            float _ScaleFactor;
 
             struct appdata
             {
@@ -89,10 +91,21 @@
                 {
                     appdata v = input[i];
                     g2f o;
+                    // //移動後の座標を保持
+                    // float3 currentPos = normal * _PositionFactor * abs(r3); //負の値は法線と逆方向に移動してしまうので
+                    // //法線ベクトルに沿って頂点を移動
+                    // v.vertex.xyz += currentPos;
+                    // //回転させる
+                    // v.vertex.xyz = currentPos + center + rotate(v.vertex.xyz - center - currentPos, (pid + _Time.y) * _RotationFactor, r3);
+                    // //中心を起点にスケールを変える
+                    // v.vertex.xyz = currentPos + center + (v.vertex.xyz - center - currentPos) * (1.0 - _ScaleFactor);
+
                     //法線ベクトルに沿って頂点を移動
-                    v.vertex.xyz += normal * (_SinTime.w * 0.5 + 0.5) * _ScaleFactor;
+                    v.vertex.xyz += normal * _PositionFactor * abs(r3);;
                     //回転させる
-                    v.vertex.xyz = center + rotate(v.vertex.xyz - center, (pid + _Time.y) * _RotationFactor, r3) ;
+                    v.vertex.xyz = center + rotate(v.vertex.xyz - center, (pid + _Time.y) * _RotationFactor, r3);
+                    //中心を起点にスケールを変える
+                    v.vertex.xyz = center + (v.vertex.xyz - center) * (1.0 - _ScaleFactor);
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     //ランダムな値
                     float r = rand(v.localPos.xy);

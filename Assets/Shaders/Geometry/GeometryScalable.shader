@@ -1,9 +1,9 @@
-﻿Shader "Custom/GeometryNormalMove"
+﻿Shader "Custom/GeometryScalable"
 {
     Properties
     {
         _Color ("Color", Color) = (1, 1, 1, 1)
-        _PositionFactor("Position Factor", float) = 0.5
+        _ScaleFactor ("Scale Factor", Range(0,1.0)) = 0.5
     }
     SubShader
     {
@@ -22,7 +22,7 @@
             #include "UnityCG.cginc"
 
             fixed4 _Color;
-            float _PositionFactor;
+            float _ScaleFactor;
 
             //頂点シェーダーに渡ってくる頂点データ
             struct appdata
@@ -48,18 +48,16 @@
             [maxvertexcount(3)] //出力する頂点の最大数　正直よくわからない
             void geom(triangle appdata input[3], inout TriangleStream<g2f> stream)
             {
-                // 法線を計算
-                float3 vec1 = input[1].vertex - input[0].vertex;
-                float3 vec2 = input[2].vertex - input[0].vertex;
-                float3 normal = normalize(cross(vec1, vec2));
+                //1枚のポリゴンの中心
+                float3 center = (input[0].vertex + input[1].vertex + input[2].vertex) / 3;
 
                 [unroll] //繰り返す処理を畳み込んで最適化してる？
                 for (int i = 0; i < 3; i++)
                 {
                     appdata v = input[i];
                     g2f o;
-                    //法線ベクトルに沿って頂点を移動
-                    v.vertex.xyz += normal * (sin(_Time.w) + 0.5) * _PositionFactor;
+                    //中心を起点にスケールを変える
+                    v.vertex.xyz = center + (v.vertex.xyz - center) * (1.0 - _ScaleFactor);
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     stream.Append(o);
                 }
