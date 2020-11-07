@@ -91,8 +91,8 @@
                 {
                     appdata v = input[i];
                     g2f o;
-                    // //移動後の座標を保持
-                    // float3 currentPos = normal * _PositionFactor * abs(r3); //負の値は法線と逆方向に移動してしまうので
+                    //移動に利用する位置ベクトルを保持
+                    // float3 currentPos = normal * _PositionFactor * abs(r3); //負の値は法線と逆方向に移動してしまうので絶対値利用
                     // //法線ベクトルに沿って頂点を移動
                     // v.vertex.xyz += currentPos;
                     // //回転させる
@@ -100,17 +100,27 @@
                     // //中心を起点にスケールを変える
                     // v.vertex.xyz = currentPos + center + (v.vertex.xyz - center - currentPos) * (1.0 - _ScaleFactor);
 
-                    //法線ベクトルに沿って頂点を移動
-                    v.vertex.xyz += normal * _PositionFactor * abs(r3);;
-                    //回転させる
+                    //こっちの方がすっきり　順番を変えただけ
                     v.vertex.xyz = center + rotate(v.vertex.xyz - center, (pid + _Time.y) * _RotationFactor, r3);
-                    //中心を起点にスケールを変える
                     v.vertex.xyz = center + (v.vertex.xyz - center) * (1.0 - _ScaleFactor);
+                    v.vertex.xyz += normal * _PositionFactor * abs(r3);
+                    
+                    // NGパターン
+                    // v.vertex.xyz += normal * _PositionFactor * abs(r3);
+                    // v.vertex.xyz = center + rotate(v.vertex.xyz - center, (pid + _Time.y) * _RotationFactor, r3);
+                    // v.vertex.xyz = center + (v.vertex.xyz - center) * (1.0 - _ScaleFactor);
+                    
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     //ランダムな値
+                    //シード値にワールド座標を利用すると移動するたびに色が変わってやかましいのでローカル座標を利用
                     float r = rand(v.localPos.xy);
                     float g = rand(v.localPos.xz);
                     float b = rand(v.localPos.yz);
+                    
+                    // NGパターン
+                    // float r = rand(v.vertex.xy);
+                    // float g = rand(v.vertex.xz);
+                    // float b = rand(v.vertex.yz);
                     o.color = fixed4(r,g,b,1);
                     stream.Append(o);
                 }

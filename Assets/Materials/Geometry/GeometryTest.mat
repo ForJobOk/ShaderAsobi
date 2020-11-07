@@ -67,9 +67,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PositionFactor: 0.586
-    - _RotationFactor: 0.533
-    - _ScaleFactor: 0
+    - _PositionFactor: 0.766
+    - _RotationFactor: 0.94
+    - _ScaleFactor: 0.203
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
