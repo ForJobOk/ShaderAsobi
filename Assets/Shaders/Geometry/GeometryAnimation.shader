@@ -62,6 +62,7 @@
                 return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
             }
 
+            //C#側から受け取る変数
             float _GravityFactor;
             float _PositionFactor;
             float _RotationFactor;
@@ -87,11 +88,14 @@
                     appdata v = input[i];
                     g2f o;
 
-                    //こっちの方がすっきり　順番を変えただけ
+                    //回転　アニメーション側で制御している値を計算に利用
                     v.vertex.xyz = center + rotate(v.vertex.xyz - center, (pid + _Time.y) * _RotationFactor, r3);
+                    //スケール変更　アニメーション側で制御している値を計算に利用
                     v.vertex.xyz = center + (v.vertex.xyz - center) * (1.0 - _ScaleFactor);
+                    //法線方向に移動　アニメーション側で制御している値を計算に利用
                     v.vertex.xyz += normal * _PositionFactor * abs(r3);
 
+                    //アニメーション側で制御している値を計算に利用　Y座標に渡して重力っぽく見せる
                     v.vertex.y += _GravityFactor;
                     
                     o.vertex = UnityObjectToClipPos(v.vertex);

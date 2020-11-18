@@ -23,19 +23,20 @@ public class AnimationUseToShader : MonoBehaviour
     private string _rotationFactor = "_RotationFactor";
     private string _scaleFactor = "_ScaleFactor";
     
-    private Material mat;
+    private Material _mat;
 
     void Start ()
     {
-        mat = _renderer.material;
+        //Editor上でマテリアルのインスタンスを作ろうとするとエラーが出るのでsharedMaterialを利用
+        _mat = _renderer.sharedMaterial;
     }
     
     void Update()
     {
         //Shaderに値を渡す
-        mat.SetFloat(_gravityFactor, gravityValue);
-        mat.SetFloat(_positionFactor, positionValue);
-        mat.SetFloat(_rotationFactor, rotationValue);
-        mat.SetFloat(_scaleFactor, scaleValue);
+        _mat.SetFloat(_gravityFactor, gravityValue);
+        _mat.SetFloat(_positionFactor, positionValue);
+        _mat.SetFloat(_rotationFactor, rotationValue);
+        _mat.SetFloat(_scaleFactor, scaleValue);
     }
 }
