@@ -4,7 +4,7 @@
         _BGColor ("Background Color", Color) = (0.05, 0.9, 1, 1)
         _SunColor ("Color", Color) = (1, 0.8, 0.5, 1)
         _SunDir ("Sun Direction", Vector) = (0, 0.5, 1, 0)
-        _SunStrength("Sun Strengh", Range(0, 30)) = 12
+        _SunStrength("Sun Strengh", Range(0, 200)) = 30
     }
     SubShader
     {
@@ -53,7 +53,11 @@
             {
                 float3 dir = normalize(_SunDir); //太陽の位置ベクトル正規化
                 float angle = dot(dir, i.uv); //太陽の位置ベクトル　と　描画するピクセルの座標　の内積
-                fixed3 c = _BGColor + _SunColor * pow(max(0, angle), _SunStrength);
+                //pow(x,y)はxをy乗する　
+                //0 < max(0, angle) < 1 なので　_SunStrengthを大きくするほど計算結果は0に近づく
+                //fixed3 c = _BGColor + _SunColor * pow(max(0, angle), _SunStrength);
+
+                fixed3 c = lerp(_BGColor,_SunColor,pow(max(0, angle), _SunStrength));
                 return fixed4(c, 1);
             }
             ENDCG
