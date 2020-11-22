@@ -1,6 +1,7 @@
 ﻿Shader "Custom/SunSky"
 {
-   Properties {
+   Properties 
+    {
         _BGColor ("Background Color", Color) = (0.05, 0.9, 1, 1)
         _SunColor ("Color", Color) = (1, 0.8, 0.5, 1)
         _SunDir ("Sun Direction", Vector) = (0, 0.5, 1, 0)
