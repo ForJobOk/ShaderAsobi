@@ -53,14 +53,13 @@
                 //描画したいピクセルのワールド座標を正規化
                 float3 dir = normalize(i.worldPos);
                 //ラジアンを算出する
-                //atan2(x,y) 二点間の角度がラジアンとして返る
-                //atan(x)と異なり、1周分の角度をラジアンで返せる　今回はスカイボックスの円周上の角度が返される
-                //asin(x)  -π/2～π/2の間で逆正弦を返す　
-                float2 rad = float2(atan2(dir.x, dir.z)/UNITY_PI/2, asin(dir.y)/UNITY_PI*2);
-                //今回はスカイボックスの円周上の角度に対して　π×2
+                //atan2(x,y) 直行座標の角度をラジアンで返す
+                //atan(x)と異なり、1周分の角度をラジアンで返せる　今回はスカイボックスの円周上のラジアンが返される
+                //asin(x)  -π/2～π/2の間で逆正弦を返す　xの範囲は-1～1
+                float2 rad = float2(atan2(dir.x, dir.z), asin(dir.y));
                 float2 uv = rad / float2(2.0 * UNITY_PI, UNITY_PI/2);
                 //テクスチャとUV座標から色の計算を行う
-                float4 col = tex2D(_MainTex, rad);
+                float4 col = tex2D(_MainTex, uv);
                 return float4(col);
             }
             ENDCG
