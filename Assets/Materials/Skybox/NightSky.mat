@@ -71,7 +71,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SquareNum: 53.5
+    - _SquareNum: 100
     - _SrcBlend: 1
     - _StarSpace: 35
     - _SunStrength: 200
@@ -81,6 +81,7 @@ Material:
     - _BGColor: {r: 0, g: 0.84818685, b: 0.9811321, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _StarColor: {r: 0, g: 1, b: 0.11774063, a: 0}
+    - _NightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _StarColor: {r: 0, g: 1, b: 0.3813858, a: 0}
     - _SunColor: {r: 0.9150943, g: 0.54012287, b: 0.103595555, a: 1}
     - _SunDir: {r: 0, g: 1, b: 0, a: 0}
