@@ -45,12 +45,12 @@
             {
                 v2f o;
                 //mulは行列の掛け算をやってくれる関数
-                o.worldPos = v.vertex.xyz;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
             }
 
-             //ランダムな値を返す
+            //ランダムな値を返す
             float rand(float2 co) //引数はシード値と呼ばれる　同じ値を渡せば同じものを返す
             {
                 return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
@@ -74,12 +74,12 @@
                 float2 rad = float2(atan2(dir.x, dir.z), asin(dir.y));
                 float2 uv = rad / float2(2.0 * UNITY_PI, UNITY_PI / 2);
 
-                uv *= _SquareNum; //格子状の１辺のマス目数
+                uv *= _SquareNum; //格子状のマス目作成 UVにかけた数分だけ同じUVが繰り返し展開される
 
-                float2 ist = floor(uv); //整数
-                float2 fst = frac(uv);//小数点以下
-                
-                float dist = 5;
+                float2 ist = floor(uv); //マス目の起点
+                float2 fst = frac(uv); //点の位置
+
+                float dist = 1;
                 float4 randColor = 0;
 
                 //自身含む周囲のマスを探索
@@ -99,16 +99,21 @@
                         //白点との距離が短くなれば更新
                         dist = min(dist, length(diff));
 
-                        randColor = (rand(i.worldPos.xy),rand(i.worldPos.zx),rand(i.worldPos.yz));
+                        //色を星ごとにランダムに当てはめる　星の座標を利用
+                        float r = rand(p+1);
+                        float g = rand(p+2);
+                        float b = rand(p+3);
+
+                        randColor = float4(r, g, b, 1);
                     }
                 }
 
                 //補間値を計算
                 //step(t,x) はtがxより大きい場合1を返す
-                float interpolation = 1 - step(0.05, dist);
-                
+                float interpolation = 1 - step(0.01, dist);
+
                 //補間値を利用して夜空と星を塗り分け
-                return lerp(_NightColor,randColor,interpolation);
+                return lerp(_NightColor, randColor, interpolation);
             }
             ENDCG
         }
