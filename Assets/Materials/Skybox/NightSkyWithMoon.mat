@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NightSky
+  m_Name: NightSkyWithMoon
   m_Shader: {fileID: 4800000, guid: 0eae43ac7f44fc245833602b4016fc26, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -71,7 +71,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SquareNum: 30
+    - _SquareNum: 10
     - _SrcBlend: 1
     - _StarSpace: 35
     - _SunStrength: 200

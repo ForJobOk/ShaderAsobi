@@ -1,10 +1,10 @@
-﻿Shader "Custom/NightSky"
+﻿Shader "Custom/NightSkyWithMoon"
 {
     Properties
     {
-        _SquareNum ("SquareNum", int) = 250
+        _SquareNum ("SquareNum", int) = 10
         _NightColor("NightColor",Color) = (0,0,0,0)
-        _StarColor("StarColor",Color) = (0,0,0,0)
+        _MoonColor("MoonColor",Color) = (0,0,0,0)
     }
 
     SubShader
@@ -25,7 +25,7 @@
 
             //変数の宣言　Propertiesで定義した名前と一致させる
             int _SquareNum;
-            float4 _StarColor;
+            float4 _MoonColor;
             float4 _NightColor;
 
             //GPUから頂点シェーダーに渡す構造体
@@ -38,15 +38,21 @@
             struct v2f
             {
                 float4 pos : SV_POSITION;
-                float3 localPos : TEXCOORD0;
+                float3 worldPos : WORLD_POS;
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
-                o.localPos = v.vertex.xyz;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
+            }
+
+            //ランダムな値を返す
+            float rand(float2 co) //引数はシード値と呼ばれる　同じ値を渡せば同じものを返す
+            {
+                return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
             }
 
             //ランダムな値を返す
@@ -58,15 +64,15 @@
 
 
             float4 frag(v2f i) : SV_Target
-            {  
+            {
                 //描画したいピクセルのローカル座標を正規化
-                float3 dir = normalize(i.localPos);
+                float3 dir = normalize(i.worldPos);
                 //ラジアンを算出する
                 //atan2(x,y) 直行座標の角度をラジアンで返す
                 //atan(x)と異なり、1周分の角度をラジアンで返せる　今回はスカイボックスの円周上のラジアンが返される
                 //asin(x)  -π/2～π/2の間で逆正弦を返す　xの範囲は-1～1
                 float2 rad = float2(atan2(dir.x, dir.z), asin(dir.y));
-                float2 uv = rad / float2(UNITY_PI/2, UNITY_PI/2);
+                float2 uv = rad / float2(UNITY_PI / 2, UNITY_PI / 2);
 
                 uv *= _SquareNum; //格子状のマス目作成 UVにかけた数分だけ同じUVが繰り返し展開される
 
@@ -74,7 +80,8 @@
                 float2 fst = frac(uv); //各マス目の起点からの描画したい位置
 
                 float dist = 1;
-              
+                float4 randColor = 0;
+
                 //自身含む周囲のマスを探索
                 for (int y = -1; y <= 1; y++)
                 {
@@ -84,23 +91,41 @@
                         float2 neighbor = float2(x, y);
 
                         //点のxy座標
-                        float2 p = random2(ist + neighbor);
+                        float2 p = 0.5 + 0.5 * random2(ist + neighbor);
 
                         //点と処理対象のピクセルとの距離ベクトル
                         float2 diff = neighbor + p - fst;
 
                         //点との距離が短くなれば更新
                         dist = min(dist, length(diff));
-                        dist = lerp(dist,dist,uv.y);
+
+                        //色を星ごとにランダムに当てはめる　星の座標を利用
+                        float r = rand(p + 1);
+                        float g = rand(p + 2);
+                        float b = rand(p + 3);
+                        randColor = float4(r, g, b, 1);
                     }
+                }
+
+                float4 color = 0;
+
+                //月
+                if (uv.y > _SquareNum * 0.75)
+                {
+                    color = _MoonColor;
                 }
 
                 //補間値を計算
                 //step(t,x) はtがxより大きい場合1を返す
-                float interpolation = pow(1 - saturate(dist),100);
+                float interpolation = 1 - step(0.01, dist);
 
                 //補間値を利用して夜空と星を塗り分け
-                return lerp(_NightColor, _StarColor, interpolation);
+                color += lerp(_NightColor, randColor, interpolation);
+
+                //グリッドの描画
+                //color.r += step(0.98, fst.x) + step(0.98, fst.y);
+
+                return color;
             }
             ENDCG
         }

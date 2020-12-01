@@ -84,7 +84,7 @@
                     float2 neighbor = float2(x, y);
 
                     //マスの起点を基準にした白点のxy座標
-                    float2 p = 0.5 + 0.5 * sin(_Time.y  + 6.2831 * random2(ist + neighbor));
+                    float2 p = 0.5 + 0.5 * (random2(ist + neighbor));
 
                     //白点と処理対象のピクセルとの距離ベクトル
                     float2 diff = neighbor + p - fst;
