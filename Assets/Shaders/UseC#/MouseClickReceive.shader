@@ -33,7 +33,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 //ベースカラー　白
-                float4 baseColor = (1,1,1,1);
+                float4 baseColor = 1;
                 
                 /*"マウスから出たRayとオブジェクトの衝突箇所(ワールド座標)"と
                  　"描画しようとしているピクセルのワールド座標"の距離を求める*/
