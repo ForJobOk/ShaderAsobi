@@ -62,9 +62,9 @@
                   R(Θ) = |sinΘ  cosΘ|  2次元回転行列の公式*/
                 half2x2 rotateMatrix = half2x2(angleCos, -angleSin, angleSin, angleCos);
                 //中心
-                half2 uv = i.uv;
+                half2 uv = i.uv - 0.5;
                 // 中心を起点にUVを回転させる
-                i.uv = mul(uv, rotateMatrix);
+                i.uv = mul(uv, rotateMatrix) + 0.5;
 
                 fixed4 col = tex2D(_MainTex, i.uv);
                 return col;
