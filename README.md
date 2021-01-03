@@ -20,6 +20,8 @@ Unite2017の動画を見ながら基礎をおさらい。
 [そろそろShaderをやるパート3　Unite 2017の動画を見る(ラスタライズ)](https://zenn.dev/kento_o/articles/ad7c061a10c966605ea3)  
 [そろそろShaderをやるパート4　Unite 2017の動画を見る(プロパティ、透明度)](https://zenn.dev/kento_o/articles/23b6bd39bae86982b2a5)  
 
+---
+
 ### Rotation2D
 
 UVを回転。  
@@ -28,3 +30,99 @@ UVを回転。
 
 【参考リンク】  
 [そろそろShaderをやるパート5　UVを回転させる](https://zenn.dev/kento_o/articles/64c8d585924c60633342)  
+
+---
+
+### Mask
+
+画像をマスク。おまけで回転も。  
+
+`Path：Assets/DemoScenes/Mask/Scenes/Mask`  
+
+【参考リンク】  
+[そろそろShaderをやるパート6　画像をマスクする](https://zenn.dev/kento_o/articles/6a6ebd5f70c54e43efb9)  
+[そろそろShaderをやるパート7　マスクしてUVを回転させる](https://zenn.dev/kento_o/articles/580e0c58f8e3ccd67e1f)  
+
+---
+
+### Slice
+
+スライスさせる。  
+
+`Path：Assets/DemoScenes/Slice/Scenes/Slice`  
+
+【参考リンク】  
+[そろそろShaderをやるパート8　ピクセルのワールド座標を参照してスライスさせる](https://zenn.dev/kento_o/articles/7b0d9703928fea943882)  
+[そろそろShaderをやるパート9　ピクセルのローカル座標を参照してスライスさせる](https://zenn.dev/kento_o/articles/9209e0289fa7cbc2dd16)  
+
+---
+
+### Scroll
+
+スクロールさせる。  
+
+`Path：Assets/DemoScenes/Scroll/Scenes/Scroll`  
+
+【参考リンク】  
+[そろそろShaderをやるパート10　UVスクロールでテクスチャをスクロールさせる](https://zenn.dev/kento_o/articles/3d11717d5ad270cfa7e9)  
+[そろそろShaderをやるパート11　UVスクロールでテクスチャを用いずスクロールさせる](https://zenn.dev/kento_o/articles/03f39f49270885af6878)  
+[そろそろShaderをやるパート12　線を描画してスクロールさせる](https://zenn.dev/kento_o/articles/4737b74069302045d520)  
+
+---
+
+### UseC#
+
+C#のスクリプトからShaderにパラメータを渡す。  
+
+`Path：Assets/DemoScenes/UseC#/Scenes/UseC#`  
+
+【参考リンク】  
+[そろそろShaderをやるパート13　マウスのRayの座標をC#からShaderで受け取る](https://zenn.dev/kento_o/articles/c189882b24150d5837dc)  
+
+---
+
+### CameraDistance
+
+カメラとの距離を使う。  
+
+`Path：Assets/DemoScenes/CameraDistance/Scenes/CameraDistance`  
+
+【参考リンク】  
+[そろそろShaderをやるパート14　カメラとの距離を測って使う](https://zenn.dev/kento_o/articles/d36c0f21f9197ef18ed1)  
+
+---
+
+### Random
+
+ランダムな値を使う  
+
+`Path：Assets/DemoScenes/Random/Scenes/Random`
+
+【参考リンク】  
+[そろそろShaderをやるパート15　ランダムな値を使う](https://zenn.dev/kento_o/articles/b3465ecced630b894292)  
+
+---
+
+### Geometry
+
+ジオメトリーシェーダー触ってみた。  
+
+`Path：Assets/DemoScenes/Geometry/Scenes/Geometry`  
+
+【参考リンク】  
+[そろそろShaderをやるパート16　ジオメトリーシェーダーで法線方向にポリゴンを移動させる](https://zenn.dev/kento_o/articles/c56d85a9de34238d5a6a)  
+[そろそろShaderをやるパート17　ジオメトリーシェーダーでポリゴンの大きさを変える](https://zenn.dev/kento_o/articles/3f981920ed6f0450035c)  
+[そろそろShaderをやるパート18　ジオメトリーシェーダーでポリゴンごとに色を変える](https://zenn.dev/kento_o/articles/8171d8eac403b981c3e8)  
+[そろそろShaderをやるパート19　ジオメトリーシェーダーでポリゴンを回転させる](https://zenn.dev/kento_o/articles/33777ad34fce5fe9346f)  
+[そろそろShaderをやるパート20　ジオメトリーシェーダーでポリゴンの操作を組み合わせる](https://zenn.dev/kento_o/articles/34690cda19c7e17ed660)  
+
+---
+
+### GeometryAnimation
+
+ジオメトリーシェーダーをアニメーションで制御。  
+
+【参考リンク】  
+[そろそろShaderをやるパート21　Animator使ってジオメトリーシェーダーを制御](https://zenn.dev/kento_o/articles/44deff4b914f00eb213c)  
+
+---
