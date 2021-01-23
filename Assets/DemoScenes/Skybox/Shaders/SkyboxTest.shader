@@ -42,7 +42,7 @@
             {
                 v2f o;
                 //mulは行列の掛け算をやってくれる関数
-                o.worldPos = v.vertex.xyz;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
             }
