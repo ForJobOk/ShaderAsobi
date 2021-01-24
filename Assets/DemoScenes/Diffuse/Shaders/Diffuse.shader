@@ -34,6 +34,7 @@
             {
                 float4 pos:SV_POSITION;
                 half3 worldNormal:TEXCOORD0;
+                fixed3 ambient : COLOR0; //環境光
             };
 
             //頂点シェーダー
@@ -43,6 +44,7 @@
                 o.pos = UnityObjectToClipPos(v.vertex);
                 //法線方向のベクトル
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                o.ambient = ShadeSH9(half4(o.worldNormal,1));
                 return o;
             }
 
@@ -58,8 +60,8 @@
                 float3 N = normalize(i.worldNormal);
                 //ライトベクトルと法線の内積からピクセルの明るさを計算 ランバートの調整もここで行う
                 fixed4 diffuseColor = max(0, dot(N, -L) * _DiffuseShade + (1 - _DiffuseShade));
-                //ライトの色を乗算
-                finalColor = _MainColor * diffuseColor * _LightColor0;
+                //色を乗算
+                finalColor = _MainColor * diffuseColor * _LightColor0 * float4(i.ambient,0);
                 return finalColor;
             }
             ENDCG
