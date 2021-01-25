@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Diffuse
-  m_Shader: {fileID: 4800000, guid: 14c8c11caf837af479be9b94377ad0cc, type: 3}
+  m_Name: SimpleDiffuse
+  m_Shader: {fileID: 4800000, guid: f10e9d991f744c049806477ac1184574, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
