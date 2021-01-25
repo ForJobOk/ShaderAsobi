@@ -53,12 +53,6 @@
                 return o;
             }
 
-            float2 random2(float2 st)
-            {
-                st = float2(dot(st, float2(127.1, 311.7)), dot(st, float2(269.5, 183.3)));
-                return -1.0 + 2.0 * frac(sin(st) * 43758.5453123);
-            }
-
             float4 frag(v2f i) : SV_Target
             {
                 //描画したいピクセルのワールド座標を正規化
