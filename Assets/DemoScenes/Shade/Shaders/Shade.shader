@@ -20,8 +20,10 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
+            #include "AutoLight.cginc"
 
             fixed4 _MainColor;
             float _DiffuseShade;
@@ -36,6 +38,7 @@
             {
                 float4 pos:SV_POSITION;
                 half3 worldNormal:TEXCOORD0;
+                SHADOW_COORDS(1)
             };
 
             //頂点シェーダー
@@ -45,6 +48,7 @@
                 o.pos = UnityObjectToClipPos(v.vertex);
                 //法線方向のベクトル
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                TRANSFER_SHADOW(o)
                 return o;
             }
 
@@ -62,11 +66,14 @@
                 fixed4 diffuseColor = max(0, dot(N, -L) * _DiffuseShade + (1 - _DiffuseShade));
                 //ライトの色を乗算
                 finalColor = _MainColor * diffuseColor * _LightColor0;
+                // 影を計算
+                finalColor *= SHADOW_ATTENUATION(i);
                 return finalColor;
             }
             ENDCG
         }
 
+        //影を落とす処理を行うPass
         Pass
         {
             Tags
