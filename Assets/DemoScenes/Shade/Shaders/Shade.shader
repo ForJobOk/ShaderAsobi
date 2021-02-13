@@ -76,6 +76,7 @@
         //影を落とす処理を行うPass
         Pass
         {
+            Name "ShadowCast"
             Tags
             {
                 "LightMode"="ShadowCaster"
