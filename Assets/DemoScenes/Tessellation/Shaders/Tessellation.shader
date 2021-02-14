@@ -8,8 +8,8 @@
         _DispTex("Disp Texture", 2D) = "gray" {}
         _MinDist("Min Distance", Range(0.1, 50)) = 10
         _MaxDist("Max Distance", Range(0.1, 50)) = 25
-        _TessFactor("Tessellation", Range(1, 50)) = 10
-        _Displacement("Displacement", Range(0, 1.0)) = 0.3
+        _TessFactor("Tessellation", Range(1, 50)) = 10 //分割レベル
+        _Displacement("Displacement", Range(0, 1.0)) = 0.3 //変位
     }
 
     SubShader
@@ -118,6 +118,7 @@
                 float4 p0 = i[0].position;
                 float4 p1 = i[1].position;
                 float4 p2 = i[2].position;
+                //頂点からカメラまでの距離を計算しテッセレーション係数を距離に応じて計算しなおす　LOD的な？
                 float4 tessFactor = UnityDistanceBasedTess(p0, p1, p2, _MinDist, _MaxDist, _TessFactor);
 
                 o.tessFactor[0] = tessFactor.x;
@@ -138,16 +139,19 @@
             {
                 DsOutput o = (DsOutput)0;
 
+                //新しく出力する各頂点の座標を計算
                 float3 f3Position =
                     bary.x * i[0].position +
                     bary.y * i[1].position +
                     bary.z * i[2].position;
 
+                //新しく出力する各頂点の法線を計算
                 float3 f3Normal = normalize(
                     bary.x * i[0].normal +
                     bary.y * i[1].normal +
                     bary.z * i[2].normal);
 
+                //新しく出力する各頂点のUV座標を計算
                 o.texCoord =
                     bary.x * i[0].texCoord +
                     bary.y * i[1].texCoord +
