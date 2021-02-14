@@ -1,4 +1,4 @@
-﻿Shader "Tessellation"
+﻿Shader "Custom/Tessellation"
 {
 
     Properties
@@ -92,13 +92,14 @@
             }
 
             //ハルシェーダー
-            //パッチ：ポリゴン分割処理を行う際に使用する頂点分割で使う制御点の集合
+            //コントロールポイント：頂点分割で使う制御点
+            //パッチ：ポリゴン分割処理を行う際に使用するコントロールポイントの集合
             //パッチを元にどうやって分割するか計算する
             [domain("tri")] //分割に利用する形状を指定　"tri" "quad" "isoline"から選択
             [partitioning("integer")] //分割方法 "integer" "fractional_eve" "fractional_odd" "pow2"から選択
             [outputtopology("triangle_cw")] //出力された頂点が形成するトポロジー(形状)　"point" "line" "triangle_cw" "triangle_ccw" から選択
             [patchconstantfunc("hullConst")] //Patch-Constant-Functionの指定
-            [outputcontrolpoints(OUTPUT_PATCH_SIZE)]
+            [outputcontrolpoints(OUTPUT_PATCH_SIZE)] //出力されるコントロールポイントの数
             HsControlPointOutput hull(InputPatch<HsInput, INPUT_PATCH_SIZE> i, uint id : SV_OutputControlPointID)
             {
                 HsControlPointOutput o = (HsControlPointOutput)0;
