@@ -4,7 +4,7 @@
     {
         _S2("PhaseVelocity^2", Range(0.0, 0.5)) = 0.2
         _Attenuation("Attenuation", Range(0.0, 1.0)) = 0.999
-        _DeltaUV("Delta UV", Float) = 0.1
+        _DeltaUV("Delta UV", Range(0.0, 0.5)) = 0.1
     }
 
     SubShader
@@ -20,6 +20,7 @@
             half _S2;
             half _Attenuation;
             float _DeltaUV;
+            float _height;
             sampler2D _MainTex;
 
             float4 frag(v2f_customrendertexture i) : SV_Target
@@ -29,7 +30,7 @@
                 // 1pxあたりの単位を計算する
                 float du = 1.0 / _CustomRenderTextureWidth;
                 float dv = 1.0 / _CustomRenderTextureHeight;
-                float2 duv = float2(du, dv) * _DeltaUV;
+                float2 duv = float2(du, dv) * _DeltaUV; //_DeltaUVは係数 大きくするほど広がりを見せる
 
                 // 現在の位置のテクセルをフェッチ
                 float2 c = tex2D(_SelfTexture2D, uv);
@@ -38,7 +39,7 @@
                 //h(t + 1) = 2h + c(h(x + 1) + h(x - 1) + h(y + 1) + h(y - 1) - 4h) - h(t - 1)
                 //今回、h(t + 1)は次のフレームでの波の高さを表す
                 //R,Gをそれぞれ高さとして使用
-                float k = (2.0 * c.r) - c.g; //2h - h(t - 1) を先に計算
+                float k =  (2.0 * c.r) - c.g; //2h - h(t - 1) を先に計算
                 float p = (k + _S2 * ( //_S2は係数 位相の変化する速度
                     tex2D(_SelfTexture2D, uv + duv.x).r +
                     tex2D(_SelfTexture2D, uv - duv.x).r +

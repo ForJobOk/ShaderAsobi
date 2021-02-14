@@ -54,39 +54,40 @@
             //頂点シェーダーからハルシェーダーに渡す構造体
             struct HsInput
             {
-                float4 f4Position : POS;
-                float3 f3Normal : NORMAL;
-                float2 f2TexCoord : TEXCOORD;
+                float4 position : POS;
+                float3 normal : NORMAL;
+                float2 texCoord : TEXCOORD;
             };
 
             //ハルシェーダーからドメインシェーダーに渡す構造体
             struct HsControlPointOutput
             {
-                float3 f3Position : POS;
-                float3 f3Normal : NORMAL;
-                float2 f2TexCoord : TEXCOORD;
+                float3 position : POS;
+                float3 normal : NORMAL;
+                float2 texCoord : TEXCOORD;
             };
 
+            //Patch-Constant-Functionからテッセレーター経由でドメインシェーダーに渡す構造体
             struct HsConstantOutput
             {
-                float fTessFactor[3] : SV_TessFactor;
-                float fInsideTessFactor : SV_InsideTessFactor;
+                float tessFactor[3] : SV_TessFactor;
+                float insideTessFactor : SV_InsideTessFactor;
             };
 
             //ドメインシェーダーからフラグメントシェーダーに渡す構造体
             struct DsOutput
             {
-                float4 f4Position : SV_Position;
-                float2 f2TexCoord : TEXCOORD0;
+                float4 position : SV_Position;
+                float2 texCoord : TEXCOORD0;
             };
 
             //頂点シェーダー
             HsInput vert(appdata i)
             {
                 HsInput o;
-                o.f4Position = float4(i.vertex, 1.0);
-                o.f3Normal = i.normal;
-                o.f2TexCoord = i.texcoord;
+                o.position = float4(i.vertex, 1.0);
+                o.normal = i.normal;
+                o.texCoord = i.texcoord;
                 return o;
             }
 
@@ -101,9 +102,10 @@
             HsControlPointOutput hull(InputPatch<HsInput, INPUT_PATCH_SIZE> i, uint id : SV_OutputControlPointID)
             {
                 HsControlPointOutput o = (HsControlPointOutput)0;
-                o.f3Position = i[id].f4Position.xyz;
-                o.f3Normal = i[id].f3Normal;
-                o.f2TexCoord = i[id].f2TexCoord;
+                //頂点シェーダーから渡ってきたパッチを元に新たな
+                o.position = i[id].position.xyz;
+                o.normal = i[id].normal;
+                o.texCoord = i[id].texCoord;
                 return o;
             }
 
@@ -113,22 +115,22 @@
             {
                 HsConstantOutput o = (HsConstantOutput)0;
 
-                float4 p0 = i[0].f4Position;
-                float4 p1 = i[1].f4Position;
-                float4 p2 = i[2].f4Position;
+                float4 p0 = i[0].position;
+                float4 p1 = i[1].position;
+                float4 p2 = i[2].position;
                 float4 tessFactor = UnityDistanceBasedTess(p0, p1, p2, _MinDist, _MaxDist, _TessFactor);
 
-                o.fTessFactor[0] = tessFactor.x;
-                o.fTessFactor[1] = tessFactor.y;
-                o.fTessFactor[2] = tessFactor.z;
-                o.fInsideTessFactor = tessFactor.w;
+                o.tessFactor[0] = tessFactor.x;
+                o.tessFactor[1] = tessFactor.y;
+                o.tessFactor[2] = tessFactor.z;
+                o.insideTessFactor = tessFactor.w;
 
                 return o;
             }
 
             //ドメインシェーダー
             //テッセレーターから出てきた分割位置で頂点を計算し出力するのが仕事
-            [domain("tri")]
+            [domain("tri")] //分割に利用する形状を指定　"tri" "quad" "isoline"から選択
             DsOutput domain(
                 HsConstantOutput hsConst,
                 const OutputPatch<HsControlPointOutput, INPUT_PATCH_SIZE> i,
@@ -137,24 +139,26 @@
                 DsOutput o = (DsOutput)0;
 
                 float3 f3Position =
-                    bary.x * i[0].f3Position +
-                    bary.y * i[1].f3Position +
-                    bary.z * i[2].f3Position;
+                    bary.x * i[0].position +
+                    bary.y * i[1].position +
+                    bary.z * i[2].position;
 
                 float3 f3Normal = normalize(
-                    bary.x * i[0].f3Normal +
-                    bary.y * i[1].f3Normal +
-                    bary.z * i[2].f3Normal);
+                    bary.x * i[0].normal +
+                    bary.y * i[1].normal +
+                    bary.z * i[2].normal);
 
-                o.f2TexCoord =
-                    bary.x * i[0].f2TexCoord +
-                    bary.y * i[1].f2TexCoord +
-                    bary.z * i[2].f2TexCoord;
+                o.texCoord =
+                    bary.x * i[0].texCoord +
+                    bary.y * i[1].texCoord +
+                    bary.z * i[2].texCoord;
 
-                float disp = tex2Dlod(_DispTex, float4(o.f2TexCoord, 0, 0)).r * _Displacement;
+                //tex2Dlodはフラグメントシェーダー以外の箇所でもテクスチャをサンプリングできる関数
+                //ここでrだけ利用することで波紋の高さに応じて頂点の変位を操作できる！すごい！
+                float disp = tex2Dlod(_DispTex, float4(o.texCoord, 0, 0)).r * _Displacement;
                 f3Position.xyz += f3Normal * disp;
 
-                o.f4Position = UnityObjectToClipPos(float4(f3Position.xyz, 1.0));
+                o.position = UnityObjectToClipPos(float4(f3Position.xyz, 1.0));
 
                 return o;
             }
@@ -162,7 +166,7 @@
             //フラグメントシェーダー
             fixed4 frag(DsOutput i) : SV_Target
             {
-                return tex2D(_MainTex, i.f2TexCoord) * _Color;
+                return tex2D(_MainTex, i.texCoord) * _Color;
             }
             ENDCG
         }
