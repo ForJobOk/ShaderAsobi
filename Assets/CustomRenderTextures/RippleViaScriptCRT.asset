@@ -6,7 +6,7 @@ CustomRenderTexture:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tessellation
+  m_Name: RippleViaScriptCRT
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -30,18 +30,18 @@ CustomRenderTexture:
     m_FilterMode: 1
     m_Aniso: 0
     m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
+    m_WrapU: 2
+    m_WrapV: 2
+    m_WrapW: 2
   m_Dimension: 2
   m_VolumeDepth: 1
-  m_Material: {fileID: 2100000, guid: 04295046d8116bd4f82b5585558ecd22, type: 2}
+  m_Material: {fileID: 2100000, guid: e4ab83f67d56d504b977251f0319cc7c, type: 2}
   m_InitSource: 0
-  m_InitMaterial: {fileID: 2100000, guid: 04295046d8116bd4f82b5585558ecd22, type: 2}
-  m_InitColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
-  m_InitTexture: {fileID: 2800000, guid: 7bb33fa6a8d83d8469c9df95ace0b92a, type: 3}
-  m_UpdateMode: 1
-  m_InitializationMode: 0
+  m_InitMaterial: {fileID: 0}
+  m_InitColor: {r: 0, g: 0, b: 0, a: 1}
+  m_InitTexture: {fileID: 0}
+  m_UpdateMode: 2
+  m_InitializationMode: 2
   m_UpdateZoneSpace: 0
   m_CurrentUpdateZoneSpace: 0
   m_UpdateZones: []
