@@ -168,3 +168,23 @@ Skyboxとボロノイを組み合わせて星空を表現。
 [そろそろShaderをやるパート25　Skyboxで星空をちりばめる](https://zenn.dev/kento_o/articles/9657c594695954)  
 
 ---
+
+### GradationNightSky
+Skyboxに星をちりばめて良い感じにグラデーション。  
+
+`Assets/DemoScenes/Skybox/Scenes/GradationNightSky`  
+
+【参考リンク】  
+[そろそろShaderをやるパート26　Skyboxに星をちりばめて良い感じにグラデーション](https://zenn.dev/kento_o/articles/80606bbc0dc967)  
+
+---
+
+### 2D Ripple
+波動方程式とCustomRenderTextureで波紋を描画。  
+
+`Assets/DemoScenes/Ripple/Scenes/2DRipple`  
+
+【参考リンク】  
+[そろそろShaderをやるパート27　波動方程式とCustomRenderTextureで波紋を描画](https://zenn.dev/kento_o/articles/300954cbd453da)  
+
+---
