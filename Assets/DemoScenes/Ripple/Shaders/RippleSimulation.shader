@@ -18,6 +18,7 @@
     float _height;
     sampler2D _MainTex;
 
+    //波動方程式を計算するフラグメントシェーダー
     float4 frag(v2f_customrendertexture i) : SV_Target
     {
         float2 uv = i.globalTexcoord;
@@ -46,6 +47,7 @@
         return float4(p, c.r, 0, 0);
     }
 
+    //クリックしたときに利用されるフラグメントシェーダー
     float4 frag_left_click(v2f_customrendertexture i) : SV_Target
     {
         return float4(_Displacement, 0, 0, 0);
@@ -57,6 +59,7 @@
     {
         Cull Off ZWrite Off ZTest Always
 
+        //デフォルトで利用されるPass
         Pass
         {
             Name "Update"
@@ -66,6 +69,7 @@
             ENDCG
         }
 
+        //クリックしたときに利用されるPass
         Pass
         {
             Name "LeftClick"

@@ -1,49 +1,66 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// クリックした箇所に波紋を発生させる
+/// </summary>
 public class ClickRipple : MonoBehaviour
 {
-    [SerializeField] CustomRenderTexture texture;
+    [SerializeField] private CustomRenderTexture _customRenderTexture;
+    [SerializeField, Range(0.01f, 0.05f)] private float _ripppleSize = 0.01f;
+    [SerializeField] private int iterationPerFrame = 5;
+    
+    private CustomRenderTextureUpdateZone _defaultZone;
 
-    [SerializeField] int iterationPerFrame = 5;
-
-    void Start()
+    private void Start()
     {
-        texture.Initialize();
+        //初期化
+        _customRenderTexture.Initialize();
+
+        //波動方程式のシミュレート用のUpdateZone
+        //全体の更新用
+        _defaultZone = new CustomRenderTextureUpdateZone
+        {
+            needSwap = true,
+            passIndex = 0,
+            rotation = 0f,
+            updateZoneCenter = new Vector2(0.5f, 0.5f),
+            updateZoneSize = new Vector2(1f, 1f)
+        };
     }
 
-    void Update()
+    private void Update()
     {
-        texture.ClearUpdateZones();
-        UpdateZones();
-        texture.Update(iterationPerFrame);
+        //クリック時のUpdateZoneがクリック後も適応された状態にならないように一度消去する
+        _customRenderTexture.ClearUpdateZones();
+        UpdateZonesClickArea();
+        //更新したいフレーム数を指定して更新
+        _customRenderTexture.Update(iterationPerFrame);
     }
 
-    void UpdateZones()
+    /// <summary>
+    /// クリックした箇所を起点に特定の領域のみ指定したパスでシミュレートさせる
+    /// </summary>
+    private void UpdateZonesClickArea()
     {
         bool leftClick = Input.GetMouseButton(0);
         if (!leftClick) return;
 
-        RaycastHit hit;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out var hit))
         {
-            var defaultZone = new CustomRenderTextureUpdateZone();
-            defaultZone.needSwap = true;
-            defaultZone.passIndex = 0;
-            defaultZone.rotation = 0f;
-            defaultZone.updateZoneCenter = new Vector2(0.5f, 0.5f);
-            defaultZone.updateZoneSize = new Vector2(1f, 1f);
+            //クリック時に使用するUpdateZone
+            //クリックした箇所を更新の原点とする
+            //使用するパスもクリック用に変更
+            var clickZone = new CustomRenderTextureUpdateZone
+            {
+                needSwap = true,
+                passIndex = 1,
+                rotation = 0f,
+                updateZoneCenter = new Vector2(hit.textureCoord.x, 1f - hit.textureCoord.y),
+                updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
+            };
 
-
-            Debug.Log("hit");
-            var clickZone = new CustomRenderTextureUpdateZone();
-            clickZone.needSwap = true;
-            clickZone.passIndex = 1;
-            clickZone.rotation = 0f;
-            clickZone.updateZoneCenter = new Vector2(hit.textureCoord.x, 1f - hit.textureCoord.y);
-            clickZone.updateZoneSize = new Vector2(0.01f, 0.01f);
-
-            texture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {defaultZone, clickZone});
+            _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
         }
     }
 }
