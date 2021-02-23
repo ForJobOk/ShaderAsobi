@@ -5,7 +5,7 @@
         _S2("PhaseVelocity^2", Range(0.0, 0.5)) = 0.2
         _Attenuation("Attenuation", Range(0.0, 1.0)) = 0.999
         _DeltaUV("Delta UV", Range(0.0, 0.5)) = 0.1
-        _Displacement("Displacement", Range(1.0, 5.0)) = 3.0
+        _InteractiveDisplacement("Interactive Displacement", Range(1.0, 5.0)) = 3.0
     }
 
     CGINCLUDE
@@ -14,7 +14,7 @@
     half _S2;
     half _Attenuation;
     float _DeltaUV;
-    float _Displacement;
+    float _InteractiveDisplacement;
     float _height;
     sampler2D _MainTex;
 
@@ -47,10 +47,10 @@
         return float4(p, c.r, 0, 0);
     }
 
-    //クリックしたときに利用されるフラグメントシェーダー
-    float4 frag_left_click(v2f_customrendertexture i) : SV_Target
+    //インタラクティブに応じて利用されるフラグメントシェーダー
+    float4 frag_interactive(v2f_customrendertexture i) : SV_Target
     {
-        return float4(_Displacement, 0, 0, 0);
+        return float4(_InteractiveDisplacement, 0, 0, 0);
     }
     
     ENDCG
@@ -69,13 +69,13 @@
             ENDCG
         }
 
-        //クリックしたときに利用されるPass
+        //インタラクティブに応じて利用されるPass
         Pass
         {
-            Name "LeftClick"
+            Name "Interactive"
             CGPROGRAM
             #pragma vertex CustomRenderTextureVertexShader
-            #pragma fragment frag_left_click
+            #pragma fragment frag_interactive
             ENDCG
         }
     }
