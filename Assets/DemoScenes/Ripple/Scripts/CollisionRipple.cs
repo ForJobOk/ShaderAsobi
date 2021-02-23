@@ -187,8 +187,6 @@ public class CollisionRipple : MonoBehaviour
         return w * ((1 - u - v) * t1UV / p1_p.w + u * t2UV / p2_p.w + v * t3UV / p3_p.w);
     }
     
-   
-    
     /// <summary>
     /// 三角形ポリゴンの各辺の上に座標があるかどうか判定
     /// </summary>
@@ -234,7 +232,7 @@ public class CollisionRipple : MonoBehaviour
             needSwap = true,
             passIndex = 1,
             rotation = 0f,
-            updateZoneCenter = new Vector2(uv.x,1- uv.y),
+            updateZoneCenter = new Vector2(uv.x,1-uv.y),
             updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
         };
 

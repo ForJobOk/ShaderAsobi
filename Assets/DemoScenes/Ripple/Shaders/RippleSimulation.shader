@@ -5,7 +5,7 @@
         _S2("PhaseVelocity^2", Range(0.0, 0.5)) = 0.2
         _Attenuation("Attenuation", Range(0.0, 1.0)) = 0.999
         _DeltaUV("Delta UV", Range(0.0, 0.5)) = 0.1
-        _InteractiveDisplacement("Interactive Displacement", Range(1.0, 5.0)) = 3.0
+        _InteractiveDisplacement("Interactive Displacement", Range(-1.0, 1.0)) = 0.1
     }
 
     CGINCLUDE
@@ -15,8 +15,6 @@
     half _Attenuation;
     float _DeltaUV;
     float _InteractiveDisplacement;
-    float _height;
-    sampler2D _MainTex;
 
     //波動方程式を計算するフラグメントシェーダー
     float4 frag(v2f_customrendertexture i) : SV_Target

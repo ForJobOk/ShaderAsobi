@@ -23,5 +23,6 @@ Material:
     - _Attenuation: 0.997
     - _DeltaUV: 0.45
     - _Displacement: 3
+    - _InteractiveDisplacement: 0.1
     - _S2: 0.4
     m_Colors: []
