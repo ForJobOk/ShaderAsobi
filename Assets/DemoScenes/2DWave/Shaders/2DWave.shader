@@ -21,6 +21,12 @@
         Blend SrcAlpha OneMinusSrcAlpha
         //両面描画
         Cull Off
+        
+        Pass
+        {
+  		  ZWrite ON
+  		  ColorMask 0
+		}
 
         Pass
         {
@@ -43,8 +49,8 @@
             };
 
             sampler2D _MainTex;
-            float4 _UnderColor;
-            float4 _TopColor;
+            fixed4 _UnderColor;
+            fixed4 _TopColor;
             float _ColorBorder;
 
             v2f vert(appdata v)
@@ -58,8 +64,8 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 base_color = tex2D(_MainTex, i.uv);
-                float4 main_color = lerp(_UnderColor, _TopColor, i.uv.y * _ColorBorder);
-                float4 final_color = base_color * main_color;
+                fixed4 main_color = lerp(_UnderColor, _TopColor, i.uv.y * _ColorBorder);
+                fixed4 final_color = base_color * main_color;
 
                 return final_color;
             }
