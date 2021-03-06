@@ -1,4 +1,4 @@
-﻿Shader "Custom/2DWave"
+﻿Shader "Custom/Aura"
 {
     Properties
     {
@@ -8,6 +8,7 @@
         _TopColor("TopColor",Color) = (0,0,0,0)
         _UnderColor("UnderColor",Color) = (0,0,0,0)
         _LineColor("LineColor",Color) = (0,0,0,0)
+        [HDR] _EmissionColor ("Emission Color", Color) = (0,0,0)  
         //色の境界の位置
         _ColorBorder("ColorBorder",Range(0,1)) = 0.5
          //ラインの速度
@@ -46,40 +47,49 @@
             struct appdata
             {
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                float2 scroll_uv : TEXCOORD0;
+                float2 uv : TEXCOORD1;
             };
 
             struct v2f
             {
-                float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float2 scroll_uv : TEXCOORD0;
+                float2 uv : TEXCOORD1;             
             };
 
             sampler2D _MainTex;
             fixed4 _UnderColor;
             fixed4 _TopColor;
             fixed4 _LineColor;
-            float _ColorBorder;
-            float _LineSpeed;
-            float _LineSpace;
-            float _LineSize;
+            fixed4 _EmissionColor;
+            fixed _ColorBorder;
+            fixed _LineSpeed;
+            fixed _LineSpace;
+            fixed _LineSize;
 
             v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv.y = v.uv.y - _Time.x * _LineSpeed;
+                o.uv = v.uv;
+                o.scroll_uv.y = v.scroll_uv.y - _Time.x * _LineSpeed;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                fixed4 base_color = tex2D(_MainTex, i.uv);
-                fixed4 main_color = lerp(_UnderColor, _TopColor, frac(i.uv.y) * _ColorBorder);       
-                fixed4 color = base_color + main_color;
-                fixed interpolation = step(frac(i.uv.y * _LineSpace), _LineSize);
-                //Color1かColor2のどちらかを返す
-                fixed4 final_color = lerp(color,_LineColor, interpolation);
+                //テクスチャーのサンプリング
+                fixed4 tex_color = tex2D(_MainTex, i.uv);
+                //グラデーション
+                fixed4 gradation_color = lerp(_UnderColor, _TopColor, i.uv.y * _ColorBorder);
+                //テクスチャーとグラデーションカラーからベースカラー計算
+                fixed4 base_color = tex_color * gradation_color;
+                //補間値
+                fixed interpolation = step(frac(i.scroll_uv.y * _LineSpace), _LineSize);
+                fixed3 line_color = _LineColor *_EmissionColor;
+                //ベースカラーかラインカラーのどちらかを返す
+                fixed4 final_color = lerp(base_color, base_color*_LineColor *_EmissionColor, interpolation);
 
                 return final_color;
             }
