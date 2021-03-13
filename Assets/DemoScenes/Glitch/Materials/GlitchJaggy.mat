@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glitch
-  m_Shader: {fileID: 4800000, guid: 957635feb25c3ef489ceab42b46a25c1, type: 3}
+  m_Name: GlitchJaggy
+  m_Shader: {fileID: 4800000, guid: 8c763b074fc2db943a880e31e061f5be, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -26,8 +26,8 @@ Material:
     m_Floats:
     - _Alpha: 0.5
     - _ColorGap: 0.079
-    - _FrameRate: 15.7
-    - _Frequency: 0.124
+    - _FrameRate: 30
+    - _Frequency: 0.616
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
     - _GlitchSize: 0.01

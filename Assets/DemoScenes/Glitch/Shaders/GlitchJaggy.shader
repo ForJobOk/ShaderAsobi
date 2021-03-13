@@ -1,4 +1,4 @@
-﻿Shader "Custom/Glitch"
+﻿Shader "Custom/GlitchJaggy"
 {
     Properties
     {
@@ -82,7 +82,7 @@
                 //uv.y方向のノイズ計算 -1 < random < 1
                 float noiseY = 2.0 * rand(posterize1) - 0.5;
                 //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
-                float glitchLine1 = step(uv.y - noiseY, rand(noiseY));
+                float glitchLine1 = step(uv.y - noiseY, rand(uv));
                 float glitchLine2 = step(uv.y + noiseY, noiseY);
                 float glitch = saturate(glitchLine1 - glitchLine2);
                 //速度調整
