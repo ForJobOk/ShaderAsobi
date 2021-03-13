@@ -3,12 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _LineColor ("LineColor", Color) = (0,0,0,0)
-        _LineSpeed("LineSpeed",Range(0,10)) = 5
-        _LineSize("LineSize",Range(0,1)) = 0.01
-        _ColorGap("ColorGap",Range(0,1.0)) = 0.01
-        _Alpha ("Alpha", Range(0,1)) = 0.5
-        _FrameRate ("FrameRate", Range(0,30)) = 15
+        _FrameRate ("FrameRate", Range(0.1,30)) = 15
         _Frequency  ("Frequency", Range(0,1)) = 0.1
     }
     SubShader
@@ -31,23 +26,16 @@
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float2 line_uv : TEXCOORD1;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                float2 line_uv : TEXCOORD1;
                 float4 vertex : SV_POSITION;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float4 _LineColor;
-            float _LineSpeed;
-            float _LineSize;
-            float _ColorGap;
-            float _Alpha;
             float _FrameRate;
             float _Frequency;
 
@@ -79,23 +67,12 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
-                //UVスクロール
-                o.line_uv.y = v.line_uv.y - _Time.z * _LineSpeed;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 uv = i.uv;
-                //RGBずらしてホログラムっぽく
-                float r = tex2D(_MainTex, uv + _ColorGap * perlinNoise(_Time.z)).r;
-                float b = tex2D(_MainTex, uv - _ColorGap * perlinNoise(_Time.z)).b;
-                float2 ga = tex2D(_MainTex, uv).ga;
-                float4 gap_color = fixed4(r, ga.x, b, ga.y);
-                //ノイズラインの補間値計算
-                float interpolation = step(frac(i.line_uv.y * 15), _LineSize);
-                //ノイズラインを含むピクセルカラー
-                float4 noiseLineColor = lerp(gap_color, _LineColor, interpolation);
                 float posterize = floor(frac(perlinNoise(frac(_Time)) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
                 //uv.y方向のノイズ計算 -1 < random < 1
                 float noiseY = 2.0 * rand(posterize) - 0.5;
@@ -111,9 +88,7 @@
                 //速度調整
                 uv.x = lerp(uv.x, uv.x + noiseX, glitch);
                 float4 noiseColor = tex2D(_MainTex, uv);
-                float4 finalColor = noiseLineColor * noiseColor;
-                finalColor.a = _Alpha;
-                return finalColor;
+                return noiseColor;
             }
             ENDCG
         }

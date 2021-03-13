@@ -1,4 +1,4 @@
-﻿Shader "Custom/Glitch"
+﻿Shader "Custom/Holo"
 {
     Properties
     {
