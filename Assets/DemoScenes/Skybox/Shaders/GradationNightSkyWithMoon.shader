@@ -121,6 +121,8 @@
                 //月
                 color = lerp(_MoonColor, color, step(uv.y, _SquareNum * 0.75));
 
+                //color.r += step(0.98, fst.x) + step(0.98, fst.y);
+
                 return color;
             }
             ENDCG

@@ -5,10 +5,11 @@
         _MainTex ("Texture", 2D) = "white" {}
         _LineColor ("LineColor", Color) = (0,0,0,0)
         _LineSpeed("LineSpeed",Range(0,10)) = 5
-        _LineSize("LineSize",Range(0,10)) = 0.01
-        _ColorGap("ColorGap",Range(0,0.05)) = 0.01
-        _Frequency ("Frequency", Range(0,1)) = 0.5
+        _LineSize("LineSize",Range(0,1)) = 0.01
+        _ColorGap("ColorGap",Range(0,1.0)) = 0.01
         _Alpha ("Alpha", Range(0,1)) = 0.5
+        _FrameRate ("FrameRate", Range(0,30)) = 15
+        _Frequency  ("Frequency", Range(0,1)) = 0.1
     }
     SubShader
     {
@@ -47,63 +48,13 @@
             float _LineSize;
             float _ColorGap;
             float _Alpha;
+            float _FrameRate;
             float _Frequency;
 
             //ランダムな値を返す
             float rand(float2 co) //引数はシード値と呼ばれる　同じ値を渡せば同じものを返す
             {
                 return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);
-            }
-
-            inline float unity_noise_randomValue(float2 uv)
-            {
-                return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
-            }
-
-            inline float unity_noise_interpolate(float a, float b, float t)
-            {
-                return (1.0 - t) * a + (t * b);
-            }
-
-            inline float unity_valueNoise(float2 uv)
-            {
-                float2 i = floor(uv);
-                float2 f = frac(uv);
-                f = f * f * (3.0 - 2.0 * f);
-
-                uv = abs(frac(uv) - 0.5);
-                float2 c0 = i + float2(0.0, 0.0);
-                float2 c1 = i + float2(1.0, 0.0);
-                float2 c2 = i + float2(0.0, 1.0);
-                float2 c3 = i + float2(1.0, 1.0);
-                float r0 = unity_noise_randomValue(c0);
-                float r1 = unity_noise_randomValue(c1);
-                float r2 = unity_noise_randomValue(c2);
-                float r3 = unity_noise_randomValue(c3);
-
-                float bottomOfGrid = unity_noise_interpolate(r0, r1, f.x);
-                float topOfGrid = unity_noise_interpolate(r2, r3, f.x);
-                float t = unity_noise_interpolate(bottomOfGrid, topOfGrid, f.y);
-                return t;
-            }
-
-            float Unity_SimpleNoise_float(float2 UV, float Scale)
-            {
-                float t = 0.0;
-
-                float freq = pow(2.0, float(0));
-                float amp = pow(0.5, float(3 - 0));
-                t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
-
-                freq = pow(2.0, float(1));
-                amp = pow(0.5, float(3 - 1));
-                t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
-
-                freq = pow(2.0, float(2));
-                amp = pow(0.5, float(3 - 2));
-                t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
-
-                return t;
             }
 
             //パーリンノイズ
@@ -144,20 +95,23 @@
                 //ノイズラインの補間値計算
                 float interpolation = step(frac(i.line_uv.y * 15), _LineSize);
                 //ノイズラインを含むピクセルカラー
-                float4 noiseLineColor = lerp(gap_color, gap_color * _LineColor, interpolation);
-                float posterize = floor(frac(_Time * 10) / (1.0 / 6.0)) * (1.0 / 6.0);
+                float4 noiseLineColor = lerp(gap_color, _LineColor, interpolation);
+                float posterize = floor(frac(perlinNoise(frac(_Time)) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
                 //uv.y方向のノイズ計算 -1 < random < 1
                 float noiseY = 2.0 * rand(posterize) - 0.5;
+                
                 //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
                 float glitchLine1 = step(uv.y - noiseY, 1.0);
                 float glitchLine2 = step(uv.y - noiseY, 0);
-                float glitch = abs(glitchLine1 - glitchLine2);
+                float glitch = saturate(glitchLine1 - glitchLine2);
                 //uv.x方向のノイズ計算 -0.1 < random < 0.1
                 float noiseX = (2.0 * rand(posterize) - 0.5) * 0.1;
+                float frequency = step(abs(noiseX),_Frequency);
+                noiseX *= frequency;
                 //速度調整
                 uv.x = lerp(uv.x, uv.x + noiseX, glitch);
                 float4 noiseColor = tex2D(_MainTex, uv);
-                float4 finalColor = lerp(noiseLineColor, noiseColor, glitch);
+                float4 finalColor = noiseLineColor * noiseColor;
                 finalColor.a = _Alpha;
                 return finalColor;
             }
