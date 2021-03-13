@@ -24,11 +24,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 1
+    - _Alpha: 0.678
     - _ColorGap: 0
+    - _Frequency: 0.943
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
+    - _GlitchSize: 0.01
     - _LineSize: 0
     - _LineSpeed: 0
     m_Colors:
-    - _LineColor: {r: 1, g: 0.8820755, b: 0.8820755, a: 1}
+    - _LineColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
