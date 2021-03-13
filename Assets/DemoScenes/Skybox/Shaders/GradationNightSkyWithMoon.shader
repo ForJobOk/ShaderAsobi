@@ -110,7 +110,7 @@
                         float4 randColor = float4(r, g, b, 1);
 
                         //"点"と"現在描画しようとしているピクセルとの距離"を利用して星を描画するかどうかを計算
-                        //step(t,x) はtがxより大きい場合1を返す
+                        //step(t,x) はxがtより大きい場合1を返す
                         float interpolation = 1 - step(0.01, length(diff));
                         color = lerp(color, randColor, interpolation);
                     }

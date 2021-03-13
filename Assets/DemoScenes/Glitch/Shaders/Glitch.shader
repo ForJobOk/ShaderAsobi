@@ -4,7 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _FrameRate ("FrameRate", Range(0.1,30)) = 15
-        _Frequency  ("Frequency", Range(0,1)) = 0.1
+        _Frequency ("Frequency", Range(0,1)) = 0.1
     }
     SubShader
     {
@@ -73,18 +73,20 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 uv = i.uv;
-                float posterize = floor(frac(perlinNoise(frac(_Time)) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
-                //uv.y方向のノイズ計算 -1 < random < 1
-                float noiseY = 2.0 * rand(posterize) - 0.5;
-                
-                //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
-                float glitchLine1 = step(uv.y - noiseY, 1.0);
-                float glitchLine2 = step(uv.y - noiseY, 0);
-                float glitch = saturate(glitchLine1 - glitchLine2);
+                //ポスタライズ 
+                float posterize = floor(frac(perlinNoise(_SinTime) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
+                float posterize2 = floor(frac(perlinNoise(_SinTime) * 5) / (1 / _FrameRate)) * (1 / _FrameRate);
                 //uv.x方向のノイズ計算 -0.1 < random < 0.1
                 float noiseX = (2.0 * rand(posterize) - 0.5) * 0.1;
-                float frequency = step(abs(noiseX),_Frequency);
+                //step(t,x) はxがtより大きい場合1を返す
+                float frequency = step(rand(posterize2), _Frequency);
                 noiseX *= frequency;
+                //uv.y方向のノイズ計算 -1 < random < 1
+                float noiseY = 2.0 * rand(posterize) - 0.5;
+                //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
+                float glitchLine1 = step(uv.y - noiseY, rand(noiseY));
+                float glitchLine2 = step(uv.y + noiseY, noiseY);
+                float glitch = saturate(glitchLine1 - glitchLine2);
                 //速度調整
                 uv.x = lerp(uv.x, uv.x + noiseX, glitch);
                 float4 noiseColor = tex2D(_MainTex, uv);

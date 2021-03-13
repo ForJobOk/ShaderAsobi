@@ -102,7 +102,7 @@
                         float4 randColor = float4(r, g, b, 1);
 
                         //補間値を計算
-                        //step(t,x) はtがxより大きい場合1を返す
+                        //step(t,x) はxがtより大きい場合1を返す
                         float interpolation = 1 - step(0.01, length(diff));
 
                         //補間値を利用して夜空と星を塗り分け
