@@ -10,6 +10,7 @@
         _Alpha ("Alpha", Range(0,1)) = 0.5
         _FrameRate ("FrameRate", Range(0,30)) = 15
         _Frequency  ("Frequency", Range(0,1)) = 0.1
+        _GlitchScale  ("GlitchScale", Range(1,10)) = 1
     }
     SubShader
     {
@@ -50,6 +51,7 @@
             float _Alpha;
             float _FrameRate;
             float _Frequency;
+            float _GlitchScale;
 
             //ランダムな値を返す
             float rand(float2 co) //引数はシード値と呼ばれる　同じ値を渡せば同じものを返す
@@ -101,7 +103,7 @@
                 float noiseY = 2.0 * rand(posterize) - 0.5;
                 
                 //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
-                float glitchLine1 = step(uv.y - noiseY, 1.0);
+                float glitchLine1 = step(uv.y - noiseY, rand(uv));
                 float glitchLine2 = step(uv.y - noiseY, 0);
                 float glitch = saturate(glitchLine1 - glitchLine2);
                 //uv.x方向のノイズ計算 -0.1 < random < 0.1
@@ -109,7 +111,7 @@
                 float frequency = step(abs(noiseX),_Frequency);
                 noiseX *= frequency;
                 //速度調整
-                uv.x = lerp(uv.x, uv.x + noiseX, glitch);
+                uv.x = lerp(uv.x, uv.x + noiseX * _GlitchScale, glitch);
                 float4 noiseColor = tex2D(_MainTex, uv);
                 float4 finalColor = noiseLineColor * noiseColor;
                 finalColor.a = _Alpha;

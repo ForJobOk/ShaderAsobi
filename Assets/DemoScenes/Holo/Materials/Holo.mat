@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Holo
-  m_Shader: {fileID: 4800000, guid: 957635feb25c3ef489ceab42b46a25c1, type: 3}
+  m_Shader: {fileID: 4800000, guid: c21274fd1bbce504b94e3cfba84bf5a2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
