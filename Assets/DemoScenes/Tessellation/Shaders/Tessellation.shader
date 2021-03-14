@@ -59,7 +59,7 @@
                 float2 texCoord : TEXCOORD;
             };
 
-            //ハルシェーダーからドメインシェーダーに渡す構造体
+            //ハルシェーダーからテッセレーター経由でドメインシェーダーに渡す構造体
             struct HsControlPointOutput
             {
                 float3 position : POS;
@@ -91,19 +91,23 @@
                 return o;
             }
 
+            //=======================【用語】==================================
+            // コントロールポイント：頂点分割で使う制御点
+            // パッチ：ポリゴン分割処理を行う際に使用するコントロールポイントの集合
+            //================================================================
+            
             //ハルシェーダー
-            //コントロールポイント：頂点分割で使う制御点
-            //パッチ：ポリゴン分割処理を行う際に使用するコントロールポイントの集合
-            //パッチを元にどうやって分割するか計算する
+            //パッチに対してコントロールポイントを割り当てて出力する
+            //コントロールポイントごとに1回実行
             [domain("tri")] //分割に利用する形状を指定　"tri" "quad" "isoline"から選択
             [partitioning("integer")] //分割方法 "integer" "fractional_eve" "fractional_odd" "pow2"から選択
             [outputtopology("triangle_cw")] //出力された頂点が形成するトポロジー(形状)　"point" "line" "triangle_cw" "triangle_ccw" から選択
             [patchconstantfunc("hullConst")] //Patch-Constant-Functionの指定
-            [outputcontrolpoints(OUTPUT_PATCH_SIZE)] //出力されるコントロールポイントの数
+            [outputcontrolpoints(OUTPUT_PATCH_SIZE)] //出力されるコントロールポイントの集合の数
             HsControlPointOutput hull(InputPatch<HsInput, INPUT_PATCH_SIZE> i, uint id : SV_OutputControlPointID)
             {
                 HsControlPointOutput o = (HsControlPointOutput)0;
-                //頂点シェーダーから渡ってきたパッチを元に新たな
+                //頂点シェーダーに対してコントロールポイントを割り当て
                 o.position = i[id].position.xyz;
                 o.normal = i[id].normal;
                 o.texCoord = i[id].texCoord;
@@ -112,6 +116,7 @@
 
             //Patch-Constant-Function
             //どの程度頂点を分割するかを決める係数を詰め込んでテッセレーターに渡す
+            //パッチごとに一回実行される
             HsConstantOutput hullConst(InputPatch<HsInput, INPUT_PATCH_SIZE> i)
             {
                 HsConstantOutput o = (HsConstantOutput)0;

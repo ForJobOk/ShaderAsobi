@@ -26,7 +26,7 @@ Material:
     m_Floats:
     - _Alpha: 0.5
     - _ColorGap: 0.079
-    - _FrameRate: 30
+    - _FrameRate: 13.8
     - _Frequency: 0.616
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091

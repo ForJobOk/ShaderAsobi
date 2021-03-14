@@ -27,7 +27,7 @@ Material:
     - _Alpha: 0.5
     - _ColorGap: 0.079
     - _FrameRate: 15.7
-    - _Frequency: 0.124
+    - _Frequency: 0.675
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
     - _GlitchSize: 0.01
