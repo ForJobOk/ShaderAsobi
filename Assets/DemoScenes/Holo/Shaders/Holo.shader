@@ -93,15 +93,14 @@
                 float r = tex2D(_MainTex, uv + _ColorGap * perlinNoise(_Time.z)).r;
                 float b = tex2D(_MainTex, uv - _ColorGap * perlinNoise(_Time.z)).b;
                 float2 ga = tex2D(_MainTex, uv).ga;
-                float4 gap_color = fixed4(r, ga.x, b, ga.y);
+                float4 shiftColor = fixed4(r, ga.x, b, ga.y);
                 //ノイズラインの補間値計算
                 float interpolation = step(frac(i.line_uv.y * 15), _LineSize);
                 //ノイズラインを含むピクセルカラー
-                float4 noiseLineColor = lerp(gap_color, _LineColor, interpolation);
+                float4 noiseLineColor = lerp(shiftColor, _LineColor, interpolation);
                 float posterize = floor(frac(perlinNoise(frac(_Time)) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
                 //uv.y方向のノイズ計算 -1 < random < 1
                 float noiseY = 2.0 * rand(posterize) - 0.5;
-                
                 //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
                 float glitchLine1 = step(uv.y - noiseY, rand(uv));
                 float glitchLine2 = step(uv.y - noiseY, 0);
@@ -110,10 +109,11 @@
                 float noiseX = (2.0 * rand(posterize) - 0.5) * 0.1;
                 float frequency = step(abs(noiseX),_Frequency);
                 noiseX *= frequency;
-                //速度調整
+                //グリッチ適用
                 uv.x = lerp(uv.x, uv.x + noiseX * _GlitchScale, glitch);
                 float4 noiseColor = tex2D(_MainTex, uv);
                 float4 finalColor = noiseLineColor * noiseColor;
+                //アルファ操作
                 finalColor.a = _Alpha;
                 return finalColor;
             }
