@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// オブジェクトが衝突した箇所に波紋を発生させる
@@ -7,7 +6,7 @@ using UnityEngine;
 public class CollisionRipple : MonoBehaviour
 {
     [SerializeField] private CustomRenderTexture _customRenderTexture;
-    [SerializeField, Range(0.01f, 0.05f)] private float _ripppleSize = 0.01f;
+    [SerializeField, Range(0.001f, 0.05f)] private float _ripppleSize = 0.01f;
     [SerializeField] private int iterationPerFrame = 5;
     
     private CustomRenderTextureUpdateZone _defaultZone;
@@ -18,6 +17,7 @@ public class CollisionRipple : MonoBehaviour
     private Vector3[] _meshVertices;
     private Vector2[] _meshUV;
     private MeshFilter _meshFilter;
+    private Vector3 _prevPos;
 
     private void Start()
     {
@@ -41,12 +41,46 @@ public class CollisionRipple : MonoBehaviour
         };
     }
 
-    private void Update()
+    //Updateはダメ　ライフサイクル要参照
+    private void FixedUpdate()
     {
+        //UpdateZoneはリセット
+        _customRenderTexture.ClearUpdateZones();
         //更新したいフレーム数を指定して更新
         _customRenderTexture.Update(iterationPerFrame);
     }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        var hitPos = other.ClosestPointOnBounds(this.transform.position);
 
+        var renderCamera = Camera.main;
+        
+        Vector3 p = transform.InverseTransformPoint(hitPos);
+        Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
+        LocalPointToUV(p, mvp, out var uv);
+        
+        //クリック時に使用するUpdateZone
+        //クリックした箇所を更新の原点とする
+        //使用するパスもクリック用に変更
+        var clickZone = new CustomRenderTextureUpdateZone
+        {
+            needSwap = true,
+            passIndex = 1,
+            rotation = 0f,
+            updateZoneCenter = new Vector2(uv.x,1-uv.y),
+            updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
+        };
+
+        _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        //クリック時のUpdateZoneがクリック後も適応された状態にならないように一度消去する
+        _customRenderTexture.ClearUpdateZones();
+    }
+    
     /// <summary>
     /// Convert local-space point to texture coordinates.
     /// </summary>
@@ -210,38 +244,5 @@ public class CollisionRipple : MonoBehaviour
     private bool ExistPointOnEdge(Vector3 p, Vector3 v1, Vector3 v2)
     {
         return 1 - TOLERANCE < Vector3.Dot((v2 - p).normalized, (v2 - v1).normalized);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        //UpdateZoneがクリック後も適応された状態にならないように一度消去する
-        _customRenderTexture.ClearUpdateZones();
-        
-        var hitPos = other.ClosestPointOnBounds(this.transform.position);
-        var renderCamera = Camera.main;
-        
-        Vector3 p = transform.InverseTransformPoint(hitPos);
-        Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
-        LocalPointToUV(p, mvp, out var uv);
-        
-        //クリック時に使用するUpdateZone
-        //クリックした箇所を更新の原点とする
-        //使用するパスもクリック用に変更
-        var clickZone = new CustomRenderTextureUpdateZone
-        {
-            needSwap = true,
-            passIndex = 1,
-            rotation = 0f,
-            updateZoneCenter = new Vector2(uv.x,1-uv.y),
-            updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
-        };
-
-        _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        //クリック時のUpdateZoneがクリック後も適応された状態にならないように一度消去する
-        _customRenderTexture.ClearUpdateZones();
     }
 }
