@@ -52,27 +52,28 @@ public class CollisionRipple : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        var hitPos = other.ClosestPointOnBounds(this.transform.position);
-
-        var renderCamera = Camera.main;
+        //衝突座標(ワールド座標)
+        var hitPos = other.ClosestPointOnBounds(transform.position);
         
-        Vector3 p = transform.InverseTransformPoint(hitPos);
-        Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
-        LocalPointToUV(p, mvp, out var uv);
-        
-        //クリック時に使用するUpdateZone
-        //クリックした箇所を更新の原点とする
-        //使用するパスもクリック用に変更
-        var clickZone = new CustomRenderTextureUpdateZone
+        //ワールド座標からローカル座標に変換
+        var hitLocalPos = transform.InverseTransformPoint(hitPos);
+        //pをuvに変換して代入　成功したら実行
+        if (LocalPointToUV(hitLocalPos, out var uv))
         {
-            needSwap = true,
-            passIndex = 1,
-            rotation = 0f,
-            updateZoneCenter = new Vector2(uv.x,1-uv.y),
-            updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
-        };
+            //クリック時に使用するUpdateZone
+            //クリックした箇所を更新の原点とする
+            //使用するパスもクリック用に変更
+            var clickZone = new CustomRenderTextureUpdateZone
+            {
+                needSwap = true,
+                passIndex = 1,
+                rotation = 0f,
+                updateZoneCenter = new Vector2(uv.x,1-uv.y),
+                updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
+            };
 
-        _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
+            _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
+        }
     }
     
     private void OnTriggerExit(Collider other)
@@ -82,22 +83,23 @@ public class CollisionRipple : MonoBehaviour
     }
     
     /// <summary>
-    /// Convert local-space point to texture coordinates.
+    /// 受け取ったローカル座標をUV座標に変換
     /// </summary>
-    /// <param name="localPoint">Local-Space Point</param>
-    /// <param name="matrixMVP">World-View-Projection Transformation matrix.</param>
+    /// <param name="localPoint">任意のローカル座標</param>
     /// <param name="uv">UV coordinates after conversion.</param>
     /// <returns>Whether the conversion was successful.</returns>
-    private bool LocalPointToUV(Vector3 localPoint, Matrix4x4 matrixMVP, out Vector2 uv)
+    private bool LocalPointToUV(Vector3 localPoint, out Vector2 uv)
     {
+        //そこまで大差ないらしいけど一応、for文の外で宣言
         int index0;
         int index1;
         int index2;
         Vector3 t1;
         Vector3 t2;
         Vector3 t3;
-        Vector3 p = localPoint;
+        var p = localPoint;
         
+        //Mesh内に存在する三角形を調査
         for(var i = 0; i < _meshTriangles.Length; i += 3)
         {
             //ある点pが与えられた3点において平面上に存在するか
@@ -119,7 +121,7 @@ public class CollisionRipple : MonoBehaviour
             var uv1 = _meshUV[_meshTriangles[index0]];
             var uv2 = _meshUV[_meshTriangles[index1]];
             var uv3 = _meshUV[_meshTriangles[index2]];
-            uv = TextureCoordinateCalculation(p, t1, uv1, t2, uv2, t3, uv3, matrixMVP);
+            uv = TextureCoordinateCalculation(p, t1, uv1, t2, uv2, t3, uv3);
             Debug.Log(uv);
             return true;
         }
@@ -197,13 +199,17 @@ public class CollisionRipple : MonoBehaviour
     /// <param name="t3UV">三角形ポリゴンの頂点のUV座標3</param>
     /// <param name="transformMatrix">MVP transformation matrix.</param>
     /// <returns>UV coordinates of the point to be investigated.</returns>
-    private Vector2 TextureCoordinateCalculation(Vector3 p, Vector3 t1, Vector2 t1UV, Vector3 t2, Vector2 t2UV, Vector3 t3, Vector2 t3UV, Matrix4x4 transformMatrix)
+    private Vector2 TextureCoordinateCalculation(Vector3 p, Vector3 t1, Vector2 t1UV, Vector3 t2, Vector2 t2UV, Vector3 t3, Vector2 t3UV)
     {
-        //各点をProjectionSpaceへの変換
-        Vector4 p1_p = transformMatrix * new Vector4(t1.x, t1.y, t1.z, 1);
-        Vector4 p2_p = transformMatrix * new Vector4(t2.x, t2.y, t2.z, 1);
-        Vector4 p3_p = transformMatrix * new Vector4(t3.x, t3.y, t3.z, 1);
-        Vector4 p_p = transformMatrix * new Vector4(p.x, p.y, p.z, 1);
+        //メインカメラ取得
+        var renderCamera = Camera.main;
+        //座標変換行列 = プロジェクション行列 * ビュー行列 * モデル行列
+        Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
+        //各点をProjectionSpaceへ変換
+        Vector4 p1_p = mvp * new Vector4(t1.x, t1.y, t1.z, 1);
+        Vector4 p2_p = mvp * new Vector4(t2.x, t2.y, t2.z, 1);
+        Vector4 p3_p = mvp * new Vector4(t3.x, t3.y, t3.z, 1);
+        Vector4 p_p = mvp * new Vector4(p.x, p.y, p.z, 1);
         //通常座標への変換(ProjectionSpace)
         Vector2 p1_n = new Vector2(p1_p.x, p1_p.y) / p1_p.w;
         Vector2 p2_n = new Vector2(p2_p.x, p2_p.y) / p2_p.w;
