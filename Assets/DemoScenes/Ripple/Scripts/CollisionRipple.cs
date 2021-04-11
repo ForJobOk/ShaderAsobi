@@ -86,8 +86,8 @@ public class CollisionRipple : MonoBehaviour
     /// 受け取ったローカル座標をUV座標に変換
     /// </summary>
     /// <param name="localPoint">任意のローカル座標</param>
-    /// <param name="uv">UV coordinates after conversion.</param>
-    /// <returns>Whether the conversion was successful.</returns>
+    /// <param name="uv">変換後のUV座標</param>
+    /// <returns>変換に成功したらTrue</returns>
     private bool LocalPointToUV(Vector3 localPoint, out Vector2 uv)
     {
         //そこまで大差ないらしいけど一応、for文の外で宣言
@@ -97,32 +97,33 @@ public class CollisionRipple : MonoBehaviour
         Vector3 t1;
         Vector3 t2;
         Vector3 t3;
-        var p = localPoint;
         
         //Mesh内に存在する三角形を調査
+        //ある点pが与えられた3点において平面上に存在するか計算
         for(var i = 0; i < _meshTriangles.Length; i += 3)
         {
-            //ある点pが与えられた3点において平面上に存在するか
             index0 = i + 0;
             index1 = i + 1;
             index2 = i + 2;
 
+            //三角形の各頂点
             t1 = _meshVertices[_meshTriangles[index0]];
             t2 = _meshVertices[_meshTriangles[index1]];
             t3 = _meshVertices[_meshTriangles[index2]];
 
             //同一平面上に任意の座標が定義されているかどうかチェック
-            if(!ExistPointInPlane(p, t1, t2, t3))
+            if(!ExistPointInPlane(localPoint, t1, t2, t3))
                 continue;
             //境界面(辺の上、頂点の真上)もチェック
-            if(!ExistPointOnTriangleEdge(p, t1, t2, t3) && !ExistPointInTriangle(p, t1, t2, t3))
+            if(!ExistPointOnTriangleEdge(localPoint, t1, t2, t3) && !ExistPointInTriangle(localPoint, t1, t2, t3))
                 continue;
 
+            //三角形の各頂点のUVを取得
             var uv1 = _meshUV[_meshTriangles[index0]];
             var uv2 = _meshUV[_meshTriangles[index1]];
             var uv3 = _meshUV[_meshTriangles[index2]];
-            uv = TextureCoordinateCalculation(p, t1, uv1, t2, uv2, t3, uv3);
-            Debug.Log(uv);
+            //UV座標に変換
+            uv = TextureCoordinateCalculation(localPoint, t1, uv1, t2, uv2, t3, uv3);
             return true;
         }
         uv = default(Vector3);
@@ -131,12 +132,11 @@ public class CollisionRipple : MonoBehaviour
 
     /// <summary>
     /// 同一平面上に任意の座標が定義されているかどうか判定
-    /// 与えられるメッシュが三角形ポリゴンの集合で表現されていることを仮定
     /// </summary>
     /// <param name="p">調査対象の座標</param>
     /// <param name="t1">三角形ポリゴンの頂点座標1</param>
-    /// <param name="t2">三角形ポリゴンの頂点座標1</param>
-    /// <param name="t3">三角形ポリゴンの頂点座標1</param>
+    /// <param name="t2">三角形ポリゴンの頂点座標2</param>
+    /// <param name="t3">三角形ポリゴンの頂点座標3</param>
     /// <returns>同一平面上に任意の座標が定義されていたらTrue</returns>
     private bool ExistPointInPlane(Vector3 p, Vector3 t1, Vector3 t2, Vector3 t3)
     {
@@ -164,8 +164,8 @@ public class CollisionRipple : MonoBehaviour
     /// </summary>
     /// <param name="p">調査対象の座標</param>
     /// <param name="t1">三角形ポリゴンの頂点座標1</param>
-    /// <param name="t2">三角形ポリゴンの頂点座標1</param>
-    /// <param name="t3">三角形ポリゴンの頂点座標1</param>
+    /// <param name="t2">三角形ポリゴンの頂点座標2</param>
+    /// <param name="t3">三角形ポリゴンの頂点座標3</param>
     /// <returns>同一平面上に存在する任意の座標が三角形内部に存在していたらTrue</returns>
     private bool ExistPointInTriangle(Vector3 p, Vector3 t1, Vector3 t2, Vector3 t3)
     {
@@ -197,44 +197,46 @@ public class CollisionRipple : MonoBehaviour
     /// <param name="t2UV">三角形ポリゴンの頂点のUV座標2</param>
     /// <param name="t3">三角形ポリゴンの頂点座標3</param>
     /// <param name="t3UV">三角形ポリゴンの頂点のUV座標3</param>
-    /// <param name="transformMatrix">MVP transformation matrix.</param>
-    /// <returns>UV coordinates of the point to be investigated.</returns>
+    /// <returns>UV座標</returns>
     private Vector2 TextureCoordinateCalculation(Vector3 p, Vector3 t1, Vector2 t1UV, Vector3 t2, Vector2 t2UV, Vector3 t3, Vector2 t3UV)
     {
         //メインカメラ取得
         var renderCamera = Camera.main;
-        //座標変換行列 = プロジェクション行列 * ビュー行列 * モデル行列
+        //プロジェクション変換一歩手前のMVP行列 = プロジェクション行列 * ビュー行列 * モデル行列
         Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
-        //各点をProjectionSpaceへ変換
+        //各点をプロジェクション空間へ変換
         Vector4 p1_p = mvp * new Vector4(t1.x, t1.y, t1.z, 1);
         Vector4 p2_p = mvp * new Vector4(t2.x, t2.y, t2.z, 1);
         Vector4 p3_p = mvp * new Vector4(t3.x, t3.y, t3.z, 1);
         Vector4 p_p = mvp * new Vector4(p.x, p.y, p.z, 1);
-        //通常座標への変換(ProjectionSpace)
+        //Wで除算することでプロジェクション座標変換は完了する
+        //Shaderでは勝手にやってくれるらしいが、今回は自分でやる　透視変換というらしい
+        //Z(深度)は破棄
         Vector2 p1_n = new Vector2(p1_p.x, p1_p.y) / p1_p.w;
         Vector2 p2_n = new Vector2(p2_p.x, p2_p.y) / p2_p.w;
         Vector2 p3_n = new Vector2(p3_p.x, p3_p.y) / p3_p.w;
         Vector2 p_n = new Vector2(p_p.x, p_p.y) / p_p.w;
         //頂点のなす三角形を点pにより3分割し、必要になる面積を計算
-        var s = 0.5f * ((p2_n.x - p1_n.x) * (p3_n.y - p1_n.y) - (p2_n.y - p1_n.y) * (p3_n.x - p1_n.x));
-        var s1 = 0.5f * ((p3_n.x - p_n.x) * (p1_n.y - p_n.y) - (p3_n.y - p_n.y) * (p1_n.x - p_n.x));
-        var s2 = 0.5f * ((p1_n.x - p_n.x) * (p2_n.y - p_n.y) - (p1_n.y - p_n.y) * (p2_n.x - p_n.x));
-        //面積比からuvを補間
+        //三角形を二分割して底辺×高さ÷2してる
+        var s = 0.5f * ((p2_n.x - p1_n.x) * (p3_n.y - p1_n.y) - (p2_n.y - p1_n.y) * (p3_n.x - p1_n.x)); //全体
+        var s1 = 0.5f * ((p3_n.x - p_n.x) * (p1_n.y - p_n.y) - (p3_n.y - p_n.y) * (p1_n.x - p_n.x)); //分割した一部
+        var s2 = 0.5f * ((p1_n.x - p_n.x) * (p2_n.y - p_n.y) - (p1_n.y - p_n.y) * (p2_n.x - p_n.x)); //分割した一部
+        //面積比からuvを補間 
         var u = s1 / s;
         var v = s2 / s;
-        var w = 1 / ((1 - u - v) * 1 / p1_p.w + u * 1 / p2_p.w + v * 1 / p3_p.w);
-        
-        return w * ((1 - u - v) * t1UV / p1_p.w + u * t2UV / p2_p.w + v * t3UV / p3_p.w);
+        //パースペクティブコレクトを適用しつつ、面積比で任意のUV座標を求める
+        var w = (1 - u - v) * 1 / p1_p.w + u * 1 / p2_p.w + v * 1 / p3_p.w;
+        return ((1 - u - v) * t1UV / p1_p.w + u * t2UV / p2_p.w + v * t3UV / p3_p.w) / w;
     }
     
     /// <summary>
     /// 三角形ポリゴンの各辺の上に座標があるかどうか判定
     /// </summary>
     /// <param name="p">Points to investigate.</param>
-    /// <param name="t1">Vertex of triangle.</param>
-    /// <param name="t2">Vertex of triangle.</param>
-    /// <param name="t3">Vertex of triangle.</param>
-    /// <returns>Whether points lie on the sides of the triangle.</returns>
+    /// <param name="t1">三角形ポリゴンの頂点座標1</param>
+    /// <param name="t2">三角形ポリゴンの頂点座標2</param>
+    /// <param name="t3">三角形ポリゴンの頂点座標3</param>
+    /// <returns>三角形ポリゴンの各辺の上に座標があればTrue</returns>
     private bool ExistPointOnTriangleEdge(Vector3 p, Vector3 t1, Vector3 t2, Vector3 t3)
     {
         return ExistPointOnEdge(p, t1, t2) || ExistPointOnEdge(p, t2, t3) || ExistPointOnEdge(p, t3, t1);
@@ -244,8 +246,8 @@ public class CollisionRipple : MonoBehaviour
     /// 境界面(頂点)のチェック
     /// </summary>
     /// <param name="p">調査対象の座標</param>
-    /// <param name="v1">三角形ポリゴンの頂点座標1</param>
-    /// <param name="v2">三角形ポリゴンの頂点座標1</param>
+    /// <param name="v1">頂点座標1</param>
+    /// <param name="v2">頂点座標2</param>
     /// <returns>調査対象の座標が境界上にあればTrue</returns>
     private bool ExistPointOnEdge(Vector3 p, Vector3 v1, Vector3 v2)
     {
