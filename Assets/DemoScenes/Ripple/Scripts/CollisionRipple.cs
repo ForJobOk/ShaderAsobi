@@ -225,8 +225,8 @@ public class CollisionRipple : MonoBehaviour
         var u = s1 / s;
         var v = s2 / s;
         //パースペクティブコレクトを適用しつつ、面積比で任意のUV座標を求める
-        var w = (1 - u - v) * 1 / p1_p.w + u * 1 / p2_p.w + v * 1 / p3_p.w;
-        return ((1 - u - v) * t1UV / p1_p.w + u * t2UV / p2_p.w + v * t3UV / p3_p.w) / w;
+        var areaRatio = (1 - u - v) * 1 / p1_p.w + u * 1 / p2_p.w + v * 1 / p3_p.w;
+        return ((1 - u - v) * t1UV / p1_p.w + u * t2UV / p2_p.w + v * t3UV / p3_p.w) / areaRatio;
     }
     
     /// <summary>
