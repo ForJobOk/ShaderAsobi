@@ -52,16 +52,15 @@ public class CollisionRipple : MonoBehaviour
     {
         //衝突座標(ワールド座標)
         var hitPos = other.ClosestPointOnBounds(transform.position);
-
         //ワールド座標からローカル座標に変換
         var hitLocalPos = transform.InverseTransformPoint(hitPos);
         //pをuvに変換して代入　成功したら実行
         if (LocalPointToUV(hitLocalPos, out var uv))
         {
-            //クリック時に使用するUpdateZone
-            //クリックした箇所を更新の原点とする
-            //使用するパスもクリック用に変更
-            var clickZone = new CustomRenderTextureUpdateZone
+            //衝突時に使用するUpdateZone
+            //衝突した箇所を更新の原点とする
+            //使用するパスも衝突用に変更
+            var interactiveZone = new CustomRenderTextureUpdateZone
             {
                 needSwap = true,
                 passIndex = 1,
@@ -70,7 +69,7 @@ public class CollisionRipple : MonoBehaviour
                 updateZoneSize = new Vector2(_ripppleSize, _ripppleSize)
             };
 
-            _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, clickZone});
+            _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, interactiveZone});
         }
     }
 
@@ -112,8 +111,8 @@ public class CollisionRipple : MonoBehaviour
             //同一平面上に任意の座標が定義されているかどうかチェック
             if (!CheckInPlane(localPoint, t1, t2, t3))
                 continue;
-            //境界面(辺の上、頂点の真上)もチェック
-            if (!CheckOnTriangleEdge(localPoint, t1, t2, t3) && !ExistPointInTriangle(localPoint, t1, t2, t3))
+            //三角形の内部に存在するかどうか　境界面(辺の上、頂点の真上)もチェック
+            if (!CheckOnTriangleEdge(localPoint, t1, t2, t3) && !CheckInTriangle(localPoint, t1, t2, t3))
                 continue;
 
             //三角形の各頂点のUVを取得
@@ -166,7 +165,7 @@ public class CollisionRipple : MonoBehaviour
     /// <param name="t2">三角形ポリゴンの頂点座標2</param>
     /// <param name="t3">三角形ポリゴンの頂点座標3</param>
     /// <returns>同一平面上に存在する任意の座標が三角形内部に存在していたらTrue</returns>
-    private bool ExistPointInTriangle(Vector3 p, Vector3 t1, Vector3 t2, Vector3 t3)
+    private bool CheckInTriangle(Vector3 p, Vector3 t1, Vector3 t2, Vector3 t3)
     {
         //外積により三角形ポリゴンの各頂点の法線方向を算出
         var a = Vector3.Cross(t1 - t3, p - t1).normalized;
