@@ -63,9 +63,9 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _IntervalSec: 7
+    - _IntervalSec: 1
     - _LineSize: 0.02
-    - _LineSpeed: 5
+    - _LineSpeed: 0.4
     - _MaxAlpha: 0.5
     - _Metallic: 0
     - _Mode: 0
