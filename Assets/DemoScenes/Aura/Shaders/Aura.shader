@@ -11,7 +11,7 @@
         [HDR] _EmissionColor ("Emission Color", Color) = (0,0,0)  
         //色の境界の位置
         _ColorBorder("ColorBorder",Range(0,1)) = 0.5
-         //ラインの速度
+        //ラインの速度
         _LineSpeed("LineSpeed",Range(0,10)) = 5
         //ラインの間隔
         _LineSpace("LineSpace",Range(0,100)) = 15
