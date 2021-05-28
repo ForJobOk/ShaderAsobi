@@ -2,7 +2,7 @@
 {
     Properties
     {
-        _Color1("Color 1",Color) = (0,0,0,0)
+        _Color1("Color 1",Color) = (0,0,0,1)
         _Color2("Color 2",Color) = (1,1,1,1)
     }
     
@@ -23,17 +23,13 @@
             //頂点シェーダーに渡ってくる頂点データ
             struct appdata
             {
-                //セミコロン以降の大文字はセマンティクスと呼ばれる　
-                //この変数は　○○を受け取ります　みたいなやつらしい
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0; //1番目のUV座標　という意味らしい　なるほどわからん
             };
 
             //フラグメントシェーダーへ渡すデータ
             struct v2f
             {
-                float2 uv : TEXCOORD0; //テクスチャUV
-                float4 vertex : SV_POSITION; //座標変換された後の頂点座標
+                float4 vertex : SV_POSITION;
                 float3 worldPos : WORLD_POS;
             };
 
@@ -48,15 +44,16 @@
                 //mulは行列の掛け算をやってくれる関数
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.vertex = UnityObjectToClipPos(v.vertex); //3D空間座標→スクリーン座標変換
-                o.uv = v.uv; //受け取ったUV座標をフラグメントシェーダーでも使う？
                 return o;
             }
 
             //フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
-                float interpolation = dot(normalize(i.worldPos),normalize(float2(1.0f,1.0f)));
-                //float interpolation = dot(i.worldPos,normalize(float2(1.0f,1.0f)));
+                //各ピクセルのワールド座標の位置ベクトルは正規化していないパターン
+                //float interpolation = dot(i.worldPos,normalize(float2(0,1)));
+                
+                float interpolation = dot(normalize(i.worldPos),normalize(float2(0,1)));
                 fixed4 col = lerp(_Color1,_Color2, interpolation);
                 return col;
             }
