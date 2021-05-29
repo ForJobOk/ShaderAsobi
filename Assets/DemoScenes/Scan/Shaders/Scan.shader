@@ -66,7 +66,7 @@ Shader "Custom/Scan"
                 float timeDelta = (_TimeFactor *_LineSpeed);
                 //カメラの正面方向にエフェクトを進める
                 //UNITY_MATRIX_V[2].xyzでWorldSpaceのカメラの向きが取得できる
-                //カメラの向きを内積を利用することでカメラの方向にスキャンを
+                //カメラと同じ方向へピクセルのワールド座標が向かうほど内積の結果は大きくなる
                 float dotResult = dot(i.worldPos,normalize(-UNITY_MATRIX_V[2].xyz));
                 //時間変化に伴い値を減算する
                 float linePosition = abs(dotResult - timeDelta);
