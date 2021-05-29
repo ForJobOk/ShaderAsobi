@@ -198,3 +198,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート28　テッセレーションで波紋表現](https://zenn.dev/kento_o/articles/730c368c3c29b2)  
 
 ---
+
+### ClickRipple
+クリックした箇所を起点に波紋を発生。  
+
+`Assets/DemoScenes/Ripple/Scenes/ClickRipple`  
+
+【参考リンク】  
+[そろそろShaderをやるパート29　マウスクリックした箇所に波紋を発生させる](https://zenn.dev/kento_o/articles/4ea79fff0101a9)  
+
+---
