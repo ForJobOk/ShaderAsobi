@@ -188,3 +188,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート27　波動方程式とCustomRenderTextureで波紋を描画](https://zenn.dev/kento_o/articles/300954cbd453da)  
 
 ---
+
+### Tessellation
+テッセレーションでポリゴンを自動で分割。  
+
+`Assets/DemoScenes/Tessellation/Scenes/Tessellation`  
+
+【参考リンク】  
+[そろそろShaderをやるパート28　テッセレーションで波紋表現](https://zenn.dev/kento_o/articles/730c368c3c29b2)  
+
+---
