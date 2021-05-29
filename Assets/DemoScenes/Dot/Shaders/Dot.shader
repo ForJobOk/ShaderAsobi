@@ -5,7 +5,7 @@
         _Color1("Color 1",Color) = (0,0,0,1)
         _Color2("Color 2",Color) = (1,1,1,1)
     }
-    
+
     SubShader
     {
         Tags
@@ -50,11 +50,15 @@
             //フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
-                //各ピクセルのワールド座標の位置ベクトルは正規化していないパターン
-                //float interpolation = dot(i.worldPos,normalize(float2(0,1)));
-                
-                float interpolation = dot(normalize(i.worldPos),normalize(float2(0,1)));
-                fixed4 col = lerp(_Color1,_Color2, interpolation);
+                //各ピクセルのワールド座標の位置ベクトルを正規化していないパターン
+                //float interpolation = dot(i.worldPos,float2(0,1));
+
+                //斜め方向のベクトルを利用
+                //float interpolation = dot(i.worldPos,normalize(float2(1,1))));
+
+                //単位ベクトル同士
+                float interpolation = dot(normalize(i.worldPos), float2(0, 1));
+                fixed4 col = lerp(_Color1, _Color2, interpolation);
                 return col;
             }
             ENDCG
