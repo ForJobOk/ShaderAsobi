@@ -66,9 +66,10 @@ Shader "Custom/Scan"
                 float timeDelta = (_TimeFactor *_LineSpeed);
                 //カメラの正面方向にエフェクトを進める
                 //UNITY_MATRIX_V[2].xyzでWorldSpaceのカメラの向きが取得できる
-                float direction = dot(i.worldPos,normalize(-UNITY_MATRIX_V[2].xyz));
-                //進行方向に対して時間変化に伴い値を加算する
-                float linePosition = abs(direction - timeDelta);
+                //カメラの向きを内積を利用することでカメラの方向にスキャンを
+                float dotResult = dot(i.worldPos,normalize(-UNITY_MATRIX_V[2].xyz));
+                //時間変化に伴い値を減算する
+                float linePosition = abs(dotResult - timeDelta);
                 //スキャンラインの大きさを計算　step(a,b) はbがaより大きい場合1を返す
                 //すなわち、_LineSizeが大きくなればstepが1を返す値の範囲も大きくなる
                 float scanline = step(linePosition,_LineSize);
@@ -81,7 +82,7 @@ Shader "Custom/Scan"
                 //ここまでの計算結果を元に色を反映
                 float4 color = _LineColor * scanline + _TrajectoryColor * trajectory;
                 //透明度調整 clamp(a,b,c) aの値をb～cの間に収める
-                color.a = clamp(alpha*_AlphaFactor,0, _MaxAlpha);
+                color.a = clamp(alpha *_AlphaFactor,0, _MaxAlpha);
                 return color;
             }
             ENDCG
