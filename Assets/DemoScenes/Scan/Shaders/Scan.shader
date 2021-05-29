@@ -49,6 +49,7 @@ Shader "Custom/Scan"
             
             //C#から受け取る
             float _TimeFactor;
+            float _AlphaFactor;
 
             v2f vert(appdata v)
             {
@@ -62,7 +63,7 @@ Shader "Custom/Scan"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float timeDelta = (_TimeFactor * _LineSpeed);
+                float timeDelta = (_TimeFactor *_LineSpeed);
                 //カメラの正面方向にエフェクトを進める
                 //UNITY_MATRIX_V[2].xyzでWorldSpaceのカメラの向きが取得できる
                 float direction = dot(i.worldPos,normalize(-UNITY_MATRIX_V[2].xyz));
@@ -80,7 +81,7 @@ Shader "Custom/Scan"
                 //ここまでの計算結果を元に色を反映
                 float4 color = _LineColor * scanline + _TrajectoryColor * trajectory;
                 //透明度調整 clamp(a,b,c) aの値をb～cの間に収める
-                color.a = clamp(alpha,0, _MaxAlpha);
+                color.a = clamp(alpha*_AlphaFactor,0, _MaxAlpha);
                 return color;
             }
             ENDCG

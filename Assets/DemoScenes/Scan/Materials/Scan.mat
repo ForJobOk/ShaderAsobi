@@ -84,5 +84,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LineColor: {r: 0.8301887, g: 0.15134625, b: 0.003915994, a: 1}
-    - _TrajectoryColor: {r: 1, g: 0.20258228, b: 0, a: 1}
+    - _LineColor: {r: 0.003921578, g: 0.69073224, b: 0.83137256, a: 1}
+    - _TrajectoryColor: {r: 0, g: 0.54560447, b: 1, a: 1}
