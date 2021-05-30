@@ -4,13 +4,11 @@ using UnityEngine;
 /// アニメーションで変化させた値をShaderで使ってみる
 /// </summary>
 [ExecuteAlways] //こいつ付けとけばEditorでプレビュー可能
-public class TimeUseToShader : MonoBehaviour
+public class ParameterToShader : MonoBehaviour
 {
     // シェーダーで利用する値たち　C#側ではAnimatorで変化させる
     public float TimeValue;
     public float AlphaValue;
-
-    private Vector3 cameraDirection;
 
     /// <summary>
     /// ジオメトリシェーダーを適用したオブジェクトのレンダラー
