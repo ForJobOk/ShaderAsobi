@@ -1,4 +1,4 @@
-﻿Shader "Custom/Dot"
+﻿Shader "Custom/Repeat"
 {
     Properties
     {
@@ -50,14 +50,9 @@
             //フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
-                //各ピクセルのワールド座標の位置ベクトルを正規化していないパターン
-                //float interpolation = dot(i.worldPos,float2(0,1));
-
-                //斜め方向のベクトルを利用
-                //float interpolation = dot(i.worldPos,normalize(float2(1,1)));
-
-                //単位ベクトル同士
-                float interpolation = dot(normalize(i.worldPos), float2(0, 1));
+                float dotResult = dot(i.worldPos,normalize(float2(1,1)));
+                float repeat = abs(dotResult - _Time.w);
+                float interpolation = step(fmod(repeat,1),0.1);
                 fixed4 col = lerp(_Color1, _Color2, interpolation);
                 return col;
             }
