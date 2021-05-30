@@ -72,9 +72,9 @@ Shader "Custom/Scan"
                 //スキャンラインの大きさを計算　step(a,b) はbがaより大きい場合1を返す
                 //すなわち、_LineSizeが大きくなればstepが1を返す値の範囲も大きくなる
                 float scanline = step(linePosition,_LineSize);
-                //軌跡の大きさを計算 smoothstep(a,b,c) はcがa以下の時は0、b以上の時は1、0～1は補間
+                //軌跡の大きさを計算 smoothstep(a,b,c) はcがa以下の時は0、b以上の時は1、a～bは補間
                 //1 - smoothstep(a,b,c)とすることで補間値を逆転できる　
-                //つまり 1 - smoothstep(a,b,c) はcがa以上の時は1、b以下の時は0、0～1は補間
+                //つまり 1 - smoothstep(a,b,c) はcがa以上の時は1、b以下の時は0、a～bは補間
                 float trajectory = 1 - smoothstep(_LineSize,_LineSize + _TrajectorySize, linePosition);
                 //同様にして徐々に透過させる
                 float alpha = 1 - smoothstep(_LineSize, (_LineSize + _TrajectorySize) *_TrajectoryAlpha, linePosition);
