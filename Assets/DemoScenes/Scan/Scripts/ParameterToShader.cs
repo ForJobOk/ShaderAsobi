@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// アニメーションで変化させた値をShaderで使ってみる
+/// アニメーションで変化させた値をShaderで使う
 /// </summary>
 [ExecuteAlways] //こいつ付けとけばEditorでプレビュー可能
 public class ParameterToShader : MonoBehaviour
