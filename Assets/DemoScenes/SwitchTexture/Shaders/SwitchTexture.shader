@@ -3,7 +3,7 @@
     Properties
     {
         _FrontTexture ("Front Texture", 2D) = "white" {}
-        _BackTexture ("Front Texture", 2D) = "white" {}
+        _BackTexture ("Back Texture", 2D) = "white" {}
     }
 
     SubShader
@@ -26,7 +26,7 @@
             sampler2D  _BackTexture;
 
             //C#から受け取る値
-            float _Interpolation;
+            float _Threshold;
             
             struct appdata
             {
@@ -52,7 +52,8 @@
             {
                 float4 frontCol = tex2D(_FrontTexture,i.uv);
                 float4 backCol = tex2D(_BackTexture,i.uv);
-                float4 finalCol = lerp(backCol,frontCol,_Interpolation);               
+                float interpolation = 1 - step(_Threshold,0);
+                float4 finalCol = lerp(backCol,frontCol,interpolation);               
                 return finalCol;
             }
             ENDCG
