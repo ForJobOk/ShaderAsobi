@@ -18,7 +18,7 @@
 
             struct v2f
             {
-                half3 worldNormal : TEXCOORD0;
+                half3 normal : TEXCOORD0;
                 float4 pos : SV_POSITION;
             };
 
@@ -28,15 +28,15 @@
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 //法線方向のベクトル
-                //o.worldNormal = v.normal; ローカル座標系の法線
-                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                //o.normal = v.normal; ローカル座標系の法線
+                o.normal = UnityObjectToWorldNormal(v.normal);
                 return o;
             }
 
             //フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
-                return float4(i.worldNormal,0);
+                return float4(i.normal,1);
             }
             ENDCG
         }
