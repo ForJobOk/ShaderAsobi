@@ -2,8 +2,9 @@
 {
     Properties
     {
-        _FrontTexture ("Front Texture", 2D) = "white" {}
         _BackTexture ("Back Texture", 2D) = "white" {}
+        _FrontTexture ("Front Texture", 2D) = "white" {}
+        [Toggle] _RenderSwitch("RenderSwitch", Float) = 0
     }
 
     SubShader
@@ -24,9 +25,7 @@
 
             sampler2D  _FrontTexture;
             sampler2D  _BackTexture;
-
-            //C#から受け取る値
-            float _Threshold;
+            float _RenderSwitch;
             
             struct appdata
             {
@@ -52,8 +51,7 @@
             {
                 float4 frontCol = tex2D(_FrontTexture,i.uv);
                 float4 backCol = tex2D(_BackTexture,i.uv);
-                float interpolation = 1 - step(_Threshold,0);
-                float4 finalCol = lerp(backCol,frontCol,interpolation);               
+                float4 finalCol = lerp(backCol,frontCol,_RenderSwitch);               
                 return finalCol;
             }
             ENDCG
