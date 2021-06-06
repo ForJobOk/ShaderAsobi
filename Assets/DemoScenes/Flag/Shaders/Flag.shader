@@ -4,8 +4,8 @@
     {
         _MainTex("MainTex", 2D) = "grey" {}
         _MainColor("MainColor", Color) = (1,1,1,1)
-        _Frequency("Frequency ", Range(0, 3)) = 1
-        _Amplitude("Amplitude", Range(0, 1)) = 0.5
+        _Frequency("Frequency ", Range(0, 3)) = 1 //周波
+        _Amplitude("Amplitude", Range(0, 1)) = 0.5 //振幅
         _WaveSpeed("WaveSpeed",Range(0, 20)) = 10
     }
 
@@ -16,7 +16,9 @@
             "Queue" = "Transparent" "RenderType" = "Transparent"
         }
 
+        //両面描画
         Cull off
+        //透過対応
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -74,9 +76,8 @@
                 v2f o;
 
                 float2 factors = _Time.w * _WaveSpeed + v.uv.xy * _Frequency;
-                //float2 factors = _Time.w * _WaveSpeed + v.vertex.xz * _Frequency;
-                float2 offsetYFactors = sin(factors) * _Amplitude * (1 - v.uv.y) * perlinNoise(_Time);
-                v.vertex.y += offsetYFactors.x + offsetYFactors.y;
+                float2 offsetFactor = sin(factors) * _Amplitude * (1 - v.uv.y) * perlinNoise(_Time);
+                v.vertex.y += offsetFactor.x + offsetFactor.y;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 return o;
@@ -85,8 +86,8 @@
             fixed4 frag(v2f i) : SV_Target
             {
                 float4 texColor = tex2D(_MainTex, i.uv);
-                texColor *= _MainColor;
-                return texColor;
+                float4 finalColor = texColor * _MainColor;
+                return finalColor;
             }
             ENDCG
         }
