@@ -33,8 +33,8 @@
             struct v2f
             {
                 float4 pos:SV_POSITION;
-                half3 worldNormal:TEXCOORD0;
-                fixed3 ambient : COLOR0; //環境光
+                float3 worldNormal:TEXCOORD0;
+                float3 ambient : COLOR0; //環境光
             };
 
             //頂点シェーダー

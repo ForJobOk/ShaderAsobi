@@ -27,7 +27,7 @@
             struct v2f
             {
                 float4 pos:SV_POSITION;
-                half3 worldNormal:TEXCOORD0;
+                float3 worldNormal:TEXCOORD0;
             };
 
             //頂点シェーダー
