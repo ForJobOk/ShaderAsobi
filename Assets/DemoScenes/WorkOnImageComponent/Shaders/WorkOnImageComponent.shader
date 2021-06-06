@@ -24,14 +24,14 @@
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float4 color    : COLOR;
+                float4 color : COLOR;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float4 color    : COLOR;
+                float4 color : COLOR;
             };
 
             sampler2D _MainTex;
@@ -48,6 +48,7 @@
             fixed4 frag(v2f i) : SV_Target
             {              
                 float4 finalColor = tex2D(_MainTex,i.uv);
+                //頂点カラーを使用する
                 float4 vertexColor = i.color;
                 return finalColor * vertexColor;
             }
