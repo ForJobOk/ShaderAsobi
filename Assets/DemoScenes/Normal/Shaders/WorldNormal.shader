@@ -13,7 +13,6 @@
             {
                 float4 vertex:POSITION;
                 float3 normal:NORMAL;
-                float3 tangent:TANGENT;
             };
 
             struct v2f
@@ -36,7 +35,7 @@
             //フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
-                return float4(i.normal,1);
+                return float4(i.normal, 1);
             }
             ENDCG
         }
