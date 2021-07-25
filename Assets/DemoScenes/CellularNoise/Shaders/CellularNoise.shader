@@ -88,7 +88,7 @@
 
                         m_dist = min(m_dist, length(diff));
 
-                        waveColor =  lerp(_WaterColor,_FoamColor,smoothstep(_FoamPower,1,m_dist));
+                        waveColor =  lerp(_WaterColor,_FoamColor,smoothstep(1-_FoamPower,1,m_dist));
                     }
                 }
                 
