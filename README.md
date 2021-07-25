@@ -239,3 +239,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート32　繰り返し処理を行う](https://zenn.dev/kento_o/articles/5ae9f1909bf687)  
 
 ---
+
+### Scan
+空間をスキャンする表現。  
+
+`Assets/DemoScenes/Scan/Scenes/Scan`  
+
+【参考リンク】  
+[そろそろShaderをやるパート33　空間スキャン表現](https://zenn.dev/kento_o/articles/9c9c5d61aa2829)  
+
+---
