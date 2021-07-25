@@ -1,4 +1,4 @@
-﻿Shader "Custom/Border"
+﻿Shader "Custom/ToonWave"
 {
    Properties
     {
