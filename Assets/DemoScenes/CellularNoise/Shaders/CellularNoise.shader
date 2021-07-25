@@ -7,8 +7,6 @@
         _WaveSpeed("WaveSpeed", Range(1,10)) = 1
         _FoamPower("FoamPower", Range(0,1)) = 0.6
         _FoamColor("FoamColor", Color) = (1, 1, 1, 1)
-        _EdgeColor("EdgeColor", Color) = (1, 1, 1, 1)
-        _DepthFactor("Depth Factor", float) = 1.0
     }
     SubShader
     {
@@ -47,10 +45,8 @@
             int _SquareNum;
             fixed4 _WaterColor;
             fixed4 _FoamColor; 
-            fixed4 _EdgeColor;
             float _WaveSpeed;
             float _FoamPower;
-            float _DepthFactor;
             
             v2f vert (appdata v)
             {
