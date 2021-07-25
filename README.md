@@ -219,3 +219,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート30　衝突座標から波紋を発生させる](https://zenn.dev/kento_o/articles/64f758526a21a4)  
 
 ---
+
+### Dot
+内積を利用してテクスチャを塗分け。  
+
+`Assets/DemoScenes/Dot/Scenes/Dot`  
+
+【参考リンク】  
+[そろそろShaderをやるパート31　内積を使う](https://zenn.dev/kento_o/articles/256861c7ca52ce)  
+
+---
