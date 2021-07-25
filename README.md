@@ -8,6 +8,12 @@ Shaderの勉強記録です。
 
 ---
 
+## バージョン情報
+Unity 2019.4.8f1  
+Oculus Integration v29
+
+---
+
 ### Unite2017
 
 Unite2017の動画を見ながら基礎をおさらい。  
@@ -259,3 +265,5 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート34　法線を使う](https://zenn.dev/kento_o/articles/2fc138bf7b311d)  
 
 ---
+
+### 
