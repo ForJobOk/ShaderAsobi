@@ -229,3 +229,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート31　内積を使う](https://zenn.dev/kento_o/articles/256861c7ca52ce)  
 
 ---
+
+### Repeat
+繰り返し処理を行う。  
+
+`Assets/DemoScenes/Repeat/Scenes/Repeat`  
+
+【参考リンク】  
+[そろそろShaderをやるパート32　繰り返し処理を行う](https://zenn.dev/kento_o/articles/5ae9f1909bf687)  
+
+---
