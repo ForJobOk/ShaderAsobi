@@ -74,12 +74,12 @@
                 //ポスタライズ 
                 float posterize1 = floor(frac(perlinNoise(_SinTime) * 10) / (1 / _FrameRate)) * (1 / _FrameRate);
                 float posterize2 = floor(frac(perlinNoise(_SinTime) * 5) / (1 / _FrameRate)) * (1 / _FrameRate);
-                //uv.x方向のノイズ計算 -0.1 < random < 0.1
+                //uv.x方向のノイズ計算 -0.1 < noiseX < 0.1
                 float noiseX = (2.0 * rand(posterize1) - 0.5) * 0.1;
                 //step(t,x) はxがtより大きい場合1を返す
                 float frequency = step(rand(posterize2), _Frequency);
                 noiseX *= frequency;
-                //uv.y方向のノイズ計算 -1 < random < 1
+                //uv.y方向のノイズ計算 -1 < noiseY < 1
                 float noiseY = 2.0 * rand(posterize1) - 0.5;
                 //グリッチの高さの補間値計算 どの高さに出現するかは時間変化でランダム
                 float glitchLine1 = step(uv.y - noiseY, rand(noiseY));
