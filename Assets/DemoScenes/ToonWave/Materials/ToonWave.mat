@@ -70,7 +70,7 @@ Material:
     - _DepthFactor: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamPower: 0.088
+    - _FoamPower: 0.642
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -98,4 +98,4 @@ Material:
     - _MainColor: {r: 0, g: 0, b: 0, a: 0}
     - _TopColor: {r: 1, g: 0, b: 0.58695984, a: 0}
     - _UnderColor: {r: 0, g: 1, b: 0.7467458, a: 0.49019608}
-    - _WaterColor: {r: 0, g: 1.6941177, b: 2, a: 0.6666667}
+    - _WaterColor: {r: 0, g: 1.6941177, b: 2, a: 0.3254902}

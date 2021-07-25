@@ -33,7 +33,7 @@
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float4 screenPos : TEXCOORD1;
+                float4 pos : TEXCOORD1;
             };
 
             float2 random2(float2 st)
@@ -56,7 +56,7 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.screenPos = ComputeScreenPos(o.vertex);
+                o.pos = ComputeScreenPos(o.vertex);
                 o.uv = v.uv;
                 return o;
             }
@@ -93,9 +93,9 @@
                 }
                 
                 //深度の計算　おまじない
-                float4 depthSample = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos));
+                float4 depthSample = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.pos));
                 half depth = LinearEyeDepth(depthSample);
-                half screenDepth = depth - i.screenPos.w;
+                half screenDepth = depth - i.pos.w;
                 float edgeLine = 1 - saturate(_DepthFactor * screenDepth);
                 fixed4 finalColor = lerp(waveColor, _EdgeColor, edgeLine);
                 

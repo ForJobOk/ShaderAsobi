@@ -70,7 +70,7 @@ Material:
     - _DepthFactor: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamPower: 0.6
+    - _FoamPower: 0.626
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
