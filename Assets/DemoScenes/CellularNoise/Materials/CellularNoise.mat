@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dent
-  m_Shader: {fileID: 4800000, guid: 45f06d1a73154bd4f94559df9eebebc5, type: 3}
+  m_Name: CellularNoise
+  m_Shader: {fileID: 4800000, guid: 34b589677123daa499e6882e715a9de2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -67,8 +67,10 @@ Material:
     - _BumpScale: 1
     - _ColorBorder: 1
     - _Cutoff: 0.5
+    - _DepthFactor: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FoamPower: 0.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,6 +83,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SquareNum: 5
     - _SrcBlend: 1
     - _UVSec: 0
     - _WaveLine: 0.692
@@ -88,8 +91,11 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 766.9961, g: 762.9804, b: 0, a: 0.98039216}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _LineColor: {r: 0, g: 0.4891553, b: 1, a: 0.48235294}
     - _MainColor: {r: 0, g: 0, b: 0, a: 0}
     - _TopColor: {r: 1, g: 0, b: 0.58695984, a: 0}
     - _UnderColor: {r: 0, g: 1, b: 0.7467458, a: 0.49019608}
+    - _WaterColor: {r: 0.09, g: 0.89, b: 1, a: 1}
