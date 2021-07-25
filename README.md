@@ -249,3 +249,13 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 [そろそろShaderをやるパート33　空間スキャン表現](https://zenn.dev/kento_o/articles/9c9c5d61aa2829)  
 
 ---
+
+### Normal
+法線を利用して色を塗分ける。  
+
+`Assets/DemoScenes/Normal/Scenes/Normal`  
+
+【参考リンク】  
+[そろそろShaderをやるパート34　法線を使う](https://zenn.dev/kento_o/articles/2fc138bf7b311d)  
+
+---
