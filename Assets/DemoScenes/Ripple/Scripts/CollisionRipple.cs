@@ -7,7 +7,7 @@ public class CollisionRipple : MonoBehaviour
 {
     [SerializeField] private CustomRenderTexture _customRenderTexture;
     [SerializeField, Range(0.001f, 0.05f)] private float _ripppleSize = 0.01f;
-    [SerializeField] private int iterationPerFrame = 5;
+    [SerializeField] private int _iterationPerFrame = 5;
 
     private CustomRenderTextureUpdateZone _defaultZone;
 
@@ -45,7 +45,7 @@ public class CollisionRipple : MonoBehaviour
         //UpdateZoneはリセット
         _customRenderTexture.ClearUpdateZones();
         //更新したいフレーム数を指定して更新
-        _customRenderTexture.Update(iterationPerFrame);
+        _customRenderTexture.Update(_iterationPerFrame);
     }
 
     private void OnTriggerStay(Collider other)

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RippleForCRT
+  m_Name: CRTRipple
   m_Shader: {fileID: 4800000, guid: 8b4cb628b545c0e4a840c334185bd1dd, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
