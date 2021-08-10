@@ -6,7 +6,7 @@ CustomRenderTexture:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SnowViaScriptCRT
+  m_Name: CushionViaScriptCRT
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -50,8 +50,8 @@ CustomRenderTexture:
     rotation: 0
     passIndex: 0
     needSwap: 1
-  - updateZoneCenter: {x: 0.49999955, y: 0.627, z: 0}
-    updateZoneSize: {x: 0.05, y: 0.05, z: 0}
+  - updateZoneCenter: {x: 0.59999996, y: 0.83, z: 0}
+    updateZoneSize: {x: 0.1, y: 0.1, z: 0}
     rotation: 0
     passIndex: 1
     needSwap: 1

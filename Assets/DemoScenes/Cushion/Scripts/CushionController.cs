@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// オブジェクトが衝突した箇所を凹ませる
 /// </summary>
-public class SnowController : MonoBehaviour
+public class CushionController : MonoBehaviour
 {
     [SerializeField] private CustomRenderTexture _customRenderTexture;
-    [SerializeField, Range(0.001f, 0.1f)] private float _size = 0.01f;
     [SerializeField] private int _iterationPerFrame = 5;
-
-    [SerializeField] private GameObject cu;
-
+    
     private CustomRenderTextureUpdateZone _defaultZone;
 
     private const float TOLERANCE = 1E-2f;
@@ -56,6 +50,7 @@ public class SnowController : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //衝突座標(ワールド座標)
+        //ClosestPointOnBoundsは正確な値を返さなかったのでオブジェクトのバウンズの原点を使う
         var hitPos = other.bounds.center;
         hitPos.y = transform.position.y;
         //ワールド座標からローカル座標に変換
@@ -63,8 +58,9 @@ public class SnowController : MonoBehaviour
         //pをuvに変換して代入　成功したら実行
         if (LocalPointToUV(hitLocalPos, out var uv))
         {
-
-            cu.transform.localPosition = hitPos;
+            var boundsSize = other.bounds.size;
+            var planeScale = transform.localScale;
+            
             //衝突時に使用するUpdateZone
             //衝突した箇所を更新の原点とする
             //使用するパスも衝突用に変更
@@ -74,7 +70,8 @@ public class SnowController : MonoBehaviour
                 passIndex = 1,
                 rotation = 0f,
                 updateZoneCenter = new Vector2(uv.x, 1 - uv.y),
-                updateZoneSize = new Vector2(other.bounds.size.x*1/transform.localScale.x*0.1f, other.bounds.size.z*1/transform.localScale.z*0.1f)
+                //汚いけどこれで丁度良い感じの範囲が凹む
+                updateZoneSize = new Vector2(boundsSize.x * 1 / planeScale.x * 0.1f, boundsSize.z * 1 / planeScale.z * 0.1f)
             };
 
             _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, interactiveZone});

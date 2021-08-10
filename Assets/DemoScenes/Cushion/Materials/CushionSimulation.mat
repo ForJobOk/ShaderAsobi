@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Snow
+  m_Name: CushionSimulation
   m_Shader: {fileID: 4800000, guid: 44f2aafc23d6c4d4d8bce2d96c260249, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

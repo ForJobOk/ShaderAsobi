@@ -1,4 +1,4 @@
-﻿Shader "Custom/SnowSimulation"
+﻿Shader "Custom/CushionSimulation"
 {
     Properties
     {
@@ -16,8 +16,7 @@
         float2 uv = i.globalTexcoord;
         // 現在の位置のテクセルをフェッチ
         float2 self = tex2D(_SelfTexture2D, uv);
-        
-        // 現在の状態をテクスチャのR成分に、ひとつ前の（過去の）状態をG成分に書き込む。
+        //徐々に凹みが元に戻る
         return float4(self.r * 0.99, 0, 0, 0);
     }
 
@@ -27,7 +26,7 @@
         float2 uv = i.globalTexcoord;
         // 現在の位置のテクセルをフェッチ
         float2 self = tex2D(_SelfTexture2D, uv);
-        
+        //徐々に凹む
         return float4(clamp((self.r - 0.01) * 1.0001,_InteractiveDisplacement,0), 0, 0, 0);
     }
     
