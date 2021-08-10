@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// オブジェクトが衝突した箇所を凹ませる
@@ -8,6 +11,8 @@ public class SnowController : MonoBehaviour
     [SerializeField] private CustomRenderTexture _customRenderTexture;
     [SerializeField, Range(0.001f, 0.1f)] private float _size = 0.01f;
     [SerializeField] private int _iterationPerFrame = 5;
+
+    [SerializeField] private GameObject cu;
 
     private CustomRenderTextureUpdateZone _defaultZone;
 
@@ -51,23 +56,15 @@ public class SnowController : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //衝突座標(ワールド座標)
-        var hitPos = other.ClosestPointOnBounds(transform.position);
+        var hitPos = other.bounds.center;
+        hitPos.y = transform.position.y;
         //ワールド座標からローカル座標に変換
         var hitLocalPos = transform.InverseTransformPoint(hitPos);
         //pをuvに変換して代入　成功したら実行
         if (LocalPointToUV(hitLocalPos, out var uv))
         {
-            Debug.Log(uv.x);
-            
-            if(uv.x > 0.49)
-            {
-                uv.x += 0.05f;
-            }
-            else if(uv.x < 0.5)
-            {
-                uv.x -= 0.05f;
-            }
-            
+
+            cu.transform.localPosition = hitPos;
             //衝突時に使用するUpdateZone
             //衝突した箇所を更新の原点とする
             //使用するパスも衝突用に変更
@@ -77,7 +74,7 @@ public class SnowController : MonoBehaviour
                 passIndex = 1,
                 rotation = 0f,
                 updateZoneCenter = new Vector2(uv.x, 1 - uv.y),
-                updateZoneSize = new Vector2(_size, _size)
+                updateZoneSize = new Vector2(other.bounds.size.x*1/transform.localScale.x*0.1f, other.bounds.size.z*1/transform.localScale.z*0.1f)
             };
 
             _customRenderTexture.SetUpdateZones(new CustomRenderTextureUpdateZone[] {_defaultZone, interactiveZone});
@@ -138,7 +135,8 @@ public class SnowController : MonoBehaviour
         uv = default(Vector3);
         return false;
     }
-
+    
+    
     /// <summary>
     /// 同一平面上に任意の座標が定義されているかどうか判定
     /// </summary>
@@ -227,9 +225,9 @@ public class SnowController : MonoBehaviour
         Vector2 p_n = new Vector2(p_p.x, p_p.y) / p_p.w;
         //頂点のなす三角形を点pにより3分割し、必要になる面積を計算
         //三角形を二分割して底辺×高さを計算した後に÷2してる
-        var s = ((p2_n.x - p1_n.x) * (p3_n.y - p1_n.y) - (p2_n.y - p1_n.y) * (p3_n.x - p1_n.x)) / 2; //全体
-        var s1 = ((p3_n.x - p_n.x) * (p1_n.y - p_n.y) - (p3_n.y - p_n.y) * (p1_n.x - p_n.x)) / 2; //分割した一部
-        var s2 = ((p1_n.x - p_n.x) * (p2_n.y - p_n.y) - (p1_n.y - p_n.y) * (p2_n.x - p_n.x)) / 2; //分割した一部
+        var s = ((p2_n.x - p1_n.x) * (p3_n.y - p1_n.y) - (p2_n.y - p1_n.y) * (p3_n.x - p1_n.x)) * 0.5f; //全体
+        var s1 = ((p3_n.x - p_n.x) * (p1_n.y - p_n.y) - (p3_n.y - p_n.y) * (p1_n.x - p_n.x)) * 0.5f; //分割した一部
+        var s2 = ((p1_n.x - p_n.x) * (p2_n.y - p_n.y) - (p1_n.y - p_n.y) * (p2_n.x - p_n.x)) * 0.5f; //分割した一部
         //面積比からuvを補間 
         var u = s1 / s;
         var v = s2 / s;

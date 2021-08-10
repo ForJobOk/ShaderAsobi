@@ -24,7 +24,11 @@
     //インタラクティブに応じて利用されるフラグメントシェーダー
     float4 frag_interactive(v2f_customrendertexture i) : SV_Target
     {
-        return float4(_InteractiveDisplacement, 0, 0, 0);
+        float2 uv = i.globalTexcoord;
+        // 現在の位置のテクセルをフェッチ
+        float2 self = tex2D(_SelfTexture2D, uv);
+        
+        return float4(clamp((self.r - 0.01) * 1.0001,_InteractiveDisplacement,0), 0, 0, 0);
     }
     
     ENDCG
