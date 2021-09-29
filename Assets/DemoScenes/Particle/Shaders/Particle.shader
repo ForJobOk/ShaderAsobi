@@ -28,17 +28,16 @@
             struct appdata
             {
                 float4 vertex : POSITION;
-                float4 color : COLOR;
                 float2 uv : TEXCOORD0;
-                // TEXCOORD1でcolorSourceを受け取るようにする
+                 // TEXCOORD1でcolorSourceを受け取るようにする
                 float3 colorSource : TEXCOORD1;
             };
 
             struct v2f
             {
                 float4 vertex : SV_POSITION;
-                float4 color : COLOR;
                 float2 uv : TEXCOORD0;
+                float3 colorSource : TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -48,7 +47,7 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
-                o.color.rgb = v.colorSource;
+                o.colorSource = v.colorSource;
                 return o;
             }
 
@@ -58,7 +57,7 @@
                 fixed4 tex_color = tex2D(_MainTex, i.uv);
                 //引数の値が"0以下なら"描画しない　すなわち"Alphaが0.5以下なら"描画しない
                 clip(tex_color.a - 0.5);
-                return tex_color * i.color;
+                return tex_color * float4(i.colorSource,1);
             }
             ENDCG
         }
