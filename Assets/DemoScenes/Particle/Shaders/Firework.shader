@@ -1,4 +1,4 @@
-﻿Shader "Custom/Particle"
+﻿Shader "Custom/Firework"
 {
     Properties
     {
@@ -29,8 +29,9 @@
             {
                 float4 vertex : POSITION;
                 float4 uv : TEXCOORD0;
+                //COLORを受け取る変数color
                 float4 color : COLOR;
-                // TEXCOORD1でcolorSourceを受け取るようにする
+                //TEXCOORD1を受け取る変数alpha
                 float alpha : TEXCOORD1;
             };
 
@@ -38,7 +39,7 @@
             {
                 float4 vertex : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR1;
+                float4 color : COLOR;
             };
 
             sampler2D _MainTex;
