@@ -31,7 +31,6 @@
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float4 screenPos : TEXCOORD1;
             };
 
             float2 random2(float2 st)
@@ -52,7 +51,6 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.screenPos = ComputeScreenPos(o.vertex);
                 o.uv = v.uv;
                 return o;
             }
