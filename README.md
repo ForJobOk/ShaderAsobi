@@ -266,4 +266,85 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 
 ---
 
-### 
+### Diffuse
+拡散反射。Directional Light、環境光も反映。  
+
+`Assets/DemoScenes/Normal/Scenes/Diffuse`  
+
+【参考リンク】  
+[そろそろShaderをやるパート35　Diffuse(拡散反射)](https://zenn.dev/kento_o/articles/b0c1b356e76adb)  
+
+【参考リンク】  
+[そろそろShaderをやるパート36　Directional Light、環境光を反映する](https://zenn.dev/kento_o/articles/185ce2b8b2895f)  
+
+---
+
+### Shade
+影の表現。
+
+`Assets/DemoScenes/Normal/Scenes/Shade`  
+
+【参考リンク】  
+[そろそろShaderをやるパート37　影を落とす、受ける](https://zenn.dev/kento_o/articles/e858928f1c1d58)  
+
+---
+
+### Glitch
+グリッチ表現。
+
+`Assets/DemoScenes/Normal/Scenes/Glitch`  
+
+【参考リンク】  
+[そろそろShaderをやるパート38　グリッチ表現](https://zenn.dev/kento_o/articles/08ec03e29ed636)  
+
+---
+
+### Holo
+ホログラム表現。
+
+`Assets/DemoScenes/Normal/Scenes/Holo`  
+
+【参考リンク】  
+[そろそろShaderをやるパート39　グリッチによるホログラムっぽい表現](https://zenn.dev/kento_o/articles/95ffe7efa32c16)  
+
+---
+
+### SwitchTexture
+Textureを切り替えたカードがめくれる表現。
+
+`Assets/DemoScenes/Normal/Scenes/SwitchTexture`  
+
+【参考リンク】  
+[そろそろShaderをやるパート40　カードがめくれる表現をDoTweenと組み合わせて作る](https://zenn.dev/kento_o/articles/8574c37b80219b)  
+
+---
+
+### WorkOnImageComponent
+Imageコンポーネント上で適切に動くShader。
+
+`Assets/DemoScenes/Normal/Scenes/WorkOnImageComponent`  
+
+【参考リンク】  
+[そろそろShaderをやるパート41　Imageコンポーネントの色変更に対応したShader](https://zenn.dev/kento_o/articles/6fb06d0c1f64e5)  
+
+---
+
+### Flag
+風でたなびく旗のような表現。
+
+`Assets/DemoScenes/Normal/Scenes/Flag`  
+
+【参考リンク】  
+[そろそろShaderをやるパート42　風でたなびく旗のような表現](https://zenn.dev/kento_o/articles/7acc5edcbb45cf)  
+
+---
+
+### CellularNoise
+セルラーノイズで波打ち表現。
+
+`Assets/DemoScenes/Normal/Scenes/CellularNoise`  
+
+【参考リンク】  
+[そろそろShaderをやるパート43　セルラーノイズでトゥーン調の波を作ってみる](https://zenn.dev/kento_o/articles/37799c671d7b0c)  
+
+---
