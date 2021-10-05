@@ -1,4 +1,4 @@
-﻿Shader "Custom/Hex"
+﻿Shader "Custom/HexFloor"
 {
     Properties
     {
@@ -64,9 +64,11 @@
                 // カメラとオブジェクトの距離(長さ)を取得
                 // _WorldSpaceCameraPos：定義済の値　ワールド座標系のカメラの位置
                 float cameraToObjLength = length(_WorldSpaceCameraPos - i.worldPos);
-                
+
+                //六角形描画のUVを利用して補間値を計算
                 float interpolation = hex(i.uv,_RepeatFactor);
                 float3 finalColor = lerp(_MainColor,0,interpolation);
+                //六角形描画のUVを利用してアルファを塗分け
                 float alpha = lerp(1,0,interpolation);
                 alpha *= lerp(1,0,cameraToObjLength*_DistanceInterpolation);
                 clip(alpha);

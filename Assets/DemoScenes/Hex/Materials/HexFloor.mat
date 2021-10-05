@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlitchJaggy
+  m_Name: HexFloor
   m_Shader: {fileID: 4800000, guid: de2971dfe7045e54983b6e278d5a19e7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -27,6 +27,7 @@ Material:
     - _Alpha: 0.5
     - _ColorGap: 0.079
     - _Distance: 0.132
+    - _DistanceInterpolation: 0.103
     - _FrameRate: 13.8
     - _Frequency: 0.616
     - _GlitchLineSize: 0
@@ -37,4 +38,4 @@ Material:
     - _RepeatFactor: 100
     m_Colors:
     - _LineColor: {r: 0.6367924, g: 0.8608387, b: 1, a: 1}
-    - _MainColor: {r: 0, g: 0.35408783, b: 1, a: 1}
+    - _MainColor: {r: 0, g: 0.3529415, b: 1, a: 1}
