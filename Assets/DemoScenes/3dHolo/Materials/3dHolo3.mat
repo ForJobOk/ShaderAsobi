@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 3dHolo3
+  m_Shader: {fileID: 4800000, guid: 31b7bfae36e908b44a310756abdab0c3, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 833d3d7c1b282c24f96b951306c5fad7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0.5
+    - _ColorGap: 0.079
+    - _FrameRate: 6.5
+    - _Frequency: 0.026
+    - _GlitchLineSize: 0
+    - _GlitchNoiseValue: 0.091
+    - _GlitchScale: 1
+    - _GlitchSize: 0.01
+    - _GlitchTime: 1
+    - _LineSize: 0.946
+    - _LineSpeed: 9.37
+    - _WorldScale: 20
+    m_Colors:
+    - _LineColor: {r: 0.6367924, g: 0.8608387, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 1, g: 0.09822595, b: 0, a: 1}
