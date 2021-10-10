@@ -20,6 +20,12 @@
         {
             Pass
             {
+               ZWrite On
+               ColorMask 0
+            }
+
+            Pass
+            {
                 CGPROGRAM
                 #pragma vertex vert
                 #pragma fragment frag
