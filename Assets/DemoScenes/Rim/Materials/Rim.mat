@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rim3
+  m_Name: Rim
   m_Shader: {fileID: 4800000, guid: 140ed2a9db3d5e244bcdd5ffb5937d76, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -35,9 +35,9 @@ Material:
     - _GlitchTime: 1
     - _LineSize: 0.946
     - _LineSpeed: 9.37
-    - _RimPower: 0.834
+    - _RimPower: 1
     - _WorldScale: 20
     m_Colors:
     - _LineColor: {r: 0.6367924, g: 0.8608387, b: 1, a: 1}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 0.15686275}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0, g: 1, b: 0.46726418, a: 0.20392157}
