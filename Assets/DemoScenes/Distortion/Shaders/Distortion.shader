@@ -14,8 +14,8 @@
             "Queue" = "Transparent" "RenderType" = "Transparent"
         }
         
-
-        ZWrite Off
+        //不当明度を利用するときに必要 文字通り、1 - フラグメントシェーダーのAlpha値　という意味
+        Blend SrcAlpha OneMinusSrcAlpha
 
         GrabPass
         {
@@ -42,8 +42,10 @@
                 half4 vertex : SV_POSITION;
                 half2 uv : TEXCOORD0;
                 half4 grabPos : TEXCOORD1;
+                float4 scrPos : TEXCOORD2;
             };
 
+            sampler2D _CameraDepthTexture;
             sampler2D _DistortionTex;
             sampler2D _GrabPassTexture;
             half _DistortionPower;
@@ -56,22 +58,31 @@
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 o.grabPos = ComputeGrabScreenPos(o.vertex);
+                //ComputeScreenPosによってxyが0〜wに変換される
+                o.scrPos = ComputeScreenPos(o.vertex);
 
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-
+                float4 depthSample = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos));
+                //平面の深度情報
+                float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
+                //スクリーンに描画されるピクセルの深度情報
+                half screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
+               
                 // w除算
-                half2 uv = half2(i.grabPos.x / i.grabPos.w, i.grabPos.y / i.grabPos.w);
+                half2 uv = i.grabPos.xy / i.grabPos.w;
 
                 // Distortionの値に応じてサンプリングするUVをずらす
-                half2 distortion = UnpackNormal(tex2D(_DistortionTex, i.uv + _Time.x * 0.1f)).rg;
+                half2 distortion = tex2D(_DistortionTex, i.uv + _Time.x).rg - 0.5;
                 distortion *= _DistortionPower;
 
-                uv += distortion;
-                return tex2D(_GrabPassTexture, uv) * _Color;
+                //screenDepth ≧ surfDepth のとき 0 を返す
+                uv += distortion * step(screenDepth,surfDepth);
+                float edge = 1 - saturate(screenDepth);
+                return lerp(_Color, tex2D(_GrabPassTexture, uv), edge);
             }
             ENDCG
         }
