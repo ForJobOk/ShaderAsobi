@@ -2,9 +2,9 @@
 {
     Properties
     {
-        _DistortionTex("Distortion Texture(RG)", 2D) = "grey" {}
-        _DistortionPower("Distortion Power", Range(0, 1)) = 0
-        _Color("WaterColor", Color) = (0,0,0,0)
+        _DistortionPower("Distortion Power", Range(0, 0.1)) = 0
+        _WaterColor("WaterColor", Color) = (0,0,0,0)
+        _DepthFactor("Depth Factor", float) = 1.0
     }
 
     SubShader
@@ -46,10 +46,10 @@
             };
 
             sampler2D _CameraDepthTexture;
-            sampler2D _DistortionTex;
             sampler2D _GrabPassTexture;
             half _DistortionPower;
-            half4 _Color;
+            half4 _WaterColor;
+            float _DepthFactor;
 
             v2f vert(appdata v)
             {
@@ -72,17 +72,18 @@
                 //スクリーンに描画されるピクセルの深度情報
                 half screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
                
-                // w除算
+                //w除算
                 half2 uv = i.grabPos.xy / i.grabPos.w;
 
-                // Distortionの値に応じてサンプリングするUVをずらす
-                half2 distortion = tex2D(_DistortionTex, i.uv + _Time.x).rg - 0.5;
+                //Distortionの値に応じてサンプリングするUVをずらす
+                half2 distortion =  sin(i.uv.y * 50 + _Time.w) * 0.1f;
                 distortion *= _DistortionPower;
 
                 //screenDepth ≧ surfDepth のとき 0 を返す
                 uv += distortion * step(screenDepth,surfDepth);
-                float edge = 1 - saturate(screenDepth);
-                return lerp(_Color, tex2D(_GrabPassTexture, uv), edge);
+                                
+                float edge = 1 - saturate(_DepthFactor * screenDepth);
+                return lerp(_WaterColor, tex2D(_GrabPassTexture, uv), edge);
             }
             ENDCG
         }
