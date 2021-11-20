@@ -16,7 +16,47 @@
         
         //不当明度を利用するときに必要 文字通り、1 - フラグメントシェーダーのAlpha値　という意味
         Blend SrcAlpha OneMinusSrcAlpha
+        
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
+            #include "UnityCG.cginc"
+
+            
+            struct appdata
+            {
+                half4 vertex : POSITION;
+                half4 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                half4 vertex : SV_POSITION;
+                half2 uv : TEXCOORD0;
+            };
+
+            half4 _WaterColor;
+
+            v2f vert(appdata v)
+            {
+                v2f o = (v2f)0;
+
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
+                return o;
+            }
+
+            fixed4 frag(v2f i) : SV_Target
+            {
+                return _WaterColor;
+            }
+
+            ENDCG
+        }
+        
         GrabPass
         {
             "_GrabPassTexture"
