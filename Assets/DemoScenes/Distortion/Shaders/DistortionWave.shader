@@ -35,14 +35,14 @@
 
             struct appdata
             {
-                half4 vertex : POSITION;
-                half4 uv : TEXCOORD0;
+                float4 vertex : POSITION;
+                float4 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                half4 vertex : SV_POSITION;
-                half2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
                 float4 scrPos : TEXCOORD1;
             };
 
@@ -120,7 +120,7 @@
         GrabPass
         {
             //ここで定義した名前で取得可能になる
-            "_GrabPassTexture"
+            "_GrabPassTextureForDistortionWave"
         }
 
         //2パス目
@@ -149,7 +149,7 @@
             };
 
             sampler2D _CameraDepthTexture;
-            sampler2D _GrabPassTexture;
+            sampler2D _GrabPassTextureForDistortionWave;
             float _DistortionPower;
 
             v2f vert(appdata v)
@@ -171,19 +171,19 @@
                 //平面の深度情報
                 float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
                 //スクリーンに描画されるピクセルの深度情報
-                half screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
+                float screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
 
                 //w除算
-                half2 uv = i.grabPos.xy / i.grabPos.w;
+                float2 uv = i.grabPos.xy / i.grabPos.w;
 
                 //Distortionの値に応じてサンプリングするUVをずらす
-                half2 distortion = sin(i.uv.y * 50 + _Time.w) * 0.1f;
+                float2 distortion = sin(i.uv.y * 50 + _Time.w) * 0.1f;
                 distortion *= _DistortionPower;
 
                 //screenDepth ≧ surfDepth のとき 0 を返す
                 uv += distortion * step(screenDepth, surfDepth);
 
-                return tex2D(_GrabPassTexture, uv);
+                return tex2D(_GrabPassTextureForDistortionWave, uv);
             }
             ENDCG
         }

@@ -3,7 +3,7 @@
     Properties
     {
         _DistortionPower("Distortion Power", Range(0, 0.1)) = 0
-        _WaterColor("WaterColor", Color) = (0,0,0,0)
+        [HDR]_WaterColor("WaterColor", Color) = (0,0,0,0)
         _DepthFactor("Depth Factor", float) = 1.0
     }
 
@@ -28,17 +28,17 @@
             
             struct appdata
             {
-                half4 vertex : POSITION;
-                half4 uv : TEXCOORD0;
+                float4 vertex : POSITION;
+                float4 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                half4 vertex : SV_POSITION;
-                half2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
             };
 
-            half4 _WaterColor;
+            float4 _WaterColor;
 
             v2f vert(appdata v)
             {
@@ -59,7 +59,7 @@
         
         GrabPass
         {
-            "_GrabPassTexture"
+            "_GrabPassTextureForDistortion"
         }
 
         Pass
@@ -73,22 +73,22 @@
 
             struct appdata
             {
-                half4 vertex : POSITION;
-                half4 uv : TEXCOORD0;
+                float4 vertex : POSITION;
+                float4 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                half4 vertex : SV_POSITION;
-                half2 uv : TEXCOORD0;
-                half4 grabPos : TEXCOORD1;
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
+                float4 grabPos : TEXCOORD1;
                 float4 scrPos : TEXCOORD2;
             };
 
             sampler2D _CameraDepthTexture;
-            sampler2D _GrabPassTexture;
-            half _DistortionPower;
-            half4 _WaterColor;
+            sampler2D _GrabPassTextureForDistortion;
+            float _DistortionPower;
+            float4 _WaterColor;
             float _DepthFactor;
 
             v2f vert(appdata v)
@@ -110,20 +110,19 @@
                 //平面の深度情報
                 float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
                 //スクリーンに描画されるピクセルの深度情報
-                half screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
+                float screenDepth = LinearEyeDepth(depthSample) - i.scrPos.w;
                
                 //w除算
-                half2 uv = i.grabPos.xy / i.grabPos.w;
+                float2 uv = i.grabPos.xy / i.grabPos.w;
 
                 //Distortionの値に応じてサンプリングするUVをずらす
-                half2 distortion =  sin(i.uv.y * 50 + _Time.w) * 0.1f;
+                float2 distortion =  sin(i.uv.y * 50 + _Time.w) * 0.1f;
                 distortion *= _DistortionPower;
 
                 //screenDepth ≧ surfDepth のとき 0 を返す
                 uv += distortion * step(screenDepth,surfDepth);
                                 
-                float edge = 1 - saturate(_DepthFactor * screenDepth);
-                return lerp(_WaterColor, tex2D(_GrabPassTexture, uv), edge);
+                return tex2D(_GrabPassTextureForDistortion, uv);
             }
             ENDCG
         }
