@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Distortion
-  m_Shader: {fileID: 4800000, guid: f8e696f3e92fdc24993228b750e87838, type: 3}
+  m_Name: DistortionWave
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -21,10 +21,6 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpTex:
-        m_Texture: {fileID: 2800000, guid: 361ccd0334ca019419466998ff89c17e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -37,10 +33,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DistortionTex:
-        m_Texture: {fileID: 2800000, guid: 361ccd0334ca019419466998ff89c17e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -63,34 +55,49 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Alpha: 0.5
+    - _Amplitude: 0.5
     - _BumpScale: 1
+    - _ColorBorder: 0.5
+    - _ColorGap: 0.01
     - _Cutoff: 0.5
-    - _DepthFactor: 2.19
     - _DetailNormalMapScale: 1
-    - _DiffuseShade: 0.501
-    - _Distortion: -0.236
-    - _DistortionPower: 0.06
     - _DstBlend: 0
-    - _FoamPower: 0.642
+    - _FrameRate: 15
+    - _Frequency: 1
+    - _GlitchScale: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LineSize: 0.5
+    - _LineSpace: 15
+    - _LineSpeed: 5
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RimPower: 0.4
+    - _SliceSpace: 15
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SquareNum: 5
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WaveSpeed: 5
+    - _WaveSpeed: 10
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.6973363, b: 0.9716981, a: 1}
-    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.3308518, b: 1, a: 1}
+    - _Color1: {r: 0, g: 0, b: 0, a: 1}
+    - _Color2: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.86987084, g: 1, b: 0.10196078, a: 1}
-    - _WaterColor: {r: 0, g: 0.8156863, b: 1, a: 0.8156863}
+    - _LineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
+    - _TintColor: {r: 0, g: 0.5, b: 1, a: 1}
+    - _TopColor: {r: 0, g: 0, b: 0, a: 0}
+    - _UnderColor: {r: 0, g: 0, b: 0, a: 0}
