@@ -120,10 +120,10 @@
                 float screenPosition = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
 
                 //w除算
-                float2 uv = depthUV * step(screenPosition,screenDepth) / i.grabPos.w;
+                float2 uv = (i.grabPos.xy + distortion *step(screenPosition,screenDepth)) / i.grabPos.w;
                 //screenDepth ≧ screenPosition のとき 0 を返す
-                //step(t, x) xの値がtよりも小さい場合には0、大きい場合には1を返す
-                //uv += distortion * step(screenDepth,screenPosition);
+                //step(a,b) aの値がbよりも大きい場合には0、小さい場合には1を返す
+                //uv *= step(screenPosition,screenDepth);
                                 
                 return tex2D(_GrabPassTextureForDistortion, uv);
             }
