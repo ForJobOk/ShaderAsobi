@@ -2,7 +2,7 @@
 {
 	Properties
 	{
-		_Color ("Color", Color) = (1, 1, 1, 1)
+		[HDR]_Color ("Color", Color) = (1, 1, 1, 1)
 		_BumpTex ("BumpTexture", 2D) = "white" {}
 		_Distortion ("Distortion", Range(-0.3, 0.3)) = 0
 	}
