@@ -10,6 +10,8 @@
         _FoamPower("FoamPower", Range(0,1)) = 0.6
         _FoamColor("FoamColor", Color) = (1, 1, 1, 1)
         _EdgeColor("EdgeColor", Color) = (1, 1, 1, 1)
+        _Frequency("Frequency ", Range(0, 3)) = 1
+        _Amplitude("Amplitude", Range(0, 1)) = 0.5
     }
 
     SubShader
@@ -28,16 +30,32 @@
             //ここで定義した名前で取得可能になる
             "_GrabPassTextureForDistortionWave"
         }
+        
+        //パスを跨いで活用できる変数や関数
+        CGINCLUDE
+        
+        float _WaveSpeed;
+        float _Amplitude;
+        float _Frequency;
+
+        #pragma vertex vert
+        #pragma fragment frag
+        
+        #include "UnityCG.cginc"
+        
+        float vertex_wave(float2 vert,float waveSpeed,float amplitude,float frequency)
+        {
+             float2 factors = _Time.x * waveSpeed + vert * frequency;
+             float2 offsetYFactors = sin(factors) * amplitude;
+             return  offsetYFactors.x + offsetYFactors.y;
+        }
+        ENDCG
 
         //揺らぎの表現を頑張る　描画結果を利用する
         Pass
         {
 
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-
-            #include "UnityCG.cginc"
 
             struct appdata
             {
@@ -56,11 +74,12 @@
             sampler2D _CameraDepthTexture;
             sampler2D _GrabPassTextureForDistortionWave;
             float _DistortionPower;
-
+            
             v2f vert(appdata v)
             {
                 v2f o = (v2f)0;
-
+                
+                v.vertex.y += vertex_wave(v.vertex.xz,_WaveSpeed,_Amplitude,_Frequency);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 o.grabPos = ComputeGrabScreenPos(o.vertex);
@@ -101,11 +120,6 @@
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-
-            #include "UnityCG.cginc"
-
 
             struct appdata
             {
@@ -122,7 +136,6 @@
 
             float4 _WaterColor;
             int _SquareNum;
-            float _WaveSpeed;
             float _FoamPower;
             float4 _FoamColor;
             float4 _EdgeColor;
@@ -140,10 +153,12 @@
             {
                 v2f o = (v2f)0;
 
+                v.vertex.y += vertex_wave(v.vertex.xz,_WaveSpeed,_Amplitude,_Frequency);;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                //ComputeScreenPosによってxyが0〜wに変換される
+                 //ComputeScreenPosによってxyが0〜wに変換される
                 o.scrPos = ComputeScreenPos(o.vertex);
                 o.uv = v.uv;
+                
                 return o;
             }
 
