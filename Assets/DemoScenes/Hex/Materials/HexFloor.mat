@@ -27,7 +27,7 @@ Material:
     - _Alpha: 0.5
     - _ColorGap: 0.079
     - _Distance: 0.132
-    - _DistanceInterpolation: 0.103
+    - _DistanceInterpolation: 0.187
     - _FrameRate: 13.8
     - _Frequency: 0.616
     - _GlitchLineSize: 0
