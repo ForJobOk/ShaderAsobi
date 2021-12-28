@@ -64,15 +64,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Amplitude: 0.087
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthFactor: 2.19
+    - _DepthFactor: 6.65
     - _DetailNormalMapScale: 1
     - _DiffuseShade: 0.501
     - _Distortion: -0.236
-    - _DistortionPower: 0.0172
+    - _DistortionPower: 0.1
     - _DstBlend: 0
     - _FoamPower: 0.642
+    - _Frequency: 3
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
