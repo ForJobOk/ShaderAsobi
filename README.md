@@ -219,7 +219,6 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 オブジェクトが衝突した箇所から波紋を出す。  
 
 `Assets/DemoScenes/Ripple/Scenes/CollisionRipple`  
-`Assets/DemoScenes/Ripple/Scenes/VRHandCollisionRipple`  　
 
 【参考リンク】  
 [そろそろShaderをやるパート30　衝突座標から波紋を発生させる](https://zenn.dev/kento_o/articles/64f758526a21a4)  
