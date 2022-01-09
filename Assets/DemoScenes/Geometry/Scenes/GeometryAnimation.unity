@@ -188,9 +188,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PositionFactor: 0.7
-    - _RotationFactor: 0.01
-    - _ScaleFactor: 1
+    - _PositionFactor: 0
+    - _RotationFactor: 0
+    - _ScaleFactor: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -307,7 +307,7 @@ Animator:
   m_GameObject: {fileID: 1313316863}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3b73b5c62c951e4da6598c66a63dcf3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 65726a150e22f724e900b15c0d7e8a24, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

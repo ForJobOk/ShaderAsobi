@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 297947902}
   - component: {fileID: 297947901}
   m_Layer: 0
-  m_Name: Quad (1)
+  m_Name: RotationQuad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1550952523}
   - component: {fileID: 1550952522}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: RotationQuad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

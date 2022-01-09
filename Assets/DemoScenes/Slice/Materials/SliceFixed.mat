@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SliceFixed
-  m_Shader: {fileID: 4800000, guid: a9f8fcafc6bc5244caf98f0ab403382a, type: 3}
+  m_Shader: {fileID: 4800000, guid: c66731a57c8d2ee438cd6945c183bd2f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

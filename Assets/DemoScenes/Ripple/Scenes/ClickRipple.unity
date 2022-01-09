@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15a702f91786a4db2884ebdfb386dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customRenderTexture: {fileID: 8600000, guid: 243bb019111d16c429007c406951fcc3,
+  _customRenderTexture: {fileID: 8600000, guid: 9c7fb9460aaf955478e7979c151214a4,
     type: 2}
   _ripppleSize: 0.01
   iterationPerFrame: 2
