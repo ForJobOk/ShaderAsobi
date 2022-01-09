@@ -4,7 +4,7 @@ Shaderの勉強記録です。
 100記事分くらい学べば私レベルの初心者でも  
 まあまあ理解できるかなと思ってやりました。  
 
-各記事とサンプルシーンを紐付けとくので勉強したい方は参考にどうぞ。  
+各記事とサンプルシーンを紐付けとくので参考にしたい方はどうぞお使いください。  
 
 ---
 
@@ -218,7 +218,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### CollisionRipple
 オブジェクトが衝突した箇所から波紋を出す。  
 
-`Assets/DemoScenes/Ripple/Scenes/ClickRipple`  
+`Assets/DemoScenes/Ripple/Scenes/CollisionRipple`  
 `Assets/DemoScenes/Ripple/Scenes/VRHandCollisionRipple`  　
 
 【参考リンク】  
