@@ -348,3 +348,73 @@ Imageコンポーネント上で適切に動くShader。
 [そろそろShaderをやるパート43　セルラーノイズでトゥーン調の波を作ってみる](https://zenn.dev/kento_o/articles/37799c671d7b0c)  
 
 ---
+
+### ToonWave
+波打ち際の表現。
+
+`Assets/DemoScenes/ToonWave/Scenes/ToonWave`  
+
+【参考リンク】  
+[そろそろShaderをやるパート44　深度テクスチャで波打ち際の表現](https://zenn.dev/kento_o/articles/66eb17d31c2a4a)  
+
+---
+
+### Cushion
+クッションのように凹む表現。
+
+`Assets/DemoScenes/Cushion/Scenes/Cushion`  
+
+【参考リンク】  
+[そろそろShaderをやるパート45　クッションのような凹み表現](https://zenn.dev/kento_o/articles/2aa94236bb9b97)  
+
+---
+
+### Firework
+ParticleからShaderへ値を渡すサンプル。花火。
+
+`Assets/DemoScenes/Firework/Scenes/Firework`  
+
+【参考リンク】  
+[そろそろShaderをやるパート46　ParticleからShaderへ値を渡す](https://zenn.dev/kento_o/articles/7dc0449b6577cd)  
+
+---
+
+### Distorition
+水面の歪みのような表現。
+
+`Assets/DemoScenes/Distortion/Scenes/Distorition`  
+
+【参考リンク】  
+[そろそろShaderをやるパート47　水面の歪みのような表現](https://zenn.dev/kento_o/articles/6d8b80e235d099)  
+
+---
+
+### RichToonWave
+トゥーン調の水面の表現。
+
+`Assets/DemoScenes/Distortion/Scenes/RichToonWave`  
+
+【参考リンク】  
+[そろそろShaderをやるパート48　ちょっとだけリッチなトゥーン調の波を作る](https://zenn.dev/kento_o/articles/c7ec9522b3cabc)  
+
+---
+
+### RichToonWave
+トゥーン調の水面の表現。
+
+`Assets/DemoScenes/Rim/Scenes/Rim`  
+
+【参考リンク】  
+[そろそろShaderをやるパート49　リムライト](https://zenn.dev/kento_o/articles/63ed1cb3fd069b)  
+
+---
+
+### HexFloor
+六角形のサイバーな床の表現。
+
+`Assets/DemoScenes/Hex/Scenes/HexFloor`  
+
+【参考リンク】  
+[トそろそろShaderをやるパート50　サイバーな床の表現](https://zenn.dev/kento_o/articles/198d17395bf108)  
+
+---
