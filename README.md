@@ -399,8 +399,8 @@ ParticleからShaderへ値を渡すサンプル。花火。
 
 ---
 
-### RichToonWave
-トゥーン調の水面の表現。
+### Rim
+リムライト表現。
 
 `Assets/DemoScenes/Rim/Scenes/Rim`  
 
