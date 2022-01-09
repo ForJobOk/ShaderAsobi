@@ -379,10 +379,10 @@ ParticleからShaderへ値を渡すサンプル。花火。
 
 ---
 
-### Distorition
+### Distortion
 水面の歪みのような表現。
 
-`Assets/DemoScenes/Distortion/Scenes/Distorition`  
+`Assets/DemoScenes/Distortion/Scenes/Distortion`  
 
 【参考リンク】  
 [そろそろShaderをやるパート47　水面の歪みのような表現](https://zenn.dev/kento_o/articles/6d8b80e235d099)  
