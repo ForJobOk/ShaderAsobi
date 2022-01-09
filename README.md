@@ -10,7 +10,9 @@ Shaderの勉強記録です。
 
 ## バージョン情報
 Unity 2019.4.8f1  
-Oculus Integration v29
+[DoTween](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676?locale=ja-JP) 1.2.632
+
+※DoTweenは各自でインポートが必要です。
 
 ---
 
