@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3dHolo1
+  m_Name: 3dHolo4
   m_Shader: {fileID: 4800000, guid: 31b7bfae36e908b44a310756abdab0c3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 833d3d7c1b282c24f96b951306c5fad7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d5bc70618862cb04b8e4366956d3e13d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -30,13 +30,15 @@ Material:
     - _Frequency: 0.026
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
-    - _GlitchScale: 1
+    - _GlitchScale: 4.9
     - _GlitchSize: 0.01
+    - _GlitchSpeed: 1.38
     - _GlitchTime: 1
     - _LineSize: 0.946
-    - _LineSpeed: 9.37
-    - _WorldScale: 4
+    - _LineSpeed: 1.09
+    - _WorldScale: 20
     m_Colors:
     - _LineColor: {r: 0.6367924, g: 0.8608387, b: 1, a: 1}
-    - _RimColor: {r: 0, g: 0.6638222, b: 1, a: 1}
-    - _TintColor: {r: 0, g: 0.5, b: 1, a: 1}
+    - _MainColor: {r: 0, g: 1, b: 0.8018553, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 1, g: 0.09822595, b: 0, a: 1}
