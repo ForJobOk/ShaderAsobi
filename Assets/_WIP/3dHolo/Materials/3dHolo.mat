@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3dHolo4
+  m_Name: 3dHolo
   m_Shader: {fileID: 4800000, guid: 31b7bfae36e908b44a310756abdab0c3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -24,13 +24,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 0.5
+    - _Alpha: 0.37
     - _ColorGap: 0.079
     - _FrameRate: 6.5
     - _Frequency: 0.026
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
-    - _GlitchScale: 4.9
+    - _GlitchScale: 0.74
     - _GlitchSize: 0.01
     - _GlitchSpeed: 1.38
     - _GlitchTime: 1

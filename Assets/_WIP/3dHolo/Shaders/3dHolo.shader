@@ -36,7 +36,6 @@
                 struct appdata_t
                 {
                     float4 vertex : POSITION;
-                    fixed4 color : COLOR;
                     float2 uv : TEXCOORD0;
                     float3 normal : NORMAL; // vertex normal
                     UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -45,7 +44,6 @@
                 struct v2f
                 {
                     float4 vertex : SV_POSITION;
-                    fixed4 color : COLOR;
                     float2 uv : TEXCOORD0;
                     float3 worldPos : TEXCOORD1;
                     float3 normalDir : TEXCOORD2;
@@ -106,10 +104,12 @@
 
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.uv = v.uv;
+                    //頂点にグリッチを反映
                     float2 noise = glitch_noise_calculate(o.uv);
                     o.vertex.x = lerp(o.vertex.x, o.vertex.x + noise.x * _GlitchScale, noise.y);
-                    o.color = v.color;
+                    //ワールド座標　スキャンラインに利用
                     o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                    //法線　リムに利用
                     o.normalDir = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);
                     return o;
                 }
