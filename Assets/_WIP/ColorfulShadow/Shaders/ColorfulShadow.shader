@@ -3,7 +3,7 @@ Shader "Custom/ColorfulShadow"
 
     Properties
     {
-         _Color("MainColor",Color) = (0,0,0,1)
+        _Color("MainColor",Color) = (0,0,0,1)
         _ShadowTex("ShadowTexture", 2D) = "white" {}
         _MainTex("MainTexture", 2D) = "white" {}
     }
@@ -26,7 +26,7 @@ Shader "Custom/ColorfulShadow"
             sampler2D _MainTex;
             sampler2D _ShadowTex;
             float4 _ShadowTex_ST;
-           float4 _Color;
+            float4 _Color;
 
             struct appdata
             {
@@ -47,6 +47,7 @@ Shader "Custom/ColorfulShadow"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 TRANSFER_SHADOW(o);
+                //タイリングとオフセットの処理
                 o.uv = float2(v.uv.xy * _ShadowTex_ST.xy + _ShadowTex_ST.zw);
                 o.uv2 = v.uv;
                 return o;
@@ -54,14 +55,16 @@ Shader "Custom/ColorfulShadow"
 
             float4 frag(v2f i) : COLOR
             {
-                float attenuation = SHADOW_ATTENUATION(i);
-                float4 shadowColor = tex2D(_ShadowTex,i.uv) *_Color;
-                float4 mainColor = tex2D(_MainTex,i.uv2);
-                return lerp(shadowColor,mainColor,attenuation);
+                //SHADOW_ATTENUATION　影の落ちる場所＝0、それ以外は1を返すマクロ
+                float interpolation = SHADOW_ATTENUATION(i);
+                float4 shadowColor = tex2D(_ShadowTex, i.uv) * _Color;
+                float4 mainColor = tex2D(_MainTex, i.uv2);
+                //影の場所とそれ以外の場所を塗分け
+                return lerp(shadowColor, mainColor, interpolation);
             }
             ENDCG
         }
-        
+
         //影を落とす処理を行うPass
         Pass
         {
