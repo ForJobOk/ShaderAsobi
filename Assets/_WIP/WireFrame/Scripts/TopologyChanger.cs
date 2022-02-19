@@ -12,8 +12,8 @@ public class TopologyChanger : MonoBehaviour
 
     void Start()
     {
-        mesh = GetComponent<MeshFilter>().mesh;
-        
+        mesh = GetComponent<MeshFilter>().sharedMesh;
+
         if (mesh.GetTopology(0) == MeshTopology.Triangles
             && mesh.triangles != null
             && mesh.triangles.Length > 0)
