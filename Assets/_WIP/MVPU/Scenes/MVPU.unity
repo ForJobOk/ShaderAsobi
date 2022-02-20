@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 466888704}
-  animationSeconds: 100
+  animationSeconds: 1000
 --- !u!23 &397792665
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -279,7 +279,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
