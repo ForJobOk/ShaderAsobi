@@ -15,7 +15,6 @@ public class CoordinateTransformation : MonoBehaviour
     {
         var mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        var vertices = new List<Vector3>();
 
         //頂点のインデックスを整える
         //この順番を参照して面ができあがる
@@ -47,16 +46,16 @@ public class CoordinateTransformation : MonoBehaviour
         var far = camera.farClipPlane;
 
         //カメラのパラメータから視錐台を計算
-        var nearFrustumHeight = 2.0f * near * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        var nearFrustumHeight = 2 * near * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
         var nearFrustumWidth = nearFrustumHeight * camera.aspect;
-        var farFrustumHeight = 2.0f * far * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        var farFrustumHeight = 2 * far * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
         var farFrustumWidth = farFrustumHeight * camera.aspect;
 
         var farHalf = far / 2;
 
         //視錐台を可視化するための頂点
         //四角錐の頂点を作成する
-        vertices = new List<Vector3>
+        var vertices = new List<Vector3>
         {
             // 0,1,2,3,4,5,6,7
             new Vector3(nearFrustumWidth * -0.5f, nearFrustumHeight * -0.5f, near),
@@ -70,32 +69,35 @@ public class CoordinateTransformation : MonoBehaviour
 
             // 8,9,10,11
             new Vector3(0, 0, farHalf),
-            new Vector3(10, 0, farHalf),
-            new Vector3(10, 0, farHalf + 10),
-            new Vector3(0, 0, farHalf + 10),
+            new Vector3(1, 0, farHalf),
+            new Vector3(1, 0, farHalf + 1),
+            new Vector3(0, 0, farHalf + 1),
             // 12,13,14
             new Vector3(0, 0, farHalf),
-            new Vector3(5f, 10, farHalf + 5f),
-            new Vector3(10, 0, farHalf),
+            new Vector3(0.5f, 1, farHalf + 0.5f),
+            new Vector3(1, 0, farHalf),
             // 15,16,17
-            new Vector3(10, 0, farHalf),
-            new Vector3(5f, 10, farHalf + 5f),
-            new Vector3(10, 0, farHalf + 10f),
+            new Vector3(1, 0, farHalf),
+            new Vector3(0.5f, 1, farHalf + 0.5f),
+            new Vector3(1, 0, farHalf + 1),
             // 18,19,20
-            new Vector3(10, 0, farHalf + 10f),
-            new Vector3(5f, 10, farHalf + 5f),
-            new Vector3(0, 0, farHalf + 10f),
+            new Vector3(1, 0, farHalf + 1),
+            new Vector3(0.5f, 1, farHalf + 0.5f),
+            new Vector3(0, 0, farHalf + 1),
             // 21,22,23
-            new Vector3(0, 0, farHalf + 10f),
-            new Vector3(5f, 10, farHalf + 5f),
+            new Vector3(0, 0, farHalf + 1),
+            new Vector3(0.5f, 1, farHalf + 0.5f),
             new Vector3(0, 0, farHalf),
         };
 
+        //まずはメッシュを作る
         mesh.Clear();
         mesh.SetVertices(vertices);
         mesh.SetTriangles(triangles,0);
         mesh.RecalculateBounds();
+        //理解用に待機
         yield return new WaitForSeconds(3.0f);
+        //頂点を変化させる
         StartCoroutine(UpdateVertices(vertices,mesh));
     }
 
@@ -132,7 +134,7 @@ public class CoordinateTransformation : MonoBehaviour
         //プロジェクション座標変換の最後の工程である除算を行う
         for (var i = 0; i < vertices.Count; i++)
         {
-            var vertex = vertexList[vertexList.Count - 1 - i];
+            var vertex = vertexList[i];
             StartCoroutine(VertexAnimationCoroutine(vertices,vertex,i,mesh));
         }
     }
