@@ -3,7 +3,7 @@
 /// <summary>
 /// トポロジーを変更する
 /// </summary>
-public class TopologyChanger : MonoBehaviour
+public class WireFrame : MonoBehaviour
 {
     /// <summary>
     /// メッシュ
@@ -30,17 +30,16 @@ public class TopologyChanger : MonoBehaviour
     /// <returns>三角形の辺の頂点の配列</returns>
     private int[] MakeIndices(int[] triangles)
     {
-        // 三角形の辺の頂点の数は、三角形の頂点の数の2倍
-        int[] indices = new int[2 * triangles.Length];
-        int i = 0;
+        var indices = new int[2 * triangles.Length];
+        var i = 0;
         for (int t = 0; t < triangles.Length; t += 3)
         {
-            indices[i++] = triangles[t]; //start
-            indices[i++] = triangles[t + 1]; //end
-            indices[i++] = triangles[t + 1]; //start
-            indices[i++] = triangles[t + 2]; //end
-            indices[i++] = triangles[t + 2]; //start
-            indices[i++] = triangles[t]; //end
+            indices[i++] = triangles[t];
+            indices[i++] = triangles[t + 1];
+            indices[i++] = triangles[t + 1];
+            indices[i++] = triangles[t + 2];
+            indices[i++] = triangles[t + 2];
+            indices[i++] = triangles[t];
         }
 
         return indices;

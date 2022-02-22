@@ -5,17 +5,33 @@ using UnityEngine;
 /// <summary>
 /// プロジェクション座標変換の過程を可視化する
 /// </summary>
-public class CoordinateTransformation : MonoBehaviour
+public class ProjectionCoordinateTransformation : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
-
+    /// <summary>
+    /// カメラは原点に固定する想定でメッシュを作る
+    /// </summary>
+    [SerializeField] private Camera fixedOriginCamera;
     [SerializeField, Range(0, 1000)] private float animationSeconds = 5f;
 
-    private IEnumerator Start()
+    private void Start()
     {
         var mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
+        var vertices = CreateVertexPositionList();
+        CreateMesh(mesh, vertices);
+
+        //頂点を変化させる
+        StartCoroutine(UpdateVertices(vertices, mesh));
+    }
+
+    /// <summary>
+    /// メッシュの作成
+    /// </summary>
+    /// <param name="mesh">MeshFilterに適用する予定のメッシュ</param>
+    /// <param name="vertices">頂点の座標リスト</param>
+    private void CreateMesh(Mesh mesh,List<Vector3> vertices)
+    {
         //頂点のインデックスを整える
         //この順番を参照して面ができあがる
         var triangles = new[]
@@ -40,18 +56,38 @@ public class CoordinateTransformation : MonoBehaviour
             15, 16, 17,
             18, 19, 21,
             21, 22, 23,
+            //四角錐の底面
+            27, 24, 25, 27, 25, 26,
+            //四角錐の側面
+            28, 29, 30,
+            31, 32, 33,
+            34, 35, 37,
+            37, 38, 39,
         };
+        
+        mesh.Clear();
+        mesh.SetVertices(vertices);
+        mesh.SetTriangles(triangles, 0);
+        mesh.RecalculateBounds();
+    }
 
-        var near = camera.nearClipPlane;
-        var far = camera.farClipPlane;
+    /// <summary>
+    /// 頂点の座標リストを作成する
+    /// </summary>
+    /// <returns>頂点の座標のリスト</returns>
+    private List<Vector3> CreateVertexPositionList()
+    {
+        var near = fixedOriginCamera.nearClipPlane;
+        var far = fixedOriginCamera.farClipPlane;
 
         //カメラのパラメータから視錐台を計算
-        var nearFrustumHeight = 2 * near * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        var nearFrustumWidth = nearFrustumHeight * camera.aspect;
-        var farFrustumHeight = 2 * far * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        var farFrustumWidth = farFrustumHeight * camera.aspect;
-
+        var nearFrustumHeight = 2 * near * Mathf.Tan(fixedOriginCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        var nearFrustumWidth = nearFrustumHeight * fixedOriginCamera.aspect;
+        var farFrustumHeight = 2 * far * Mathf.Tan(fixedOriginCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        var farFrustumWidth = farFrustumHeight * fixedOriginCamera.aspect;
+        
         var farHalf = far / 2;
+        var farQuarter = far / 4;
 
         //視錐台を可視化するための頂点
         //四角錐の頂点を作成する
@@ -70,35 +106,49 @@ public class CoordinateTransformation : MonoBehaviour
             // 8,9,10,11
             new Vector3(0, 0, farHalf),
             new Vector3(1, 0, farHalf),
-            new Vector3(1, 0, farHalf + 1),
-            new Vector3(0, 0, farHalf + 1),
+            new Vector3(1, 0, farHalf + 5),
+            new Vector3(0, 0, farHalf + 5),
             // 12,13,14
             new Vector3(0, 0, farHalf),
-            new Vector3(0.5f, 1, farHalf + 0.5f),
+            new Vector3(0.5f, 1, farHalf + 2.5f),
             new Vector3(1, 0, farHalf),
             // 15,16,17
             new Vector3(1, 0, farHalf),
-            new Vector3(0.5f, 1, farHalf + 0.5f),
-            new Vector3(1, 0, farHalf + 1),
+            new Vector3(0.5f, 1, farHalf + 2.5f),
+            new Vector3(1, 0, farHalf + 5),
             // 18,19,20
-            new Vector3(1, 0, farHalf + 1),
-            new Vector3(0.5f, 1, farHalf + 0.5f),
-            new Vector3(0, 0, farHalf + 1),
+            new Vector3(1, 0, farHalf + 5),
+            new Vector3(0.5f, 1, farHalf + 2.5f),
+            new Vector3(0, 0, farHalf + 5),
             // 21,22,23
-            new Vector3(0, 0, farHalf + 1),
-            new Vector3(0.5f, 1, farHalf + 0.5f),
+            new Vector3(0, 0, farHalf + 5),
+            new Vector3(0.5f, 1, farHalf + 2.5f),
             new Vector3(0, 0, farHalf),
+
+            // 24,25,26,27
+            new Vector3(0, 0, farQuarter),
+            new Vector3(-1, 0, farQuarter),
+            new Vector3(-1, 0, farQuarter + 5),
+            new Vector3(0, 0, farQuarter + 5),
+            // 28,29,30
+            new Vector3(0, 0, farQuarter),
+            new Vector3(-0.5f, 1, farQuarter + 2.5f),
+            new Vector3(-1, 0, farQuarter),
+            // 31,32,33
+            new Vector3(-1, 0, farQuarter),
+            new Vector3(-0.5f, 1, farQuarter + 2.5f),
+            new Vector3(-1, 0, farQuarter + 5),
+            // 34,35,36
+            new Vector3(-1, 0, farQuarter + 5),
+            new Vector3(-0.5f, 1, farQuarter + 2.5f),
+            new Vector3(0, 0, farQuarter + 5),
+            // 37,38,39
+            new Vector3(0, 0, farQuarter + 5),
+            new Vector3(-0.5f, 1, farQuarter + 2.5f),
+            new Vector3(0, 0, farQuarter),
         };
 
-        //まずはメッシュを作る
-        mesh.Clear();
-        mesh.SetVertices(vertices);
-        mesh.SetTriangles(triangles,0);
-        mesh.RecalculateBounds();
-        //理解用に待機
-        yield return new WaitForSeconds(3.0f);
-        //頂点を変化させる
-        StartCoroutine(UpdateVertices(vertices,mesh));
+        return vertices;
     }
 
     /// <summary>
@@ -106,7 +156,7 @@ public class CoordinateTransformation : MonoBehaviour
     /// </summary>
     /// <param name="vertices">頂点リスト</param>
     /// <param name="mesh">変更を適用したいメッシュ</param>
-    private IEnumerator UpdateVertices(List<Vector3> vertices,Mesh mesh)
+    private IEnumerator UpdateVertices(List<Vector3> vertices, Mesh mesh)
     {
         var vertexList = new List<Vector4>();
 
@@ -116,10 +166,9 @@ public class CoordinateTransformation : MonoBehaviour
             //頂点情報を4次元に
             var vertex = new Vector4(vertices[i].x, vertices[i].y, vertices[i].z, 1);
             //VP行列を作成
-            var mat = camera.projectionMatrix * camera.worldToCameraMatrix;
+            var mat = fixedOriginCamera.projectionMatrix * fixedOriginCamera.worldToCameraMatrix;
             //VP行列を適用
             vertex = mat * vertex;
-            //vertex /= vertex.w;
             //メッシュに対して頂点を適用
             vertices[i] = vertex;
             mesh.vertices = vertices.ToArray();
@@ -129,13 +178,14 @@ public class CoordinateTransformation : MonoBehaviour
             vertexList.Add(vertex);
         }
 
+        //理解用にディレイ
         yield return new WaitForSeconds(3.0f);
 
         //プロジェクション座標変換の最後の工程である除算を行う
         for (var i = 0; i < vertices.Count; i++)
         {
             var vertex = vertexList[i];
-            StartCoroutine(VertexAnimationCoroutine(vertices,vertex,i,mesh));
+            StartCoroutine(VertexAnimationCoroutine(vertices, vertex, i, mesh));
         }
     }
 
@@ -146,7 +196,7 @@ public class CoordinateTransformation : MonoBehaviour
     /// <param name="vertex">動かしたい頂点</param>
     /// <param name="index">頂点のインデックス</param>
     /// <param name="mesh">変更を適用したいメッシュ</param>
-    private IEnumerator VertexAnimationCoroutine(List<Vector3> vertices, Vector4 vertex, int index,Mesh mesh)
+    private IEnumerator VertexAnimationCoroutine(List<Vector3> vertices, Vector4 vertex, int index, Mesh mesh)
     {
         var startTime = Time.time;
         var spendSeconds = 0f;

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 397792664}
   - component: {fileID: 397792668}
   m_Layer: 0
-  m_Name: MVPU
+  m_Name: Projection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30689604d2125414a90a720768f13390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 466888704}
+  fixedOriginCamera: {fileID: 466888704}
   animationSeconds: 1000
 --- !u!23 &397792665
 MeshRenderer:
@@ -279,7 +279,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10
+  far clip plane: 25
   field of view: 60
   orthographic: 0
   orthographic size: 5
