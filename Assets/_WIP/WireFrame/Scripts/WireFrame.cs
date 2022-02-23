@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// トポロジーを変更する
+/// トポロジを変更する
 /// </summary>
 public class WireFrame : MonoBehaviour
 {
@@ -12,11 +12,9 @@ public class WireFrame : MonoBehaviour
 
     void Start()
     {
-        mesh = GetComponent<MeshFilter>().sharedMesh;
+        mesh = GetComponent<MeshFilter>().mesh;
 
-        if (mesh.GetTopology(0) == MeshTopology.Triangles
-            && mesh.triangles != null
-            && mesh.triangles.Length > 0)
+        if (mesh.GetTopology(0) == MeshTopology.Triangles)
         {
             // メッシュをワイヤーフレームで再構築する
             mesh.SetIndices(MakeIndices(mesh.triangles), MeshTopology.Lines, 0);
@@ -26,8 +24,6 @@ public class WireFrame : MonoBehaviour
     /// <summary>
     /// 三角形の頂点の配列から、三角形の辺の頂点の配列を生成する
     /// </summary>
-    /// <param name="triangles">三角形の頂点の配列</param>
-    /// <returns>三角形の辺の頂点の配列</returns>
     private int[] MakeIndices(int[] triangles)
     {
         var indices = new int[2 * triangles.Length];

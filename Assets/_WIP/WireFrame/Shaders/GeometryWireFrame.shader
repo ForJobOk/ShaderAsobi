@@ -44,7 +44,7 @@
             [maxvertexcount(3)] 
             void geom(triangle appdata input[3], inout LineStream<g2f> stream)
             {
-                [unroll] //繰り返す処理を畳み込んで最適化してる？
+                [unroll]
                 for (int i = 0; i < 3; i++)
                 {
                     appdata v = input[i];
