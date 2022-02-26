@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MatrixRotation
-  m_Shader: {fileID: 4800000, guid: a359959ef9520e240b5ca0b0728cea25, type: 3}
+  m_Name: MatrixMove
+  m_Shader: {fileID: 4800000, guid: 5261083e0199c9d4b9a4f4c07ff5999a, type: 3}
   m_ShaderKeywords: _AXIS_Y
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -79,6 +79,9 @@ Material:
     - _LineSpeed: 3.5
     - _Metallic: 0
     - _Mode: 0
+    - _MoveX: 0
+    - _MoveY: 0
+    - _MoveZ: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Rotation: 0
