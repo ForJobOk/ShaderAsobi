@@ -38,7 +38,8 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 //タイリング、オフセットを計算
-                o.uv = v.uv.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                //o.uv = v.uv.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                o.uv = TRANSFORM_TEX(v.uv,_MainTex);
                 return o;
             }
 
