@@ -13,7 +13,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d890460fbd1b4e344ab8a5b650298bd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,11 +64,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AT: 0.5
     - _BumpScale: 1
     - _ColorBorder: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FlameAmount: 8
+    - _FoamPower: 0.6
+    - _Fps: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,15 +85,20 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SquareNum: 5
     - _SrcBlend: 1
     - _UVSec: 0
     - _WaveLine: 0.692
     - _WaveSpeed: 5.08
+    - _Xd: 4
+    - _Yd: 2
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 766.9961, g: 762.9804, b: 0, a: 0.98039216}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _LineColor: {r: 0, g: 0.4891553, b: 1, a: 0.48235294}
     - _MainColor: {r: 0, g: 0, b: 0, a: 0}
     - _TopColor: {r: 1, g: 0, b: 0.58695984, a: 0}
     - _UnderColor: {r: 0, g: 1, b: 0.7467458, a: 0.49019608}
+    - _WaterColor: {r: 0.09, g: 0.89, b: 1, a: 1}
