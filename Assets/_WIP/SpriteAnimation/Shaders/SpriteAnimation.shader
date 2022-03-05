@@ -3,8 +3,11 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        //セルの列数
+        _Column ("Column", int) = 8
+        //セルの行数
 		_Row ("Row", int) = 8
-		_Column ("Column", int) = 8
+        //アニメーションの速度
 		_Fps ("FPS", float) = 1.0
     }
     SubShader
@@ -44,27 +47,27 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.uv;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 row_col = float2(_Row,_Column);
+                float2 col_row = float2(_Column,_Row);
             	//UVを各方向のセル数で割る　ここでUVが変化し左下のセルが表示された状態になる
-				i.uv /= row_col;
+				i.uv /= col_row;
                 //経過時間/セルの総数で剰余を算出する 剰余がそのままインデックスになる
                 // 例) (FPS1 * 8秒経過) % 総セル数10　= インデックス8
                 //　   (FPS1 * 9秒経過) % 総セル数10　= インデックス9
                 //　   (FPS1 * 10秒経過) % 総セル数10　= インデックス0
                 //　   (FPS1 * 11秒経過) % 総セル数10　= インデックス1
-				uint index = uint(_Fps * _Time.y) % (_Row * _Column);
-                //行のインデックスを計算
-                uint row_index = index % _Row;
+				uint index = uint(_Fps * _Time.y) % (_Column * _Row);
                 //列のインデックスを計算
-                uint column_index = _Column - (index /_Row)  % _Column - 1;
+                uint column_index = index % _Column;
+                //行のインデックスを計算
+                uint row_index = _Row - (index /_Column)  % _Row - 1;
                 //インデックスをUV値に反映
-				i.uv += float2(row_index, column_index) / row_col;
+				i.uv += float2(column_index, row_index) / col_row;
                 float4 col = tex2D(_MainTex, i.uv);
                 return col;
             }
