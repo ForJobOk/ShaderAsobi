@@ -4,13 +4,14 @@
     {
         _MainTexture ("Main Texture", 2D) = "white" {}
         _ShadowTexture ("Shadow Texture", 2D) = "white" {}
-        _Strength("Strength",Range(0,1)) = 0.5
+        _ShadowStrength("Shadow Strength",Range(0,1)) = 0.5
     }
 
     SubShader
     {
         Pass
         {
+            Name "TOON"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -18,7 +19,7 @@
 
             sampler2D _MainTexture;
             sampler2D _ShadowTexture;
-            float _Strength;
+            float _ShadowStrength;
 
             struct appdata
             {
@@ -61,7 +62,7 @@
                 //メインのテクスチャをサンプリング
                 float3 mainColor = tex2D(_MainTexture, i.uv).rgb;
                 //補間値を用いて色を塗分け　影の強さ(影テクスチャーの濃さ)もここで調整
-                float3 finalColor = lerp(mainColor, shadowColor * (1 - _Strength) * mainColor,interpolation);
+                float3 finalColor = lerp(mainColor, shadowColor * (1 - _ShadowStrength) * mainColor,interpolation);
                 return float4(finalColor,1);
             }
             ENDCG
