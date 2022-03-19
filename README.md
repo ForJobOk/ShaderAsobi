@@ -1,10 +1,118 @@
+## 目次
+
+<!-- TOC -->
+
+- [Zenn Shader100記事マラソン戦いの記録](#zenn-shader100%E8%A8%98%E4%BA%8B%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%E6%88%A6%E3%81%84%E3%81%AE%E8%A8%98%E9%8C%B2)
+- [バージョン情報](#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1)
+- [サンプル](#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB)
+    - [Unite2017](#unite2017)
+        - [キーワード - 基礎、フラグメントシェーダー、頂点シェーダー、ラスタライズ、プロパティ、半透明](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%9F%BA%E7%A4%8E%E3%83%95%E3%83%A9%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E3%83%A9%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E5%8D%8A%E9%80%8F%E6%98%8E)
+    - [Rotation2D](#rotation2d)
+        - [キーワード - UV、回転、_Time、セマンティクス](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---uv%E5%9B%9E%E8%BB%A2_time%E3%82%BB%E3%83%9E%E3%83%B3%E3%83%86%E3%82%A3%E3%82%AF%E3%82%B9)
+    - [Mask](#mask)
+        - [キーワード - マスク、clip、UV、回転、UV1、UV2](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9E%E3%82%B9%E3%82%AFclipuv%E5%9B%9E%E8%BB%A2uv1uv2)
+    - [Slice](#slice)
+        - [キーワード - スライス、mul、frac、appdata_base、ワールド座標、ローカル座標](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%83%A9%E3%82%A4%E3%82%B9mulfracappdata_base%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%E5%BA%A7%E6%A8%99%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E5%BA%A7%E6%A8%99)
+    - [Scroll](#scroll)
+        - [キーワード - UVスクロール、tex2D、step、lerp](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---uv%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%ABtex2dsteplerp)
+    - [UseC#](#usec)
+        - [キーワード - C#連携、distance](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---c%E9%80%A3%E6%90%BAdistance)
+    - [CameraDistance](#cameradistance)
+        - [キーワード - カメラとの距離、_WorldSpaceCameraPos、length](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%A8%E3%81%AE%E8%B7%9D%E9%9B%A2_worldspacecameraposlength)
+    - [Random](#random)
+        - [キーワード - ランダム、シード値](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%82%B7%E3%83%BC%E3%83%89%E5%80%A4)
+    - [Geometry](#geometry)
+        - [キーワード - ジオメトリーシェーダー、inout、法線、外積、ベクトル、unroll、SV_PrimitiveID](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B8%E3%82%AA%E3%83%A1%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BCinout%E6%B3%95%E7%B7%9A%E5%A4%96%E7%A9%8D%E3%83%99%E3%82%AF%E3%83%88%E3%83%ABunrollsv_primitiveid)
+    - [GeometryAnimation](#geometryanimation)
+        - [キーワード - ジオメトリーシェーダー、Animation、Animator、C#連携](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B8%E3%82%AA%E3%83%A1%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BCanimationanimatorc%E9%80%A3%E6%90%BA)
+    - [SunSky](#sunsky)
+        - [キーワード - Skybox、内積、pow、ZWrite](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E5%86%85%E7%A9%8Dpowzwrite)
+    - [SkyboxTest](#skyboxtest)
+        - [キーワード - Skybox、歪み、atan2、asin](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E6%AD%AA%E3%81%BFatan2asin)
+    - [GradationSky](#gradationsky)
+        - [キーワード - Skybox、グラデーション](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E3%82%B0%E3%83%A9%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)
+    - [NightSky](#nightsky)
+        - [キーワード - Skybox、ボロノイ、星空](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E3%83%9C%E3%83%AD%E3%83%8E%E3%82%A4%E6%98%9F%E7%A9%BA)
+    - [GradationNightSky](#gradationnightsky)
+        - [キーワード - Skybox、星空、グラデーション、if文](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E6%98%9F%E7%A9%BA%E3%82%B0%E3%83%A9%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3if%E6%96%87)
+    - [D Ripple](#d-ripple)
+        - [キーワード - 波動方程式、波紋、CustomRenderTexture](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%A2%E5%8B%95%E6%96%B9%E7%A8%8B%E5%BC%8F%E6%B3%A2%E7%B4%8Bcustomrendertexture)
+    - [Tessellation](#tessellation)
+        - [キーワード - 波紋、テッセレーション、ハルシェーダー、ドメインシェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%A2%E7%B4%8B%E3%83%86%E3%83%83%E3%82%BB%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%8F%E3%83%AB%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
+    - [ClickRipple](#clickripple)
+        - [キーワード - クリック、波紋、C#連携、CustomRenderTexture、UpdateZone](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E6%B3%A2%E7%B4%8Bc%E9%80%A3%E6%90%BAcustomrendertextureupdatezone)
+    - [CollisionRipple](#collisionripple)
+        - [キーワード - 衝突座標、UV、波紋](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E8%A1%9D%E7%AA%81%E5%BA%A7%E6%A8%99uv%E6%B3%A2%E7%B4%8B)
+    - [Dot](#dot)
+        - [キーワード - 内積](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%86%85%E7%A9%8D)
+    - [Repeat](#repeat)
+        - [キーワード - 繰り返し、fmod、step](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97fmodstep)
+    - [Scan](#scan)
+        - [キーワード - スキャン、smoothstep、UNITY_MATRIX_V、カメラの向き、C#連携、Animator](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3smoothstepunity_matrix_v%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%AE%E5%90%91%E3%81%8Dc%E9%80%A3%E6%90%BAanimator)
+    - [Normal](#normal)
+        - [キーワード - 法線](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%95%E7%B7%9A)
+    - [Diffuse](#diffuse)
+        - [キーワード - 拡散反射、Diffuse、内積、Lighting.cginc、環境光](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%8B%A1%E6%95%A3%E5%8F%8D%E5%B0%84diffuse%E5%86%85%E7%A9%8Dlightingcginc%E7%92%B0%E5%A2%83%E5%85%89)
+    - [Shade](#shade)
+        - [キーワード - 影、AutoLight.cginc、multi_compile_shadowcaster](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%BD%B1autolightcgincmulti_compile_shadowcaster)
+    - [Glitch](#glitch)
+        - [キーワード - グリッチ、ポスタライズ、パーリンノイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%83%9D%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%91%E3%83%BC%E3%83%AA%E3%83%B3%E3%83%8E%E3%82%A4%E3%82%BA)
+    - [Holo](#holo)
+        - [キーワード - ホログラム、RGBシフト、グリッチ、スクロール、透過](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9B%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0rgb%E3%82%B7%E3%83%95%E3%83%88%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB%E9%80%8F%E9%81%8E)
+    - [SwitchTexture](#switchtexture)
+        - [キーワード - DoTween、Bool値、C#連携](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---dotweenbool%E5%80%A4c%E9%80%A3%E6%90%BA)
+    - [WorkOnImageComponent](#workonimagecomponent)
+        - [キーワード - Image、頂点カラー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---image%E9%A0%82%E7%82%B9%E3%82%AB%E3%83%A9%E3%83%BC)
+    - [Flag](#flag)
+        - [キーワード - 旗、揺らぎ、パーリンノイズ、_Time、頂点シェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%97%97%E6%8F%BA%E3%82%89%E3%81%8E%E3%83%91%E3%83%BC%E3%83%AA%E3%83%B3%E3%83%8E%E3%82%A4%E3%82%BA_time%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
+    - [CellularNoise](#cellularnoise)
+        - [キーワード - 水面、トゥーン調、セルラーノイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B0%B4%E9%9D%A2%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3%E8%AA%BF%E3%82%BB%E3%83%AB%E3%83%A9%E3%83%BC%E3%83%8E%E3%82%A4%E3%82%BA)
+    - [ToonWave](#toonwave)
+        - [キーワード - 深度テクスチャ、_CameraDepthTexture、LinearEyeDepth](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3_cameradepthtexturelineareyedepth)
+    - [Cushion](#cushion)
+        - [キーワード - 凹み、テッセレーション、CustomRenderTexture、C#連携、clamp](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%87%B9%E3%81%BF%E3%83%86%E3%83%83%E3%82%BB%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3customrendertexturec%E9%80%A3%E6%90%BAclamp)
+    - [Firework](#firework)
+        - [キーワード - Particle、CustomVertexStreams](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---particlecustomvertexstreams)
+    - [Distortion](#distortion)
+        - [キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%AD%AA%E3%81%BFgrabpass%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E8%A4%87%E6%95%B0pass)
+    - [RichToonWave](#richtoonwave)
+        - [キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass、CGINCLUDEブロック、揺らぎ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%AD%AA%E3%81%BFgrabpass%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E8%A4%87%E6%95%B0passcginclude%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E6%8F%BA%E3%82%89%E3%81%8E)
+    - [Rim](#rim)
+        - [キーワード - リムライト、saturate、法線、内積](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88saturate%E6%B3%95%E7%B7%9A%E5%86%85%E7%A9%8D)
+    - [HexFloor](#hexfloor)
+        - [キーワード - 六角形、サイバー、カメラ、距離](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%85%AD%E8%A7%92%E5%BD%A2%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%AB%E3%83%A1%E3%83%A9%E8%B7%9D%E9%9B%A2)
+    - [dHolo](#dholo)
+        - [キーワード - グリッチ、スキャンライン、リムライト、ホログラム](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88%E3%83%9B%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0)
+    - [TilingOffset](#tilingoffset)
+        - [キーワード - タイリング、オフセット、TRANSFORM_TEX、{TextureName}_ST](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%BF%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%AA%E3%83%95%E3%82%BB%E3%83%83%E3%83%88transform_textexturename_st)
+    - [MeshGenerate](#meshgenerate)
+        - [キーワード - ポリゴン、メッシュ、ラスタイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9D%E3%83%AA%E3%82%B4%E3%83%B3%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%83%A9%E3%82%B9%E3%82%BF%E3%82%A4%E3%82%BA)
+    - [WireFrame](#wireframe)
+        - [キーワード - ワイヤフレーム、トポロジ、ジオメトリーシェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%88%E3%83%9D%E3%83%AD%E3%82%B8%E3%82%B8%E3%82%AA%E3%83%A1%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
+    - [Projection](#projection)
+        - [キーワード - プロジェクション座標変換、ビューボリューム、ワイヤーフレーム](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E5%BA%A7%E6%A8%99%E5%A4%89%E6%8F%9B%E3%83%93%E3%83%A5%E3%83%BC%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0)
+    - [MatirixStudy](#matirixstudy)
+        - [キーワード - 行列、平行移動、回転、拡大縮小、同次座標、アフィン変換、KeywordEnum](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E8%A1%8C%E5%88%97%E5%B9%B3%E8%A1%8C%E7%A7%BB%E5%8B%95%E5%9B%9E%E8%BB%A2%E6%8B%A1%E5%A4%A7%E7%B8%AE%E5%B0%8F%E5%90%8C%E6%AC%A1%E5%BA%A7%E6%A8%99%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%A4%89%E6%8F%9Bkeywordenum)
+    - [SpriteAnimation](#spriteanimation)
+        - [キーワード - スプライトアニメーション](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%88%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)
+    - [Toon](#toon)
+        - [キーワード - トゥーン、ライトベクトル、法線、内積、影](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%88%E3%83%99%E3%82%AF%E3%83%88%E3%83%AB%E6%B3%95%E7%B7%9A%E5%86%85%E7%A9%8D%E5%BD%B1)
+    - [用語整理](#%E7%94%A8%E8%AA%9E%E6%95%B4%E7%90%86)
+        - [キーワード - ビューイングパイプライン、モデリング変換、視野変換、投影変換、ビューポート変換、MVP変換、行列](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A4%E3%83%B3%E3%82%B0%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0%E5%A4%89%E6%8F%9B%E8%A6%96%E9%87%8E%E5%A4%89%E6%8F%9B%E6%8A%95%E5%BD%B1%E5%A4%89%E6%8F%9B%E3%83%93%E3%83%A5%E3%83%BC%E3%83%9D%E3%83%BC%E3%83%88%E5%A4%89%E6%8F%9Bmvp%E5%A4%89%E6%8F%9B%E8%A1%8C%E5%88%97)
+    - [OutLine](#outline)
+        - [キーワード - トゥーン、アウトライン、Name、UsePass](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3nameusepass)
+    - [ShaderGraphBasic](#shadergraphbasic)
+        - [キーワード - ShaderGraph、BiRP](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraphbirp)
+
+<!-- /TOC -->
+
+---
+
 ## Zenn Shader100記事マラソン戦いの記録
 
 Shaderの勉強記録です。  
 100記事分くらい学べば私レベルの初心者でも  
 まあまあ理解できるかなと思ってやりました。  
-
-各記事とサンプルシーンを紐付けとくので参考にしたい方はどうぞお使いください。  
 
 ---
 
@@ -16,89 +124,9 @@ Unity 2019.4.8f1
 
 ---
 
-## 目次
+## サンプル
 
-<!-- TOC -->
-
-
-- [Unite2017](#unite2017)
-    - [キーワード - 基礎、フラグメントシェーダー、頂点シェーダー、ラスタライズ、プロパティ、半透明](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%9F%BA%E7%A4%8E%E3%83%95%E3%83%A9%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E3%83%A9%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E5%8D%8A%E9%80%8F%E6%98%8E)
-- [Rotation2D](#rotation2d)
-    - [キーワード - UV、回転、_Time、セマンティクス](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---uv%E5%9B%9E%E8%BB%A2_time%E3%82%BB%E3%83%9E%E3%83%B3%E3%83%86%E3%82%A3%E3%82%AF%E3%82%B9)
-- [Mask](#mask)
-    - [キーワード - マスク、clip、UV、回転、UV1、UV2](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9E%E3%82%B9%E3%82%AFclipuv%E5%9B%9E%E8%BB%A2uv1uv2)
-- [Slice](#slice)
-    - [キーワード - スライス、mul、frac、appdata_base、ワールド座標、ローカル座標](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%83%A9%E3%82%A4%E3%82%B9mulfracappdata_base%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%E5%BA%A7%E6%A8%99%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E5%BA%A7%E6%A8%99)
-- [Scroll](#scroll)
-    - [キーワード - UVスクロール、tex2D、step、lerp](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---uv%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%ABtex2dsteplerp)
-- [UseC](#usec)
-    - [キーワード - C#連携、distance](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---c%E9%80%A3%E6%90%BAdistance)
-- [CameraDistance](#cameradistance)
-    - [キーワード - カメラとの距離、_WorldSpaceCameraPos、length](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%A8%E3%81%AE%E8%B7%9D%E9%9B%A2_worldspacecameraposlength)
-- [Random](#random)
-    - [キーワード - ランダム、シード値](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%82%B7%E3%83%BC%E3%83%89%E5%80%A4)
-- [Geometry](#geometry)
-    - [キーワード - ジオメトリーシェーダー、inout、法線、外積、ベクトル、unroll、SV_PrimitiveID](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B8%E3%82%AA%E3%83%A1%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BCinout%E6%B3%95%E7%B7%9A%E5%A4%96%E7%A9%8D%E3%83%99%E3%82%AF%E3%83%88%E3%83%ABunrollsv_primitiveid)
-- [GeometryAnimation](#geometryanimation)
-    - [キーワード - ジオメトリーシェーダー、Animation、Animator、C#連携](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B8%E3%82%AA%E3%83%A1%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BCanimationanimatorc%E9%80%A3%E6%90%BA)
-- [SunSky](#sunsky)
-    - [キーワード - Skybox、内積、pow、ZWrite](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E5%86%85%E7%A9%8Dpowzwrite)
-- [SkyboxTest](#skyboxtest)
-    - [キーワード - Skybox、歪み、atan2、asin](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E6%AD%AA%E3%81%BFatan2asin)
-- [GradationSky](#gradationsky)
-    - [キーワード - Skybox、グラデーション](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E3%82%B0%E3%83%A9%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)
-- [NightSky](#nightsky)
-    - [キーワード - Skybox、ボロノイ、星空](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E3%83%9C%E3%83%AD%E3%83%8E%E3%82%A4%E6%98%9F%E7%A9%BA)
-- [GradationNightSky](#gradationnightsky)
-    - [キーワード - Skybox、星空、グラデーション、if文](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---skybox%E6%98%9F%E7%A9%BA%E3%82%B0%E3%83%A9%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3if%E6%96%87)
-- [2D Ripple](#d-ripple)
-    - [キーワード - 波動方程式、波紋、CustomRenderTexture](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%A2%E5%8B%95%E6%96%B9%E7%A8%8B%E5%BC%8F%E6%B3%A2%E7%B4%8Bcustomrendertexture)
-- [Tessellation](#tessellation)
-    - [キーワード - 波紋、テッセレーション、ハルシェーダー、ドメインシェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%A2%E7%B4%8B%E3%83%86%E3%83%83%E3%82%BB%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%8F%E3%83%AB%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
-- [ClickRipple](#clickripple)
-    - [キーワード - クリック、波紋、C#連携、CustomRenderTexture、UpdateZone](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E6%B3%A2%E7%B4%8Bc%E9%80%A3%E6%90%BAcustomrendertextureupdatezone)
-- [CollisionRipple](#collisionripple)
-    - [キーワード - 衝突座標、UV、波紋](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E8%A1%9D%E7%AA%81%E5%BA%A7%E6%A8%99uv%E6%B3%A2%E7%B4%8B)
-- [Dot](#dot)
-    - [キーワード - 内積](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%86%85%E7%A9%8D)
-- [Repeat](#repeat)
-    - [キーワード - 繰り返し、fmod、step](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%97fmodstep)
-- [Scan](#scan)
-    - [キーワード - スキャン、smoothstep、UNITY_MATRIX_V、カメラの向き、C#連携、Animator](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3smoothstepunity_matrix_v%E3%82%AB%E3%83%A1%E3%83%A9%E3%81%AE%E5%90%91%E3%81%8Dc%E9%80%A3%E6%90%BAanimator)
-- [Normal](#normal)
-    - [キーワード - 法線](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%95%E7%B7%9A)
-- [Diffuse](#diffuse)
-    - [キーワード - 拡散反射、Diffuse、内積、Lighting.cginc、環境光](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%8B%A1%E6%95%A3%E5%8F%8D%E5%B0%84diffuse%E5%86%85%E7%A9%8Dlightingcginc%E7%92%B0%E5%A2%83%E5%85%89)
-- [Shade](#shade)
-    - [キーワード - 影、AutoLight.cginc、multi_compile_shadowcaster](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%BD%B1autolightcgincmulti_compile_shadowcaster)
-- [Glitch](#glitch)
-    - [キーワード - グリッチ、ポスタライズ、パーリンノイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%83%9D%E3%82%B9%E3%82%BF%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%91%E3%83%BC%E3%83%AA%E3%83%B3%E3%83%8E%E3%82%A4%E3%82%BA)
-- [Holo](#holo)
-    - [キーワード - ホログラム、RGBシフト、グリッチ、スクロール、透過](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9B%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0rgb%E3%82%B7%E3%83%95%E3%83%88%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB%E9%80%8F%E9%81%8E)
-- [SwitchTexture](#switchtexture)
-    - [キーワード - DoTween、Bool値、C#連携](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---dotweenbool%E5%80%A4c%E9%80%A3%E6%90%BA)
-- [WorkOnImageComponent](#workonimagecomponent)
-    - [キーワード - Image、頂点カラー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---image%E9%A0%82%E7%82%B9%E3%82%AB%E3%83%A9%E3%83%BC)
-- [Flag](#flag)
-    - [キーワード - 旗、揺らぎ、パーリンノイズ、_Time、頂点シェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%97%97%E6%8F%BA%E3%82%89%E3%81%8E%E3%83%91%E3%83%BC%E3%83%AA%E3%83%B3%E3%83%8E%E3%82%A4%E3%82%BA_time%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
-- [CellularNoise](#cellularnoise)
-    - [キーワード - 水面、トゥーン調、セルラーノイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B0%B4%E9%9D%A2%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3%E8%AA%BF%E3%82%BB%E3%83%AB%E3%83%A9%E3%83%BC%E3%83%8E%E3%82%A4%E3%82%BA)
-- [ToonWave](#toonwave)
-    - [キーワード - 深度テクスチャ、_CameraDepthTexture、LinearEyeDepth](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3_cameradepthtexturelineareyedepth)
-- [Cushion](#cushion)
-    - [キーワード - 凹み、テッセレーション、CustomRenderTexture、C#連携、clamp](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%87%B9%E3%81%BF%E3%83%86%E3%83%83%E3%82%BB%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3customrendertexturec%E9%80%A3%E6%90%BAclamp)
-- [Firework](#firework)
-    - [キーワード - Particle、CustomVertexStreams](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---particlecustomvertexstreams)
-- [Distortion](#distortion)
-    - [キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%AD%AA%E3%81%BFgrabpass%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E8%A4%87%E6%95%B0pass)
-- [RichToonWave](#richtoonwave)
-    - [キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass、CGINCLUDEブロック、揺らぎ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%AD%AA%E3%81%BFgrabpass%E6%B7%B1%E5%BA%A6%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E8%A4%87%E6%95%B0passcginclude%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E6%8F%BA%E3%82%89%E3%81%8E)
-- [Rim](#rim)
-    - [キーワード - リムライト、saturate、法線、内積](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88saturate%E6%B3%95%E7%B7%9A%E5%86%85%E7%A9%8D)
-- [HexFloor](#hexfloor)
-    - [キーワード - 六角形、サイバー、カメラ、距離](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%85%AD%E8%A7%92%E5%BD%A2%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%AB%E3%83%A1%E3%83%A9%E8%B7%9D%E9%9B%A2)
-
-<!-- /TOC -->
+各記事とサンプルシーンを紐付けとくので参考にしたい方はどうぞお使いください。  
 
 ---
 
@@ -202,7 +230,7 @@ C#のスクリプトからShaderにパラメータを渡す。
 
 ### Random
 
-ランダムな値を使う  
+ランダムな値を使う。  
 
 `Path：Assets/DemoScenes/Random/Scenes/Random`
 
@@ -581,4 +609,136 @@ ParticleからShaderへ値を渡すサンプル。花火。
 【参考リンク】  
 [トそろそろShaderをやるパート50　サイバーな床の表現](https://zenn.dev/kento_o/articles/198d17395bf108)  
 
+
 ---
+
+### 3dHolo
+頂点ごとグリッチする3Dホログラムの表現。  
+
+`Assets/DemoScenes/3dHolo/Scenes/3dHolo`  
+
+#### キーワード - グリッチ、スキャンライン、リムライト、ホログラム  
+
+【参考リンク】  
+[そろそろShaderをやるパート51　頂点ごとグリッチする3Dホログラム](https://zenn.dev/kento_o/articles/ab2b547e6f8f78)  
+
+---
+
+### TilingOffset
+タイリングとオフセットを設定する。  
+
+`Assets/DemoScenes/TilingOffset/Scenes/TilingOffsetr`  
+
+#### キーワード - タイリング、オフセット、TRANSFORM_TEX、{TextureName}_ST  
+
+【参考リンク】  
+[そろそろShaderをやるパート52　タイリング、オフセット](https://zenn.dev/kento_o/articles/750f4bbaaed02c)  
+
+---
+
+### MeshGenerate
+ポリゴン、メッシュの理解。  
+
+`Assets/DemoScenes/MeshGenerate/Scenes/MeshGenerate`  
+
+#### キーワード - ポリゴン、メッシュ、ラスタイズ  
+
+【参考リンク】  
+[そろそろShaderをやるパート53　四角錐を作りながらポリゴン、メッシュを理解する](https://zenn.dev/kento_o/articles/3c8a442a756b85)  
+
+---
+
+### WireFrame
+ポリゴン、メッシュの理解。  
+
+`Assets/DemoScenes/WireFrame/Scenes/WireFrame`  
+
+#### キーワード - ワイヤフレーム、トポロジ、ジオメトリーシェーダー  
+
+【参考リンク】  
+[そろそろShaderをやるパート54　ワイヤフレームで描画する](https://zenn.dev/kento_o/articles/7a651edddaa2aa)  
+
+---
+
+### Projection
+プロジェクション座標変換のフローを可視化。  
+
+`Assets/DemoScenes/Projection/Scenes/Projection`  
+
+#### キーワード - プロジェクション座標変換、ビューボリューム、ワイヤーフレーム  
+
+【参考リンク】  
+[そろそろShaderをやるパート55　プロジェクション座標変換のフローを可視化する](https://zenn.dev/kento_o/articles/d9b16b875a7459)  
+
+---
+
+### MatirixStudy
+平行移動・回転・拡大縮小行列を理解する。  
+
+`Assets/DemoScenes/MatrixStudy/Scenes/MatirixStudy`  
+
+#### キーワード - 行列、平行移動、回転、拡大縮小、同次座標、アフィン変換、KeywordEnum  
+
+【参考リンク】  
+[そろそろShaderをやるパート56　行列を理解する(平行移動編)](https://zenn.dev/kento_o/articles/4ee8c6c05ff3cd)  
+[そろそろShaderをやるパート57　行列を理解する(回転編)](https://zenn.dev/kento_o/articles/508c8d96eefd5e)  
+[そろそろShaderをやるパート58　行列を理解する(拡大縮小編)](https://zenn.dev/kento_o/articles/f5ff889e6f4f50)  
+
+
+---
+
+### SpriteAnimation
+UVを操作したスプライトアニメーションの表現。  
+
+`Assets/DemoScenes/SpriteAnimation/Scenes/SpriteAnimation`  
+
+#### キーワード - スプライトアニメーション  
+
+【参考リンク】  
+[そろそろShaderをやるパート59　UVを操作してスプライトアニメーションを行う](https://zenn.dev/kento_o/articles/1c671ace75660c)  
+
+---
+
+### Toon
+トゥーン調の影の表現。  
+
+`Assets/DemoScenes/Toon/Scenes/Toon`  
+
+#### キーワード - トゥーン、ライトベクトル、法線、内積、影  
+
+【参考リンク】  
+[そろそろShaderをやるパート60　トゥーン調の影の表現](https://zenn.dev/kento_o/articles/d2604af6230e7e)  
+
+---
+
+### 用語整理
+ビューイングパイプラインについて用語整理。  
+
+#### キーワード - ビューイングパイプライン、モデリング変換、視野変換、投影変換、ビューポート変換、MVP変換、行列  
+
+【参考リンク】  
+[そろそろShaderをやるパート61　ビューイングパイプラインについて整理する](https://zenn.dev/kento_o/articles/306236881258c9)  
+
+---
+
+### OutLine
+アウトライン表現。  
+
+`Assets/DemoScenes/Toon/Scenes/OutLine`  
+
+#### キーワード - トゥーン、アウトライン、Name、UsePass  
+
+【参考リンク】  
+[そろそろShaderをやるパート62　アウトラインの表現](https://zenn.dev/kento_o/articles/77cfafc2915ccc)  
+
+---
+
+### ShaderGraphBasic
+ShaderGraphの基本操作。  
+
+`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphBasic`  
+
+#### キーワード - ShaderGraph、BiRP  
+
+【参考リンク】  
+[そろそろShaderをやるパート63　ShaderGraph 超入門編](https://zenn.dev/kento_o/articles/b683732a695769)  
