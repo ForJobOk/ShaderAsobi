@@ -81,7 +81,7 @@
         - [キーワード - リムライト、saturate、法線、内積](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88saturate%E6%B3%95%E7%B7%9A%E5%86%85%E7%A9%8D)
     - [HexFloor](#hexfloor)
         - [キーワード - 六角形、サイバー、カメラ、距離](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%85%AD%E8%A7%92%E5%BD%A2%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%AB%E3%83%A1%E3%83%A9%E8%B7%9D%E9%9B%A2)
-    - [dHolo](#dholo)
+    - [3dHolo](#3dholo)
         - [キーワード - グリッチ、スキャンライン、リムライト、ホログラム](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B0%E3%83%AA%E3%83%83%E3%83%81%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88%E3%83%9B%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0)
     - [TilingOffset](#tilingoffset)
         - [キーワード - タイリング、オフセット、TRANSFORM_TEX、{TextureName}_ST](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%BF%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%AA%E3%83%95%E3%82%BB%E3%83%83%E3%83%88transform_textexturename_st)
