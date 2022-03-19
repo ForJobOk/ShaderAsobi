@@ -23,6 +23,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: d5bc70618862cb04b8e4366956d3e13d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _Alpha: 0.37
     - _ColorGap: 0.079
@@ -30,7 +31,7 @@ Material:
     - _Frequency: 0.026
     - _GlitchLineSize: 0
     - _GlitchNoiseValue: 0.091
-    - _GlitchScale: 0.74
+    - _GlitchScale: 3.35
     - _GlitchSize: 0.01
     - _GlitchSpeed: 1.38
     - _GlitchTime: 1
@@ -42,3 +43,4 @@ Material:
     - _MainColor: {r: 0, g: 1, b: 0.8018553, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 1, g: 0.09822595, b: 0, a: 1}
+  m_BuildTextureStacks: []
