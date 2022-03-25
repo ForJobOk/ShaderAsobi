@@ -19,19 +19,19 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _SampleTexture2D_ebce52f7e7134937b2cc35dd7645ca85_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 6b2bed3b3c258c14f8f51a508b736ee5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
     - _Amplitude: 1
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _Frequency: 5
-    - _RimPower: 1
     - _Speed: 2
-    m_Colors:
-    - _Color: {r: 1, g: 0.00377351, b: 0.00377351, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &3997105305931143453
 MonoBehaviour:
