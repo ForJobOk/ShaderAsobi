@@ -104,6 +104,10 @@
         - [キーワード - トゥーン、アウトライン、Name、UsePass](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3%E3%82%A2%E3%82%A6%E3%83%88%E3%83%A9%E3%82%A4%E3%83%B3nameusepass)
     - [ShaderGraphBasic](#shadergraphbasic)
         - [キーワード - ShaderGraph、BiRP](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraphbirp)
+    - [ShaderGraphRim](#shadergraphrim)
+        - [キーワード - ShaderGraph、リムライト](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraph%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88)
+    - [ShaderGraphFlag](#shadergraphflag)
+        - [キーワード - ShaderGraph、旗、頂点シェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraph%E6%97%97%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
 
 <!-- /TOC -->
 
@@ -742,3 +746,27 @@ ShaderGraphの基本操作。
 
 【参考リンク】  
 [そろそろShaderをやるパート63　ShaderGraph 超入門編](https://zenn.dev/kento_o/articles/b683732a695769)  
+
+---
+
+### ShaderGraphRim
+ShaderGraphでリムライト作成。  
+
+`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphRim`  
+
+#### キーワード - ShaderGraph、リムライト  
+
+【参考リンク】  
+[そろそろShaderをやるパート64　ShaderGraphでリムライト](https://zenn.dev/kento_o/articles/3cdd801cc271fe)  
+
+---
+
+### ShaderGraphFlag
+ShaderGraphで旗がたなびく表現。  
+
+`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphFlag`  
+
+#### キーワード - ShaderGraph、旗、頂点シェーダー  
+
+【参考リンク】  
+[そろそろShaderをやるパート65　ShaderGraphで旗がたなびく表現](https://zenn.dev/kento_o/articles/ef220a406face3)  
