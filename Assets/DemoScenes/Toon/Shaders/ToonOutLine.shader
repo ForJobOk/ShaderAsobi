@@ -2,9 +2,11 @@
 {
     Properties
     {
+        //外のShader内のパスで利用しているプロパティ
         _MainTexture ("Main Texture", 2D) = "white" {}
         _ShadowTexture ("Shadow Texture", 2D) = "white" {}
         _ShadowStrength("Shadow Strength",Range(0,1)) = 0.5
+        //このShader内のパスで利用するプロパティ
         _OutlineWidth ("Outline width", Range (0.005, 0.03)) = 0.01
         [HDR]_OutlineColor ("Outline Color", Color) = (0,0,0,1)
         [Toggle(USE_VERTEX_EXPANSION)] _UseVertexExpansion("Use vertex for Outline", int) = 0
@@ -16,6 +18,8 @@
         UsePass "Custom/ToonLit/TOON"
         Pass
         {
+            //他で利用できるようにしておく
+            Name "OUTLINE"
             Cull Front
 
             CGPROGRAM
