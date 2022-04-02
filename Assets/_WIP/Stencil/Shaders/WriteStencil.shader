@@ -7,14 +7,14 @@
 
     SubShader
     {
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "Queue" = "Geometry-1"
+        }
+        
         Pass
         {
-            Tags
-            {
-                "RenderType" = "Opaque"
-                "Queue" = "Geometry-1"
-            }
-
             //カラーチャンネルに書き込むレンダーターゲットを設定する
             //0の場合、全てのカラーチャンネルが無効化され何も書き込まれない
             ColorMask 0
