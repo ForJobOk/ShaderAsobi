@@ -1,7 +1,8 @@
-﻿Shader "Custom/Rim"
+﻿Shader "Custom/TintRim"
 {
     Properties
     {
+        _TintColor("Tint Color", Color) = (0,0.5,1,1)
         _RimColor("Rim Color", Color) = (0,1,1,1)
         _RimPower("Rim Power", Range(0,1)) = 0.4
     }
@@ -13,27 +14,25 @@
             "Queue" = "Transparent"
             "RenderType" = "Transparent"
         }
+        Blend SrcAlpha OneMinusSrcAlpha
 
         SubShader
         {
             Pass
             {
-                ZWrite On
-                ColorMask 0
+               ZWrite On
+               ColorMask 0
             }
 
-            //他で利用できるようにしておく
-            Name "RIM"
             Pass
             {
-                //やわらかいブレンド
-                Blend OneMinusDstColor One
                 CGPROGRAM
                 #pragma vertex vert
                 #pragma fragment frag
 
                 #include "UnityCG.cginc"
 
+                float4 _TintColor;
                 float4 _RimColor;
                 float _RimPower;
 
@@ -71,7 +70,7 @@
                     //法線とカメラのベクトルの内積を計算し、補間値を算出
                     half rim = 1.0 - saturate(dot(viewDirection, i.normalDir));
                     //補間値で塗分け
-                    float4 col = lerp(float4(0,0,0,0), _RimColor, rim * _RimPower);
+                    float4 col = lerp(_TintColor, _RimColor, rim * _RimPower);
                     return col;
                 }
                 ENDCG
