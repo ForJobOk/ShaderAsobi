@@ -8,14 +8,12 @@
 
     SubShader
     {
-
         Pass
         {
             Tags
             {
                 "LightMode"="ForwardBase"
             }
-
 
             CGPROGRAM
             #pragma vertex vert
@@ -59,15 +57,15 @@
                 fixed4 finalColor = fixed4(0, 0, 0, 1);
 
                 //1つ目のライトのベクトルを正規化
-                float3 L = normalize(-_WorldSpaceLightPos0.xyz);
+                float3 L = normalize(_WorldSpaceLightPos0.xyz);
                 //ワールド座標系の法線を正規化
                 float3 N = normalize(i.worldNormal);
                 //ライトベクトルと法線の内積からピクセルの明るさを計算 ランバートの調整もここで行う
-                fixed4 diffuseColor = max(0, dot(N, -L) * _DiffuseShade + (1 - _DiffuseShade));
+                fixed4 diffuseColor = max(0, dot(N, L) * _DiffuseShade + (1 - _DiffuseShade));
                 //ライトの色を乗算
                 finalColor = _MainColor * diffuseColor * _LightColor0;
                 // 影を計算
-                finalColor *= SHADOW_ATTENUATION(i);
+                finalColor *= SHADOW_ATTENUATION(i) * _DiffuseShade;
                 return finalColor;
             }
             ENDCG
@@ -76,7 +74,6 @@
         //影を落とす処理を行うPass
         Pass
         {
-            Name "ShadowCast"
             Tags
             {
                 "LightMode"="ShadowCaster"

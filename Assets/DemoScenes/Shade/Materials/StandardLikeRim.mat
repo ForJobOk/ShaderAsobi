@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shade
-  m_Shader: {fileID: 4800000, guid: f0b9d2fdc1748924d919f74a612f731f, type: 3}
-  m_ShaderKeywords: 
+  m_Name: StandardLikeRim
+  m_Shader: {fileID: 4800000, guid: 5dd02e11876c8b44bb3cf7f0b08d8570, type: 3}
+  m_ShaderKeywords: USE_VERTEX_EXPANSION
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,14 +25,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DiffuseShade: 1
     - _DstBlend: 0
-    - _OutlineWidth: 0.03
+    - _Glossiness: 0.5
+    - _RimPower: 1
     - _SrcBlend: 1
-    - _UseVertexExpansion: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0, g: 0.5, b: 1, a: 0}
   m_BuildTextureStacks: []
