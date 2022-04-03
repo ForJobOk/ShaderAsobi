@@ -21,12 +21,12 @@
                 ZWrite On
                 ColorMask 0
             }
-
+            
             //他で利用できるようにしておく
             Name "RIM"
             Pass
             {
-                //やわらかいブレンド
+                //ブレンド
                 Blend OneMinusDstColor One
                 CGPROGRAM
                 #pragma vertex vert
@@ -71,7 +71,7 @@
                     //法線とカメラのベクトルの内積を計算し、補間値を算出
                     half rim = 1.0 - saturate(dot(viewDirection, i.normalDir));
                     //補間値で塗分け
-                    float4 col = lerp(float4(0,0,0,0), _RimColor, rim * _RimPower);
+                    float4 col = lerp(float4(0, 0, 0, 0), _RimColor, rim * _RimPower);
                     return col;
                 }
                 ENDCG
