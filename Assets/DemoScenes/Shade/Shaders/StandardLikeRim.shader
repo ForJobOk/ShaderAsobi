@@ -10,8 +10,7 @@ Shader "Custom/StandardLikeRim"
         _MainTex("Albedo", 2D) = "white" {}
         _Glossiness("Smoothness", Range(0.0, 1.0)) = 0.5
 
-        //TextureRimのパス内で利用しているProperty
-        
+        //Rimのパス内で利用しているProperty
         _RimColor("Rim Color", Color) = (0,1,1,1)
         _RimPower("Rim Power", Range(0,1)) = 0.4
     }
@@ -26,7 +25,7 @@ Shader "Custom/StandardLikeRim"
         //影を落とす処理
         UsePass "Standard/ShadowCaster"
 
-        //TextureRimのパスを利用
+        //Rimのパスを利用
         //リムライト処理
         UsePass "Custom/Rim/RIM"
     }
