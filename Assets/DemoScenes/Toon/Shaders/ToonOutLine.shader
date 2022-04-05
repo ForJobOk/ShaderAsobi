@@ -7,7 +7,7 @@
         _ShadowTexture ("Shadow Texture", 2D) = "white" {}
         _ShadowStrength("Shadow Strength",Range(0,1)) = 0.5
         //このShader内のパスで利用するプロパティ
-        _OutlineWidth ("Outline width", Range (0.005, 0.03)) = 0.01
+        _OutlineWidth ("Outline width", Range (0.005, 0.05)) = 0.01
         [HDR]_OutlineColor ("Outline Color", Color) = (0,0,0,1)
         [Toggle(USE_VERTEX_EXPANSION)] _UseVertexExpansion("Use vertex for Outline", int) = 0
     }

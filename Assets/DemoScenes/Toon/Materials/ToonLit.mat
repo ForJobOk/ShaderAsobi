@@ -75,6 +75,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0c10c86cf92d8c74e9ad039e38572eae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AT: 0.5
     - _BumpScale: 1
@@ -96,6 +97,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ShadowStrength: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SquareNum: 5
@@ -117,3 +119,4 @@ Material:
     - _TopColor: {r: 1, g: 0, b: 0.58695984, a: 0}
     - _UnderColor: {r: 0, g: 1, b: 0.7467458, a: 0.49019608}
     - _WaterColor: {r: 0.09, g: 0.89, b: 1, a: 1}
+  m_BuildTextureStacks: []
