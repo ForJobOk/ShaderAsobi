@@ -3,7 +3,6 @@ Shader "Custom/ShadowOcclusion"
     Properties
     {
         _ShadowIntensity ("Shadow Intensity", Range (0, 1)) = 0.6
-        _ShadowDistance ("Shadow Distance", Range (0, 30)) = 20
 
         //ToonOutLineのパスで利用しているProperty
         _OutlineWidth ("Outline width", Range (0.005, 0.05)) = 0.01
@@ -32,6 +31,7 @@ Shader "Custom/ShadowOcclusion"
 
             float4 _Color;
             float _ShadowIntensity;
+            //グローバル変数
             float _ShadowDistance;
 
             struct appdata

@@ -22,7 +22,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _OutlineWidth: 0.05
-    - _ShadowDistance: 20
+    - _ShadowDistance: 5
     - _ShadowIntensity: 0.6
     - _UseVertexExpansion: 1
     m_Colors:
