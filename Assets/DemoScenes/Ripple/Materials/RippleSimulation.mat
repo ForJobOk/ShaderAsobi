@@ -19,10 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
+    m_Ints: []
     m_Floats:
-    - _Attenuation: 0.997
+    - _Attenuation: 0.993
     - _DeltaUV: 0.45
     - _Displacement: 3
     - _InteractiveDisplacement: -0.1
     - _S2: 0.4
     m_Colors: []
+  m_BuildTextureStacks: []
