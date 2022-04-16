@@ -79,7 +79,7 @@ Shader "Custom/ColorfulShadow"
                 float4 pos : SV_POSITION;
                 float3 worldNormal:NORMAL;
                 float3 worldPos : WORLD_POS;
-                SHADOW_COORDS(3)
+                SHADOW_COORDS(1)
             };
 
             v2f vert(appdata v)
