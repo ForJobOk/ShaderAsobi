@@ -70,11 +70,11 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MoveIntensity: 0.526
+    - _MoveIntensity: 0.531
     - _MoveSpeed: 4.49
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RandomFlap: 1.473
+    - _RandomFlap: 1.583
     - _RandomFlip: 1.227
     - _RandomRotationX: 0
     - _RandomRotationZ: 0
