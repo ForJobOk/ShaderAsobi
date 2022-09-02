@@ -92,7 +92,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Reflection: 2.49
+    - _Reflection: 2.27
     - _ReflectionLevel: 10
     - _ReflectionRange: -10
     - _Roughness: 0.26
@@ -113,7 +113,7 @@ Material:
     - _EmissionColor: {r: 766.9961, g: 762.9804, b: 0, a: 0.98039216}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _LineColor: {r: 0, g: 0.4891553, b: 1, a: 0.48235294}
-    - _MainColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
     - _TopColor: {r: 1, g: 0, b: 0.58695984, a: 0}
     - _UnderColor: {r: 0, g: 1, b: 0.7467458, a: 0.49019608}
     - _WaterColor: {r: 0.09, g: 0.89, b: 1, a: 1}

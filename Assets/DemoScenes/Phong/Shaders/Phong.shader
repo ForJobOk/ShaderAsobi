@@ -5,7 +5,6 @@
         //ここに書いたものがInspectorに表示される
         _MainColor("MainColor",Color) = (1,1,1,1)
         _Reflection("Reflection", Range(0, 10)) = 1
-        _Specular("Specular", Range(0, 10)) = 1
     }
     SubShader
     {
@@ -34,13 +33,12 @@
             {
                 float4 vertex : SV_POSITION;
                 float3 normal : NORMAL;
-                float3 worldPos : TEXCOORD0;
+                float3 worldPos : WORLD_POS;
             };
 
             //変数の宣言　Propertiesで定義した名前と一致させる
             float4 _MainColor;
             float _Reflection;
-            float _Specular;
 
             v2f vert(appdata v)
             {
@@ -53,7 +51,6 @@
 
             float4 frag(v2f i) : SV_Target
             {
-                
                 //ライトの方向
                 float3 lightDir = normalize(_WorldSpaceLightPos0.xyz);
                 //ライトベクトルと法線ベクトルから反射ベクトルを計算
@@ -65,9 +62,9 @@
                 //0以下は利用しないように内積の値を再計算
                 dotVR = max(0,dotVR);
                 dotVR = pow(dotVR, _Reflection);
-                float3 specular = _LightColor0.xyz * _Specular;
+                float3 specular = _LightColor0.xyz * dotVR;
                 //内積を補間値として塗分け
-                float4 finalColor =  lerp(_MainColor , float4(specular,1) ,dotVR);
+                float4 finalColor =  _MainColor + float4(specular,1);
                 return finalColor;
             }
             ENDCG
