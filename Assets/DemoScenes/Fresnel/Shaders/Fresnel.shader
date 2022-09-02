@@ -51,6 +51,7 @@
             float _F0;
             float _Frequency;
 
+            //波のうねうね
             float Wave(float3 position)
             {
                 float random1 = rand(position.xy);

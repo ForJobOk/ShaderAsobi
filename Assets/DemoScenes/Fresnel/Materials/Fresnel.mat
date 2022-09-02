@@ -95,7 +95,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Reflection: 3.76
+    - _Reflection: 0.23
     - _Roughness: 0.26
     - _SmoothnessTextureChannel: 0
     - _Specular: 0.323
