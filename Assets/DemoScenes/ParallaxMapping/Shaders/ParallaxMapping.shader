@@ -30,9 +30,9 @@
             struct appdata
             {
                 float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
                 float3 normal: NORMAL;
                 float4 tangent : TANGENT;
-                float2 uv : TEXCOORD0;
             };
 
             struct v2f
@@ -82,9 +82,10 @@
                 //0以下は利用しないように内積の値を再計算
                 dotVR = max(0, dotVR);
                 dotVR = pow(dotVR, _Reflection);
-                float3 specular = _LightColor0.xyz * _Specular;
+                //スペキュラー
+                float3 specular = _LightColor0.xyz * dotVR * _Specular;
                 //内積を補間値として塗分け
-                float4 finalColor = lerp(_MainColor, float4(specular, 1), dotVR);
+                float4 finalColor = _MainColor + float4(specular, 1);
                 return finalColor;
             }
             ENDCG
