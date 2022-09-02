@@ -79,7 +79,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Disolve: 0.5
-    - _DissolveValue: 0
+    - _DissolveValue: 0.393
     - _DstBlend: 0
     - _FlameAmount: 8
     - _FoamPower: 0.6
