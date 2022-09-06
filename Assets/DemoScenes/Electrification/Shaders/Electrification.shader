@@ -39,8 +39,7 @@
                 float2 i = floor(uv);
                 float2 f = frac(uv);
                 f = f * f * (3.0 - 2.0 * f);
-
-                uv = abs(frac(uv) - 0.5);
+                
                 float2 c0 = i + float2(0.0, 0.0);
                 float2 c1 = i + float2(1.0, 0.0);
                 float2 c2 = i + float2(0.0, 1.0);
