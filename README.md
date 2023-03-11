@@ -108,6 +108,40 @@
         - [キーワード - ShaderGraph、リムライト](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraph%E3%83%AA%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%88)
     - [ShaderGraphFlag](#shadergraphflag)
         - [キーワード - ShaderGraph、旗、頂点シェーダー](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---shadergraph%E6%97%97%E9%A0%82%E7%82%B9%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
+    - [SimplePostEffect](#simpleposteffect)
+        - [キーワード - ポストエフェクト、OnRenderImage、Graphics.Blit](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%9D%E3%82%B9%E3%83%88%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88onrenderimagegraphicsblit)
+    - [Stencil](#stencil)
+        - [キーワード - ステンシルバッファ、ColorMask、Ref、Comp](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%82%B9%E3%83%86%E3%83%B3%E3%82%B7%E3%83%AB%E3%83%90%E3%83%83%E3%83%95%E3%82%A1colormaskrefcomp)
+    - [RenderingStudy](#renderingstudy)
+        - [キーワード - ZWrite、ZTest、RenderQueue](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---zwriteztestrenderqueue)
+    - [Shade](#shade)
+        - [キーワード - SubShader、Blend、影](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---subshaderblend%E5%BD%B1)
+    - [Occlusion](#occlusion)
+        - [キーワード - SubShader、Blend、影](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---subshaderblend%E5%BD%B1)
+    - [ShadowOcclusion](#shadowocclusion)
+        - [キーワード - Occlusion、Shader.SetGlobalFloat、影](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---occlusionshadersetglobalfloat%E5%BD%B1)
+    - [ColorfulShadow](#colorfulshadow)
+        - [キーワード - 色付き、影](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E8%89%B2%E4%BB%98%E3%81%8D%E5%BD%B1)
+    - [Butterfly](#butterfly)
+        - [キーワード - Custom Vertex Streams、Particle、蝶々](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---custom-vertex-streamsparticle%E8%9D%B6%E3%80%85)
+    - [Phong](#phong)
+        - [キーワード - reflect、Phong](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---reflectphong)
+    - [Hole](#hole)
+        - [キーワード - AR、clip、Occulusion](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---arclipocculusion)
+    - [NormalMap](#normalmap)
+        - [キーワード - NormalMap、TANGENT_SPACE_ROTATION、接空間](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---normalmaptangent_space_rotation%E6%8E%A5%E7%A9%BA%E9%96%93)
+    - [ParallaxMapping](#parallaxmapping)
+        - [キーワード - NormalMap、ハイトマップ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---normalmap%E3%83%8F%E3%82%A4%E3%83%88%E3%83%9E%E3%83%83%E3%83%97)
+    - [SimpleNoise](#simplenoise)
+        - [キーワード - ノイズ、Simple Noise Node](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%8E%E3%82%A4%E3%82%BAsimple-noise-node)
+    - [Electrification](#electrification)
+        - [キーワード - 帯電、ノイズ、Remap](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E5%B8%AF%E9%9B%BB%E3%83%8E%E3%82%A4%E3%82%BAremap)
+    - [Dissolve](#dissolve)
+        - [キーワード - ディゾルブ、ノイズ](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E3%83%87%E3%82%A3%E3%82%BE%E3%83%AB%E3%83%96%E3%83%8E%E3%82%A4%E3%82%BA)
+    - [RecalculateNormal](#recalculatenormal)
+        - [キーワード - 法線、接空間、近傍点](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%95%E7%B7%9A%E6%8E%A5%E7%A9%BA%E9%96%93%E8%BF%91%E5%82%8D%E7%82%B9)
+    - [Fresnel](#fresnel)
+        - [キーワード - 法線、フレネル反射、波](#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89---%E6%B3%95%E7%B7%9A%E3%83%95%E3%83%AC%E3%83%8D%E3%83%AB%E5%8F%8D%E5%B0%84%E6%B3%A2)
 
 <!-- /TOC -->
 
@@ -326,7 +360,7 @@ Skyboxとボロノイを組み合わせて星空を表現。
 ### GradationNightSky
 Skyboxに星をちりばめて良い感じにグラデーション。  
 
-`Assets/DemoScenes/Skybox/Scenes/GradationNightSky`  
+`Path：Assets/DemoScenes/Skybox/Scenes/GradationNightSky`  
 
 #### キーワード - Skybox、星空、グラデーション、if文  
 
@@ -335,10 +369,10 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 
 ---
 
-### 2D Ripple
+### D Ripple
 波動方程式とCustomRenderTextureで波紋を描画。  
 
-`Assets/DemoScenes/Ripple/Scenes/2DRipple`  
+`Path：Assets/DemoScenes/Ripple/Scenes/2DRipple`  
 
 #### キーワード - 波動方程式、波紋、CustomRenderTexture  
 
@@ -350,7 +384,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Tessellation
 テッセレーションでポリゴンを自動で分割。  
 
-`Assets/DemoScenes/Tessellation/Scenes/Tessellation`  
+`Path：Assets/DemoScenes/Tessellation/Scenes/Tessellation`  
 
 #### キーワード - 波紋、テッセレーション、ハルシェーダー、ドメインシェーダー  
 
@@ -362,7 +396,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### ClickRipple
 クリックした箇所を起点に波紋を発生。  
 
-`Assets/DemoScenes/Ripple/Scenes/ClickRipple`  
+`Path：Assets/DemoScenes/Ripple/Scenes/ClickRipple`  
 
 #### キーワード - クリック、波紋、C#連携、CustomRenderTexture、UpdateZone  
 
@@ -374,7 +408,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### CollisionRipple
 オブジェクトが衝突した箇所から波紋を出す。  
 
-`Assets/DemoScenes/Ripple/Scenes/CollisionRipple`  
+`Path：Assets/DemoScenes/Ripple/Scenes/CollisionRipple`  
 
 #### キーワード - 衝突座標、UV、波紋  
 
@@ -386,7 +420,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Dot
 内積を利用してテクスチャを塗分け。  
 
-`Assets/DemoScenes/Dot/Scenes/Dot`  
+`Path：Assets/DemoScenes/Dot/Scenes/Dot`  
 
 #### キーワード - 内積  
 
@@ -398,7 +432,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Repeat
 繰り返し処理を行う。  
 
-`Assets/DemoScenes/Repeat/Scenes/Repeat`  
+`Path：Assets/DemoScenes/Repeat/Scenes/Repeat`  
 
 #### キーワード - 繰り返し、fmod、step  
 
@@ -410,7 +444,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Scan
 空間をスキャンする表現。  
 
-`Assets/DemoScenes/Scan/Scenes/Scan`  
+`Path：Assets/DemoScenes/Scan/Scenes/Scan`  
 
 #### キーワード - スキャン、smoothstep、UNITY_MATRIX_V、カメラの向き、C#連携、Animator  
 
@@ -422,7 +456,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Normal
 法線を利用して色を塗分ける。  
 
-`Assets/DemoScenes/Normal/Scenes/Normal`  
+`Path：Assets/DemoScenes/Normal/Scenes/Normal`  
 
 #### キーワード - 法線  
 
@@ -434,7 +468,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Diffuse
 拡散反射。Directional Light、環境光も反映。  
 
-`Assets/DemoScenes/Normal/Scenes/Diffuse`  
+`Path：Assets/DemoScenes/Normal/Scenes/Diffuse`  
 
 #### キーワード - 拡散反射、Diffuse、内積、Lighting.cginc、環境光  
 
@@ -449,7 +483,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Shade
 影の表現。  
 
-`Assets/DemoScenes/Normal/Scenes/Shade`  
+`Path：Assets/DemoScenes/Normal/Scenes/Shade`  
 
 #### キーワード - 影、AutoLight.cginc、multi_compile_shadowcaster  
 
@@ -461,7 +495,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Glitch
 グリッチ表現。  
 
-`Assets/DemoScenes/Normal/Scenes/Glitch`  
+`Path：Assets/DemoScenes/Normal/Scenes/Glitch`  
 
 #### キーワード - グリッチ、ポスタライズ、パーリンノイズ  
 
@@ -473,7 +507,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### Holo
 ホログラム表現。  
 
-`Assets/DemoScenes/Normal/Scenes/Holo`  
+`Path：Assets/DemoScenes/Normal/Scenes/Holo`  
 
 #### キーワード - ホログラム、RGBシフト、グリッチ、スクロール、透過  
 
@@ -485,7 +519,7 @@ Skyboxに星をちりばめて良い感じにグラデーション。
 ### SwitchTexture
 Textureを切り替えたカードがめくれる表現。  
 
-`Assets/DemoScenes/Normal/Scenes/SwitchTexture`  
+`Path：Assets/DemoScenes/Normal/Scenes/SwitchTexture`  
 
 #### キーワード - DoTween、Bool値、C#連携  
 
@@ -497,7 +531,7 @@ Textureを切り替えたカードがめくれる表現。
 ### WorkOnImageComponent
 Imageコンポーネント上で適切に動くShader。  
 
-`Assets/DemoScenes/Normal/Scenes/WorkOnImageComponent`  
+`Path：Assets/DemoScenes/Normal/Scenes/WorkOnImageComponent`  
 
 #### キーワード - Image、頂点カラー
 
@@ -509,7 +543,7 @@ Imageコンポーネント上で適切に動くShader。
 ### Flag
 風でたなびく旗のような表現。  
 
-`Assets/DemoScenes/Normal/Scenes/Flag`  
+`Path：Assets/DemoScenes/Normal/Scenes/Flag`  
 
 #### キーワード - 旗、揺らぎ、パーリンノイズ、_Time、頂点シェーダー
 
@@ -521,7 +555,7 @@ Imageコンポーネント上で適切に動くShader。
 ### CellularNoise
 セルラーノイズで波打ち表現。  
 
-`Assets/DemoScenes/Normal/Scenes/CellularNoise`  
+`Path：Assets/DemoScenes/Normal/Scenes/CellularNoise`  
 
 #### キーワード - 水面、トゥーン調、セルラーノイズ
 
@@ -533,7 +567,7 @@ Imageコンポーネント上で適切に動くShader。
 ### ToonWave
 波打ち際の表現。  
 
-`Assets/DemoScenes/ToonWave/Scenes/ToonWave`  
+`Path：Assets/DemoScenes/ToonWave/Scenes/ToonWave`  
 
 #### キーワード - 深度テクスチャ、_CameraDepthTexture、LinearEyeDepth  
 
@@ -545,7 +579,7 @@ Imageコンポーネント上で適切に動くShader。
 ### Cushion
 クッションのように凹む表現。  
 
-`Assets/DemoScenes/Cushion/Scenes/Cushion`  
+`Path：Assets/DemoScenes/Cushion/Scenes/Cushion`  
 
 #### キーワード - 凹み、テッセレーション、CustomRenderTexture、C#連携、clamp  
 
@@ -557,7 +591,7 @@ Imageコンポーネント上で適切に動くShader。
 ### Firework
 ParticleからShaderへ値を渡すサンプル。花火。  
 
-`Assets/DemoScenes/Firework/Scenes/Firework`  
+`Path：Assets/DemoScenes/Firework/Scenes/Firework`  
 
 #### キーワード - Particle、CustomVertexStreams  
 
@@ -569,7 +603,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### Distortion
 水面の歪みのような表現。  
 
-`Assets/DemoScenes/Distortion/Scenes/Distortion`  
+`Path：Assets/DemoScenes/Distortion/Scenes/Distortion`  
 
 #### キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass  
 
@@ -581,7 +615,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### RichToonWave
 トゥーン調の水面の表現。  
 
-`Assets/DemoScenes/Distortion/Scenes/RichToonWave`  
+`Path：Assets/DemoScenes/Distortion/Scenes/RichToonWave`  
 
 #### キーワード - 歪み、GrabPass、深度テクスチャ、複数Pass、CGINCLUDEブロック、揺らぎ  
 
@@ -594,7 +628,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### Rim
 リムライト表現。  
 
-`Assets/DemoScenes/Rim/Scenes/Rim`  
+`Path：Assets/DemoScenes/Rim/Scenes/Rim`  
 
 #### キーワード - リムライト、saturate、法線、内積  
 
@@ -606,7 +640,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### HexFloor
 六角形のサイバーな床の表現。  
 
-`Assets/DemoScenes/Hex/Scenes/HexFloor`  
+`Path：Assets/DemoScenes/Hex/Scenes/HexFloor`  
 
 #### キーワード - 六角形、サイバー、カメラ、距離  
 
@@ -619,7 +653,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### VolumeHolo
 頂点ごとグリッチする3Dホログラムの表現。  
 
-`Assets/DemoScenes/VolumeHolo/Scenes/VolumeHolo`  
+`Path：Assets/DemoScenes/VolumeHolo/Scenes/VolumeHolo`  
 
 #### キーワード - グリッチ、スキャンライン、リムライト、ホログラム  
 
@@ -631,7 +665,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### TilingOffset
 タイリングとオフセットを設定する。  
 
-`Assets/DemoScenes/TilingOffset/Scenes/TilingOffsetr`  
+`Path：Assets/DemoScenes/TilingOffset/Scenes/TilingOffsetr`  
 
 #### キーワード - タイリング、オフセット、TRANSFORM_TEX、{TextureName}_ST  
 
@@ -643,7 +677,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### MeshGenerate
 ポリゴン、メッシュの理解。  
 
-`Assets/DemoScenes/MeshGenerate/Scenes/MeshGenerate`  
+`Path：Assets/DemoScenes/MeshGenerate/Scenes/MeshGenerate`  
 
 #### キーワード - ポリゴン、メッシュ、ラスタイズ  
 
@@ -655,7 +689,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### WireFrame
 ポリゴン、メッシュの理解。  
 
-`Assets/DemoScenes/WireFrame/Scenes/WireFrame`  
+`Path：Assets/DemoScenes/WireFrame/Scenes/WireFrame`  
 
 #### キーワード - ワイヤフレーム、トポロジ、ジオメトリーシェーダー  
 
@@ -667,7 +701,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### Projection
 プロジェクション座標変換のフローを可視化。  
 
-`Assets/DemoScenes/Projection/Scenes/Projection`  
+`Path：Assets/DemoScenes/Projection/Scenes/Projection`  
 
 #### キーワード - プロジェクション座標変換、ビューボリューム、ワイヤーフレーム  
 
@@ -679,7 +713,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### MatirixStudy
 平行移動・回転・拡大縮小行列を理解する。  
 
-`Assets/DemoScenes/MatrixStudy/Scenes/MatirixStudy`  
+`Path：Assets/DemoScenes/MatrixStudy/Scenes/MatirixStudy`  
 
 #### キーワード - 行列、平行移動、回転、拡大縮小、同次座標、アフィン変換、KeywordEnum  
 
@@ -694,7 +728,7 @@ ParticleからShaderへ値を渡すサンプル。花火。
 ### SpriteAnimation
 UVを操作したスプライトアニメーションの表現。  
 
-`Assets/DemoScenes/SpriteAnimation/Scenes/SpriteAnimation`  
+`Path：Assets/DemoScenes/SpriteAnimation/Scenes/SpriteAnimation`  
 
 #### キーワード - スプライトアニメーション  
 
@@ -706,7 +740,7 @@ UVを操作したスプライトアニメーションの表現。
 ### Toon
 トゥーン調の影の表現。  
 
-`Assets/DemoScenes/Toon/Scenes/Toon`  
+`Path：Assets/DemoScenes/Toon/Scenes/Toon`  
 
 #### キーワード - トゥーン、ライトベクトル、法線、内積、影  
 
@@ -728,7 +762,7 @@ UVを操作したスプライトアニメーションの表現。
 ### OutLine
 アウトライン表現。  
 
-`Assets/DemoScenes/Toon/Scenes/OutLine`  
+`Path：Assets/DemoScenes/Toon/Scenes/OutLine`  
 
 #### キーワード - トゥーン、アウトライン、Name、UsePass  
 
@@ -740,7 +774,7 @@ UVを操作したスプライトアニメーションの表現。
 ### ShaderGraphBasic
 ShaderGraphの基本操作。  
 
-`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphBasic`  
+`Path：Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphBasic`  
 
 #### キーワード - ShaderGraph、BiRP  
 
@@ -752,7 +786,7 @@ ShaderGraphの基本操作。
 ### ShaderGraphRim
 ShaderGraphでリムライト作成。  
 
-`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphRim`  
+`Path：Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphRim`  
 
 #### キーワード - ShaderGraph、リムライト  
 
@@ -764,9 +798,213 @@ ShaderGraphでリムライト作成。
 ### ShaderGraphFlag
 ShaderGraphで旗がたなびく表現。  
 
-`Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphFlag`  
+`Path：Assets/DemoScenes/ShaderGraphStudy/Scenes/ShaderGraphFlag`  
 
 #### キーワード - ShaderGraph、旗、頂点シェーダー  
 
 【参考リンク】  
 [そろそろShaderをやるパート65　ShaderGraphで旗がたなびく表現](https://zenn.dev/kento_o/articles/ef220a406face3)  
+
+---
+
+### SimplePostEffect
+ポストエフェクト表現。  
+
+`Path：Assets/DemoScenes/PostEffect/Scenes/SimplePostEffect`  
+
+#### キーワード - ポストエフェクト、OnRenderImage、Graphics.Blit  
+
+【参考リンク】  
+[そろそろShaderをやるパート66　ポストエフェクトを自作してみる](https://zenn.dev/kento_o/articles/8593bc1a36def0)  
+
+---
+
+### Stencil
+ステンシルバッファを使ってオブジェクトをマスクする表現。  
+
+`Path：Assets/DemoScenes/Stencil/Scenes/Stencil`  
+
+#### キーワード - ステンシルバッファ、ColorMask、Ref、Comp  
+
+【参考リンク】  
+[そろそろShaderをやるパート67　ステンシルバッファを使ってオブジェクトをマスクする](https://zenn.dev/kento_o/articles/dd99c6c9e98d4a)  
+
+---
+
+### RenderingStudy
+ZWrite、ZTest、RenderQueueを理解する。  
+
+`Path：Assets/DemoScenes/RenderingStudy/Scenes/RenderingStudy`  
+
+#### キーワード - ZWrite、ZTest、RenderQueue  
+
+【参考リンク】  
+[そろそろShaderをやるパート68　ZWrite、ZTest、RenderQueueを理解する](https://zenn.dev/kento_o/articles/4b0c751727b793)  
+
+---
+
+### Shade
+自作Shaderに影を落とす処理、受ける処理を追加する。  
+
+`Path：Assets/DemoScenes/Shade/Scenes/Shade`  
+
+#### キーワード - SubShader、Blend、影  
+
+【参考リンク】  
+[そろそろShaderをやるパート69　影を落とす処理、受ける処理を自作Shaderに追加する](https://zenn.dev/kento_o/articles/c75cc095794be9)  
+
+---
+
+### Occlusion
+オクルージョン表現。  
+
+`Path：Assets/DemoScenes/Occlusion/Scenes/Occlusion`  
+
+#### キーワード - SubShader、Blend、影  
+
+【参考リンク】  
+[そろそろShaderをやるパート70　オクルージョン用のShaderを作成する](https://zenn.dev/kento_o/articles/a55d8d0e8651d6)  
+
+---
+
+### ShadowOcclusion
+影を受けるオクルージョン表現。  
+
+`Path：Assets/DemoScenes/ShadowOcclusion/Scenes/ShadowOcclusion`  
+
+#### キーワード - Occlusion、Shader.SetGlobalFloat、影  
+
+【参考リンク】  
+[そろそろShaderをやるパート71　影を受けるオクルージョン用のShader](https://zenn.dev/kento_o/articles/4901c45827bfbe)  
+
+---
+
+### ColorfulShadow
+色付きの影を受ける表現。  
+
+`Path：Assets/DemoScenes/ColorfulShadow/Scenes/ColorfulShadow`  
+
+#### キーワード - 色付き、影  
+
+【参考リンク】  
+[そろそろShaderをやるパート72　色付きの影を受ける](https://zenn.dev/kento_o/articles/907456dc65ccb0)  
+
+---
+
+### Butterfly
+蝶々がはばたく表現。  
+
+`Path：Assets/DemoScenes/Butterfly/Scenes/Butterfly`  
+
+#### キーワード - Custom Vertex Streams、Particle、蝶々  
+
+【参考リンク】  
+[そろそろShaderをやるパート73　蝶々がはばたく表現](https://zenn.dev/kento_o/articles/95ec904fef8b2c)  
+
+---
+
+### Phong
+Phong鏡面反射。  
+
+`Path：Assets/DemoScenes/Phong/Scenes/Phong`  
+
+#### キーワード - reflect、Phong  
+
+【参考リンク】  
+[そろそろShaderをやるパート74　Phong鏡面反射](https://zenn.dev/kento_o/articles/fc4c8773a0b752)  
+
+---
+
+### Hole
+穴あきAR表現。  
+
+`Path：Assets/DemoScenes/Hole/Scenes/Hole`  
+
+#### キーワード - AR、clip、Occulusion  
+
+【参考リンク】  
+[そろそろShaderをやるパート75　穴あきAR表現](https://zenn.dev/kento_o/articles/c84a6233a8e741)  
+
+---
+
+### NormalMap
+ノーマルマッピング。  
+
+`Path：Assets/DemoScenes/NormalMap/Scenes/NormalMap`  
+
+#### キーワード - NormalMap、TANGENT_SPACE_ROTATION、接空間  
+
+【参考リンク】  
+[そろそろShaderをやるパート76　ノーマルマッピング](https://zenn.dev/kento_o/articles/07106f1e785f8c)  
+
+---
+
+### ParallaxMapping
+視差マッピング。  
+
+`Path：Assets/DemoScenes/ParallaxMapping/Scenes/ParallaxMapping`  
+
+#### キーワード - NormalMap、ハイトマップ  
+
+【参考リンク】  
+[そろそろShaderをやるパート77　視差マッピング](https://zenn.dev/kento_o/articles/4217aef76e793d)  
+
+---
+
+### SimpleNoise
+ノイズ表現。  
+
+`Path：Assets/DemoScenes/SimpleNoise/Scenes/SimpleNoise`  
+
+#### キーワード - ノイズ、Simple Noise Node  
+
+【参考リンク】  
+[そろそろShaderをやるパート78　ノイズ](https://zenn.dev/kento_o/articles/0a5b001c4c7078)  
+
+---
+
+### Electrification
+帯電表現。  
+
+`Path：Assets/DemoScenes/Electrification/Scenes/Electrification`  
+
+#### キーワード - 帯電、ノイズ、Remap  
+
+【参考リンク】  
+[そろそろShaderをやるパート79　帯電表現](https://zenn.dev/kento_o/articles/3601d10b4f1535)  
+
+---
+
+### Dissolve
+帯電表現。  
+
+`Path：Assets/DemoScenes/Dissolve/Scenes/Dissolve`  
+
+#### キーワード - ディゾルブ、ノイズ  
+
+【参考リンク】  
+[そろそろShaderをやるパート80　ディゾルブ](https://zenn.dev/kento_o/articles/d247d45eb45cfd)  
+
+---
+
+### RecalculateNormal
+頂点を動かしたのちに法線を再計算する。  
+
+`Path：Assets/DemoScenes/RecalculateNormal/Scenes/RecalculateNormal`  
+
+#### キーワード - 法線、接空間、近傍点  
+
+【参考リンク】  
+[そろそろShaderをやるパート81 頂点を動かして法線を再計算する](https://zenn.dev/kento_o/articles/356a1fd498b1b1)  
+
+---
+
+### Fresnel
+フレネル反射を利用した海洋表現。  
+
+`Path：Assets/DemoScenes/Fresnel/Scenes/Fresnel`  
+
+#### キーワード - 法線、フレネル反射、波  
+
+【参考リンク】  
+[そろそろShaderをやるパート82 海洋表現](https://zenn.dev/kento_o/articles/f46ad02867cf9d)  
