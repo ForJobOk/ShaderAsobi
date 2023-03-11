@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BlendOcclusion
-  m_Shader: {fileID: 4800000, guid: 85afe8df0a4872d46b860aa0b0be1529, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3d2a9bf7ea4b44e428541483e442418c, type: 3}
   m_ShaderKeywords: USE_VERTEX_EXPANSION
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
